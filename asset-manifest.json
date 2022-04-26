@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cards-slip/static/css/main.a8f0ad2a.css",
+    "main.js": "/cards-slip/static/js/main.9a5eef1a.js",
+    "static/js/787.91367423.chunk.js": "/cards-slip/static/js/787.91367423.chunk.js",
+    "index.html": "/cards-slip/index.html",
+    "main.a8f0ad2a.css.map": "/cards-slip/static/css/main.a8f0ad2a.css.map",
+    "main.9a5eef1a.js.map": "/cards-slip/static/js/main.9a5eef1a.js.map",
+    "787.91367423.chunk.js.map": "/cards-slip/static/js/787.91367423.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8f0ad2a.css",
+    "static/js/main.9a5eef1a.js"
+  ]
+}
