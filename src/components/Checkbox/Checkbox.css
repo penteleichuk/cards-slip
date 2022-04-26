@@ -1,0 +1,78 @@
+.toggle {
+    align-items: center;
+    border-radius: 100px;
+    display: flex;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #676565;
+}
+
+.toggle:last-of-type {
+    margin: 0;
+}
+
+.toggle__input {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.toggle__input:disabled+.toggle-track {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.toggle-track {
+    border: 1px solid #9b9b9b;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    height: 20px;
+    margin-right: 8px;
+    position: relative;
+    width: 40px;
+}
+
+.toggle-indicator {
+    align-items: center;
+    background: #9b9b9b;
+    border-radius: 24px;
+    bottom: 1px;
+    display: flex;
+    height: 18px;
+    justify-content: center;
+    left: 2px;
+    outline: solid 2px transparent;
+    position: absolute;
+    transition: 0.25s;
+    width: 18px;
+}
+
+.checkMark {
+    fill: #fff;
+    height: 20px;
+    width: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.toggle__input:checked+.toggle-track .toggle-indicator {
+    background: #9b9b9b;
+    transform: translateX(18px);
+}
+
+.toggle__input:checked+.toggle-track .toggle-indicator .checkMark {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+}
+
+@media screen and (-ms-high-contrast: active) {
+    .toggle-track {
+        border-radius: 0;
+    }
+}
