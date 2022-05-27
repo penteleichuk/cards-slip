@@ -1,5 +1,5 @@
 export const ProfilePage = (): JSX.Element => {
-	return (
-		<div>Profile</div>
-	)
+    return (
+        <div>Profile</div>
+    )
 }

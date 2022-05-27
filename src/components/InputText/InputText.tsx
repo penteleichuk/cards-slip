@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react'
 import './InputText.css'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -23,7 +23,7 @@ export const InputText: React.FC<InputTextPropsType> = React.memo((
 ) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange
-            && onChange(e)
+        && onChange(e)
 
         onChangeText && onChangeText(e.currentTarget.value)
     }
@@ -31,13 +31,14 @@ export const InputText: React.FC<InputTextPropsType> = React.memo((
         onKeyPress && onKeyPress(e);
 
         onEnter
-            && e.key === 'Enter'
-            && onEnter()
+        && e.key === 'Enter'
+        && onEnter()
     }
 
     return (
         <div className={`form__group field${error ? ' form__error' : ''}`}>
-            <input type={'text'} className={`form__field`} placeholder={restProps.placeholder} name={restProps.name} onChange={onChangeCallback} onKeyPress={onKeyPressCallback} {...restProps} />
+            <input type={'text'} className={`form__field`} placeholder={restProps.placeholder} name={restProps.name}
+                   onChange={onChangeCallback} onKeyPress={onKeyPressCallback} {...restProps} />
             <label htmlFor={restProps.name} className="form__label">{restProps.placeholder}</label>
             {error && <span className={'form__errors'}>{error}</span>}
         </div>

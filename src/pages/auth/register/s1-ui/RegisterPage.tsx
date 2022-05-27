@@ -1,5 +1,5 @@
 export const RegisterPage = (): JSX.Element => {
-	return (
-		<div>Register</div>
-	)
+    return (
+        <div>Register</div>
+    )
 }

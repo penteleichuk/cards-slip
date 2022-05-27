@@ -1,6 +1,6 @@
 export const ForgotPage = (): JSX.Element => {
 
-	return (
-		<div>Forgot</div>
-	)
+    return (
+        <div>Forgot</div>
+    )
 }

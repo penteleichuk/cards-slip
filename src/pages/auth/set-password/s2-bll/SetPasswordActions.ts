@@ -1,5 +1,5 @@
 type DefaultActionType = {
-	type: 'DEFAULT';
+    type: 'DEFAULT';
 };
 
 export type SetPasswordActionsType = DefaultActionType;

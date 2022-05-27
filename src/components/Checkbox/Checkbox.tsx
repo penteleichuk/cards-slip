@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
 import './Checkbox.css';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -26,7 +26,8 @@ export const Checkbox: React.FC<CheckboxPropsType> = React.memo((
 
     return (
         <label className="toggle" htmlFor={restProps.name}>
-            <input type="checkbox" className="toggle__input" id={restProps.name} onChange={onChangeCallback} {...restProps} />
+            <input type="checkbox" className="toggle__input" id={restProps.name}
+                   onChange={onChangeCallback} {...restProps} />
             <span className="toggle-track">
                 <span className="toggle-indicator"></span>
             </span>
