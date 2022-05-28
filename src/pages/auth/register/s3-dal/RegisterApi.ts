@@ -1,10 +1,15 @@
 import {instance} from "../../../app/s3-dal/instance";
 
 export const registerApi = {
-    register(email: string, password: string) {
-        return instance.post<RegisterResponseType>('auth/register', { email, password } )
+    register(userData: UserDataType) {
+        return instance.post<RegisterResponseType>('auth/register', userData )
     }
 };
+
+export type UserDataType = {
+    email: string
+    password: string
+}
 
 type addedUserType = {
     created: string

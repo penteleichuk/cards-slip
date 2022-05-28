@@ -1,13 +1,15 @@
 export const RegisterInitState: RegisterStateType = {
-    registerStatus: null
-}
+    isRegistered: false,
+    requestStatus: null,
+};
 
 export type RegisterStateType = {
-    registerStatus: RegisterStatusType | null
+    isRegistered: boolean
+    requestStatus: RequestStatus | null
+    errorMessage?: string
 }
 
-export enum RegisterStatusType {
-    inProgress = "inProgress",
-    success = "success",
-    failed = "failed"
+export enum RequestStatus {
+    loading = "loading",
+    succeeded = "succeeded"
 }
