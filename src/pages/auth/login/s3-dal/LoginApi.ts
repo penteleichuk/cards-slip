@@ -2,8 +2,8 @@ import {instance} from "../../../app/s3-dal/instance";
 
 
 export const loginApi = {
-    login(email:string, password:string, rememberMe:boolean) {
-        return instance.post<ResponseType<LoginParamsType>>('auth/login', {email, password, rememberMe})
+    login(data:LoginParamsType) {
+        return instance.post<ResponseType<LoginParamsType>>('auth/login', data)
     }
 
 };

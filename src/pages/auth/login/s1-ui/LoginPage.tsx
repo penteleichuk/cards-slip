@@ -10,13 +10,14 @@ import {useState} from "react";
 import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
 import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
 import {ThunkDispatch} from "redux-thunk";
+import {LoginParamsType} from "../s3-dal/LoginApi";
 
 export const LoginPage = (): JSX.Element => {
     const error = useSelector<AppStoreType, string | null>(state => state.app.error)
     const [emailText, setEmailText] = useState<string>('')
     const [passwordText, setPasswordText] = useState<string>('')
     const [rememberMeChecked, setRememberMeChecked] = useState<boolean>(false)
-    const dispatch: ThunkDispatch<AppStoreType, { email: string, password: string, rememberMe: boolean }, ActionType> = useDispatch()
+    const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
     const onChangeTextEmailHandler = (value: string) => {
         dispatch(setAppErrorAC(''))
         setEmailText(value)
@@ -28,8 +29,8 @@ export const LoginPage = (): JSX.Element => {
         setRememberMeChecked(checked)
     }
     const clickHandler = () => {
-        console.log(emailText, passwordText, rememberMeChecked)
-        dispatch(loginTC(emailText, passwordText, rememberMeChecked))
+        //console.log(emailText, passwordText, rememberMeChecked)
+        dispatch(loginTC({email: emailText, password: passwordText, rememberMe: rememberMeChecked}))
     }
 
     return (
@@ -43,7 +44,8 @@ export const LoginPage = (): JSX.Element => {
                         <h2>Sign In</h2>
                     </div>
                     <div>
-                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler} error={error}/>
+                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler}
+                                   error={error}/>
                         <InputText name="password" placeholder="Password" onChangeText={onChangeTextPasswordHandler}/>
                     </div>
                     <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
