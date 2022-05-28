@@ -7,15 +7,16 @@ import './Login.css'
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
-import {AppStoreType} from "../../../app/s2-bll/store";
+import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
 import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
+import {ThunkDispatch} from "redux-thunk";
 
 export const LoginPage = (): JSX.Element => {
     const error = useSelector<AppStoreType, string | null>(state => state.app.error)
     const [emailText, setEmailText] = useState<string>('')
     const [passwordText, setPasswordText] = useState<string>('')
     const [rememberMeChecked, setRememberMeChecked] = useState<boolean>(false)
-    const dispatch = useDispatch()
+    const dispatch: ThunkDispatch<AppStoreType, { email: string, password: string, rememberMe: boolean }, ActionType> = useDispatch()
     const onChangeTextEmailHandler = (value: string) => {
         dispatch(setAppErrorAC(''))
         setEmailText(value)
@@ -28,7 +29,6 @@ export const LoginPage = (): JSX.Element => {
     }
     const clickHandler = () => {
         console.log(emailText, passwordText, rememberMeChecked)
-        //@ts-ignore
         dispatch(loginTC(emailText, passwordText, rememberMeChecked))
     }
 
