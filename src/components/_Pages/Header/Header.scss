@@ -1,0 +1,15 @@
+.header {
+  background: #9b9b9b;
+
+  & {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    a {
+      color: #474747;
+      text-decoration: none;
+      padding: 0 10px;
+    }
+  }
+}

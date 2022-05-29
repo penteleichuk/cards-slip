@@ -1,5 +1,5 @@
 .example {
-	background: #e5ebed;
+	/*background: #e5ebed;*/
 }
 
 .example__button {
@@ -14,14 +14,6 @@
 
 .example__button button:last-child {
 	margin: 0;
-}
-
-.wrapper {
-	min-height: 100vh;
-	font-size: 1.5rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .paper {

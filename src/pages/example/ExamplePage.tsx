@@ -2,9 +2,9 @@ import {Button, Checkbox, InputText} from '../../components/components'
 import './Example.css'
 
 export const ExamplePage = () => {
-    return (
-        <div className="example">
-            <div className="wrapper">
+    return <>
+        <section className="content example">
+            <div className="container">
                 <div className="paper">
                     <div>
                         <Checkbox name={'enabled'}>Enabled toggle label</Checkbox>
@@ -23,6 +23,6 @@ export const ExamplePage = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        </section>
+    </>
 }
