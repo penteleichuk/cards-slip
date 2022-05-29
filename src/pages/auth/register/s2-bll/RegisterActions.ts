@@ -11,4 +11,4 @@ export const setRequestStatusAC = (requestStatus: RequestStatus) => ({
     type: 'SET-REQUEST-STATUS',
     requestStatus
 } as const)
-export const setErrorMessageAC = (errorMessage: string) => ({type: 'SET-ERROR-MESSAGE', errorMessage} as const)
+export const setErrorMessageAC = (errorMessage: string | null) => ({type: 'SET-ERROR-MESSAGE', errorMessage} as const)

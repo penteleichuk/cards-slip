@@ -3,18 +3,20 @@ import {Dispatch} from "redux";
 import {registerApi, UserDataType} from "../../s3-dal/RegisterApi";
 import {RequestStatus} from "../RegisterInitState";
 
+
 export const setRegisterUserTC = (userData: UserDataType) => (dispatch: Dispatch<RegisterActionsType>) => {
-    dispatch(setRequestStatusAC(RequestStatus.loading))
+    dispatch(setRequestStatusAC(RequestStatus.inProgress))
     registerApi.register(userData)
-        .then( res => {
-            if(res.status >= 200) {
-                console.log(res)
+        .then(res => {
+            if (res.status >= 200) {
                 dispatch(setRegisterAC(true))
                 dispatch(setRequestStatusAC(RequestStatus.succeeded))
+                dispatch(setErrorMessageAC(null))
             }
         })
-        .catch( e => {
+        .catch(e => {
+            console.log(e)
             dispatch(setErrorMessageAC(e.response.data.error))
-            console.error(e)
+            dispatch(setRequestStatusAC(RequestStatus.failed))
         })
 }

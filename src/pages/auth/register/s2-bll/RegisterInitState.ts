@@ -1,15 +1,18 @@
+export enum RequestStatus {
+    idle = "idle",
+    inProgress = "inProgress",
+    succeeded = "succeeded",
+    failed = "failed"
+}
+
 export const RegisterInitState: RegisterStateType = {
     isRegistered: false,
-    requestStatus: null,
+    requestStatus: RequestStatus.idle,
+    errorMessage: null
 };
 
 export type RegisterStateType = {
     isRegistered: boolean
-    requestStatus: RequestStatus | null
-    errorMessage?: string
-}
-
-export enum RequestStatus {
-    loading = "loading",
-    succeeded = "succeeded"
+    requestStatus: RequestStatus
+    errorMessage: string | null
 }
