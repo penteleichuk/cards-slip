@@ -13,24 +13,27 @@ import {ThunkDispatch} from "redux-thunk";
 import {LoginParamsType} from "../s3-dal/LoginApi";
 
 export const LoginPage = (): JSX.Element => {
-    const error = useSelector<AppStoreType, string | null>(state => state.app.error)
-    const [emailText, setEmailText] = useState<string>('')
-    const [passwordText, setPasswordText] = useState<string>('')
-    const [rememberMeChecked, setRememberMeChecked] = useState<boolean>(false)
+    const initialState: LoginParamsType = {
+        email: '',
+        password: '',
+        rememberMe: false,
+    }
+    const [state, setState] = useState<LoginParamsType>(initialState)
     const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
+    const error = useSelector<AppStoreType, string | null>(state => state.app.error)
+
     const onChangeTextEmailHandler = (value: string) => {
         dispatch(setAppErrorAC(''))
-        setEmailText(value)
+        setState({...state, email: value})
     }
     const onChangeTextPasswordHandler = (value: string) => {
-        setPasswordText(value)
+        setState({...state, password: value})
     }
     const clickCheckbox = (checked: boolean) => {
-        setRememberMeChecked(checked)
+        setState({...state, rememberMe: checked})
     }
     const clickHandler = () => {
-        //console.log(emailText, passwordText, rememberMeChecked)
-        dispatch(loginTC({email: emailText, password: passwordText, rememberMe: rememberMeChecked}))
+        dispatch(loginTC(initialState))
     }
 
     return (
