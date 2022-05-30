@@ -1,6 +1,7 @@
 import './AnimationBackground.scss';
+import React from "react";
 
-export const AnimationBackground = () => {
+export const AnimationBackground = React.memo(() => {
     return (
         <div className="area">
             <ul className="circles">
@@ -17,4 +18,4 @@ export const AnimationBackground = () => {
             </ul>
         </div>
     );
-}
+});

@@ -1,3 +1,4 @@
+import React from "react";
 import {Dialog, DialogPropsType} from "../../Dialog/Dialog";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../Button/Button";
@@ -5,7 +6,7 @@ import ForgotImg from "../../../assets/images/forgot_img.png";
 import {RouteNames} from "../../../constants/routes";
 import {Link} from "react-router-dom";
 
-export const IdleForgotDialog = () => {
+export const IdleForgotDialog = React.memo(() => {
     const initPropsForm: DialogPropsType = {
         image: ForgotImg,
         title: 'It-incubator',
@@ -30,4 +31,4 @@ export const IdleForgotDialog = () => {
             </form>
         </Dialog>
     </>
-}
+});

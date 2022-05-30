@@ -1,5 +1,6 @@
 import './Dialog.scss';
 import {Link} from "react-router-dom";
+import React from "react";
 
 export type DialogLinkType = {
     link: string
@@ -14,7 +15,7 @@ export type DialogPropsType = {
     subtitle?: string
 }
 
-export const Dialog: React.FC<DialogPropsType> = (props) => {
+export const Dialog: React.FC<DialogPropsType> = React.memo((props) => {
     const {children, links, image, title, subtitle} = props;
 
     return <>
@@ -30,7 +31,7 @@ export const Dialog: React.FC<DialogPropsType> = (props) => {
                             {subtitle && <p className="dialog__subtitle">{subtitle}</p>}
                         </div>
                         <div className={`dialog__content ${links?.length ? 'dialog__content-links' : ''}`}>
-                            {links?.length && <DialogLinks links={links} />}
+                            {links?.length && <DialogLinks links={links}/>}
                             {children}
                         </div>
                     </div>
@@ -38,9 +39,9 @@ export const Dialog: React.FC<DialogPropsType> = (props) => {
             </div>
         </div>
     </>
-}
+});
 
-const DialogLinks: React.FC<{ links: Array<DialogLinkType> }> = ({links}) => {
+const DialogLinks: React.FC<{ links: Array<DialogLinkType> }> = React.memo(({links}) => {
     return <>
         <div className={'dialog__navbar'}>
             <div className="dialog__list">
@@ -48,4 +49,4 @@ const DialogLinks: React.FC<{ links: Array<DialogLinkType> }> = ({links}) => {
             </div>
         </div>
     </>
-}
+});

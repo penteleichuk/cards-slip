@@ -1,8 +1,9 @@
+import React from "react";
 import {Dialog, DialogPropsType} from "../../Dialog/Dialog";
 import SetPasswordImg from "../../../assets/images/set_password.png";
 import ForgotSuccessImg from "../../../assets/images/forgot_img_success.png";
 
-export const SuccessForgotDialog = () => {
+export const SuccessForgotDialog = React.memo(() => {
 
     const emailProps = 'example@mail.com';
     const initPropsForm: DialogPropsType = {
@@ -25,4 +26,4 @@ export const SuccessForgotDialog = () => {
             </form>
         </Dialog>
     </>
-}
+});
