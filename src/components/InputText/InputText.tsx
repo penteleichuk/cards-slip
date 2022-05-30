@@ -12,7 +12,8 @@ type InputTextPropsType = DefaultInputPropsType & {
 
 export const InputText: React.FC<InputTextPropsType> = React.memo((
     {
-        type,
+        name,
+        placeholder,
         onChange, onChangeText,
         onKeyPress, onEnter,
         error,
@@ -27,6 +28,7 @@ export const InputText: React.FC<InputTextPropsType> = React.memo((
 
         onChangeText && onChangeText(e.currentTarget.value)
     }
+
     const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e);
 
@@ -37,9 +39,9 @@ export const InputText: React.FC<InputTextPropsType> = React.memo((
 
     return (
         <div className={`form__group field${error ? ' form__error' : ''}`}>
-            <input type={'text'} className={`form__field`} placeholder={restProps.placeholder} name={restProps.name}
+            <input className={`form__field`} placeholder={placeholder} name={name} id={name}
                    onChange={onChangeCallback} onKeyPress={onKeyPressCallback} {...restProps} />
-            <label htmlFor={restProps.name} className="form__label">{restProps.placeholder}</label>
+            <label htmlFor={name} className="form__label">{placeholder}</label>
             {error && <span className={'form__errors'}>{error}</span>}
         </div>
     )
