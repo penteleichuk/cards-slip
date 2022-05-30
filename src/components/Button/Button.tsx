@@ -15,6 +15,6 @@ export const Button: React.FC<ButtonPropsType> = React.memo((
     }) => {
 
     return (
-        <button className={`button ${color}`} {...restProps} />
+        <button className={`button ${color}`} {...restProps}/>
     )
 });
