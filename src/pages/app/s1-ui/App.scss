@@ -81,12 +81,11 @@ time,
 mark,
 audio,
 video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -101,59 +100,68 @@ hgroup,
 menu,
 nav,
 section {
-    display: block;
-}
-
-body {
-    line-height: 1;
+  display: block;
 }
 
 ol,
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 blockquote,
 q {
-    quotes: none;
+  quotes: none;
 }
 
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-    content: '';
+  content: '';
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 ////
+@import "./src/styles/mixins";
+@import "./src/styles/vars";
+
+body {
+  line-height: 1;
+  letter-spacing: 1.1px;
+  font-size: #{$appFontSize}px;
+}
 
 #root {
-    min-height: 100vh;
-    overflow: hidden;
+  min-height: 100vh;
+  overflow: hidden;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background: #e5ebed;
+  background: $appBackground;
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .content {
-    flex: 1 1 auto;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-    //max-width: 1180px;
-    max-width: 960px;
-    margin: 0 auto;
+  padding: 0 prc(15, 5);
+  max-width: rem($appContainerWidth);
+  margin: 0 auto;
+  position: relative;
 }

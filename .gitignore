@@ -26,3 +26,5 @@ yarn-error.log*
 .vscode
 .yarn
 .idea
+.pnp.cjs
+.pnp.loader.mjs

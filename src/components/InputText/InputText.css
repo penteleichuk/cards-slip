@@ -9,10 +9,10 @@
     font-family: inherit;
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #9b9b9b;
+    border-bottom: 1px solid #b3b3b3;
     outline: 0;
     font-size: .8rem;
-    color: #9b9b9b;
+    color: #3e3e3e;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
@@ -27,7 +27,7 @@ color: #114799;
 }
 
 .form__error .form__field {
-    border-bottom: 2px solid #df96a6;
+    border-bottom: 1px solid #df96a6;
 }
 
 .form__field::placeholder {
@@ -56,7 +56,7 @@ color: #114799;
 .form__field:focus {
     padding-bottom: 6px;
     font-weight: 700;
-    border-width: 3px;
+    border-width: 1px;
     border-image: linear-gradient(to right, #114799, #38b8ef);
     border-image-slice: 1;
 }

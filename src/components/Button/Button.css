@@ -1,31 +1,21 @@
 .button {
     align-items: center;
-    box-sizing: border-box;
     color: #fff;
-    cursor: pointer;
-    display: inline-flex;
-    fill: #000;
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    height: 48px;
-    justify-content: center;
-    letter-spacing: -.8px;
-    line-height: 24px;
-    min-width: 140px;
     outline: 0;
-    padding: 0 17px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     transition: all .3s;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    cursor: pointer;
+    border-radius: 8px;
 }
 
 .button.primary {
-    background-color: #90caf9;
-    border: 2px solid #90caf9;
+    background-color: #4774FF;
+    border: none;
 }
 
 .button.secondary {
