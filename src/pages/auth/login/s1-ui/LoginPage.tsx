@@ -33,7 +33,7 @@ export const LoginPage = (): JSX.Element => {
         setState({...state, rememberMe: checked})
     }
     const clickHandler = () => {
-        dispatch(loginTC(initialState))
+        dispatch(loginTC(state))
     }
 
     return (
