@@ -4,11 +4,11 @@
 .dialog {
   margin: rem(20) 0;
   padding: rem(10) 0;
-  width: prc(750, 300);
+  width: prc(650, 300);
 
   &__container {
     display: flex;
-    min-height: prc(400, 100);
+    min-height: prc(350, 100);
     height: 100%;
     border-radius: $appBorderRadiusPrimary;
     box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
