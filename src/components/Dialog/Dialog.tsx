@@ -1,14 +1,21 @@
 import './Dialog.scss';
+import {Link} from "react-router-dom";
+
+export type DialogLinkType = {
+    link: string
+    name: string
+}
 
 export type DialogPropsType = {
     children?: JSX.Element
+    links?: Array<DialogLinkType>
     image: string
     title: string
     subtitle?: string
 }
 
 export const Dialog: React.FC<DialogPropsType> = (props) => {
-    const {children, image, title, subtitle} = props;
+    const {children, links, image, title, subtitle} = props;
 
     return <>
         <div className="dialog">
@@ -22,11 +29,22 @@ export const Dialog: React.FC<DialogPropsType> = (props) => {
                             <h3 className="dialog__title">{title}</h3>
                             {subtitle && <p className="dialog__subtitle">{subtitle}</p>}
                         </div>
-                        <div className="dialog__content">
+                        <div className={`dialog__content ${links?.length && 'dialog__content-links'}`}>
+                            {links?.length && <DialogLinks links={links} />}
                             {children}
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </>
+}
+
+const DialogLinks: React.FC<{ links: Array<DialogLinkType> }> = ({links}) => {
+    return <>
+        <div className={'dialog__navbar'}>
+            <div className="dialog__list">
+                {links.map(el => <Link key={el.link} to={el.link}>{el.name}</Link>)}
             </div>
         </div>
     </>

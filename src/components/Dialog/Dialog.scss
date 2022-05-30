@@ -2,6 +2,7 @@
 @import "./src/styles/vars";
 
 .dialog {
+  margin: rem(50) 0;
   padding: rem(10) 0;
   width: prc(780, 300);
 
@@ -66,7 +67,8 @@
       background: #fff;
       padding: rem(40);
       border-radius: $appBorderRadiusPrimary;
-      box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+      z-index: 20;
     }
   }
 
@@ -97,14 +99,47 @@
     flex-direction: column;
     flex: 1 1 auto;
     margin-top: rem(20);
+    position: relative;
 
     input {
       margin-bottom: rem(20);
     }
   }
 
-  &__inputs {
+  &__content-links {
+    margin-top: 80px;
+  }
 
+  &__navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -50px;
+    border-radius: $appBorderRadiusPrimary $appBorderRadiusPrimary  0 0;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background: #fff;
+    z-index: 10;
+    width: 100%;
+    height: 70px;
+  }
+
+  &__list {
+    flex: 1 1 auto;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #F56793;
+
+      &:hover {
+        color: #b04b6a;
+      }
+    }
   }
 
   &__description {
@@ -119,6 +154,15 @@
     justify-content: center;
     grid-auto-flow: column;
     grid-gap: 10px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-top: rem(15);
+    }
   }
 
   &__footer {
