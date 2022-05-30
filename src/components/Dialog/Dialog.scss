@@ -4,13 +4,13 @@
 .dialog {
   margin: rem(50) 0;
   padding: rem(10) 0;
-  width: prc(780, 300);
+  width: prc(750, 300);
 
   &__container {
     display: flex;
     min-height: prc(450, 220);
     border-radius: $appBorderRadiusPrimary;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
     overflow: hidden;
     position: relative;
 
@@ -62,12 +62,14 @@
     form {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      box-sizing: border-box;
       height: 100%;
+      width: 100%;
       background: #fff;
-      padding: rem(40);
+      padding: rem(30);
       border-radius: $appBorderRadiusPrimary;
-      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+      box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
       z-index: 20;
     }
   }
@@ -75,8 +77,9 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1 1 auto;
-    padding: prc(60, 20) prc(60, 20);
+    padding: prc(30, 10) prc(30, 10);
   }
 
   &__header {
@@ -97,9 +100,13 @@
   &__content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1 1 auto;
     margin-top: rem(20);
     position: relative;
+    max-width: rem(300);
+    width: 100%;
+    //max-width: prc(230, 100);
 
     input {
       margin-bottom: rem(20);

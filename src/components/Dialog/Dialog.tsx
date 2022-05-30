@@ -29,7 +29,7 @@ export const Dialog: React.FC<DialogPropsType> = (props) => {
                             <h3 className="dialog__title">{title}</h3>
                             {subtitle && <p className="dialog__subtitle">{subtitle}</p>}
                         </div>
-                        <div className={`dialog__content ${links?.length && 'dialog__content-links'}`}>
+                        <div className={`dialog__content ${links?.length ? 'dialog__content-links' : ''}`}>
                             {links?.length && <DialogLinks links={links} />}
                             {children}
                         </div>
