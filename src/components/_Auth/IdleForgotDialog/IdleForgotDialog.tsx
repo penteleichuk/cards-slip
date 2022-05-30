@@ -14,7 +14,7 @@ export const IdleForgotDialog = () => {
 
     return <>
         <Dialog {...initPropsForm}>
-            <form>
+            <form style={{justifyContent: "space-evenly"}}>
                 <div className="dialog__inputs">
                     <InputText name="login" placeholder="Email"/>
                     <div className="dialog__buttons">
