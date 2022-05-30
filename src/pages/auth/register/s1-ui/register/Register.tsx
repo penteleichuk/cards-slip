@@ -47,6 +47,7 @@ const Register: FC<RegistrationPropsType> = memo(({
 
     const entryPass = (value: string) => {
         setPass(value)
+        value === confirmPass && setPassError(null)
     }
     const entryConfirmPass = (value: string) => {
         setConfirmPass(value)

@@ -12,4 +12,4 @@ export const RegisterReducer = (state = RegisterInitState, action: RegisterActio
         default:
             return state
     }
-};
+}

@@ -14,7 +14,7 @@ const RegisterContainer: FC = memo((): JSX.Element => {
 
     const setRegister = useCallback((userData: UserDataType) => {
         dispatch(setRegisterUserTC(userData))
-    },[dispatch]) //to fix userData.email, userData.password
+    },[dispatch])
 
     return (
         <div>

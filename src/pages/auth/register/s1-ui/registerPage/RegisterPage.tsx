@@ -11,7 +11,7 @@ export const RegisterPage: FC = (): JSX.Element => {
 
     const isRegistered = useSelector<AppStoreType, boolean>(state => state.register.isRegistered)
     const errorMessage = useSelector<AppStoreType, string | null>(state => state.register.errorMessage)
-    const dispatch = useDispatch<any>()
+    const dispatch = useDispatch<any>() //to fix
 
     const setErrorMessage = useCallback((errorMessage: string | null) => {
         dispatch(setErrorMessageAC(errorMessage))

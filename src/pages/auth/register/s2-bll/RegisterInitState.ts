@@ -9,7 +9,7 @@ export const RegisterInitState: RegisterStateType = {
     isRegistered: false,
     requestStatus: RequestStatus.idle,
     errorMessage: null
-};
+}
 
 export type RegisterStateType = {
     isRegistered: boolean

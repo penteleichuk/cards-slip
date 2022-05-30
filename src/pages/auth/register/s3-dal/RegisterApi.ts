@@ -4,7 +4,7 @@ export const registerApi = {
     register(userData: UserDataType) {
         return instance.post<RegisterResponseType>('auth/register', userData )
     }
-};
+}
 
 export type UserDataType = {
     email: string
