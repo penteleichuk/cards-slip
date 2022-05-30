@@ -14,7 +14,7 @@ export const SuccessForgotDialog = React.memo(() => {
 
     return <>
         <Dialog {...initPropsForm}>
-            <form>
+            <section>
                 <div className="dialog__inputs dialog__center">
                     <div className="dialog__image">
                         <img src={ForgotSuccessImg} alt=""/>
@@ -23,7 +23,7 @@ export const SuccessForgotDialog = React.memo(() => {
                         We’ve sent an Email with instructions to {emailProps}
                     </div>
                 </div>
-            </form>
+            </section>
         </Dialog>
     </>
 });

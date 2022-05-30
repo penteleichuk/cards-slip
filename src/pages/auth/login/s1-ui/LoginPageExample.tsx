@@ -21,7 +21,7 @@ export const LoginPageExample = () => {
             <AnimationBackground/>
             <div className="container">
                 <Dialog {...initPropsForm}>
-                    <form>
+                    <section>
                         <div className="dialog__inputs">
                             <InputText name="email" type="email" placeholder="Email"/>
                             <InputText name="password" type="password" placeholder="Password"/>
@@ -29,7 +29,7 @@ export const LoginPageExample = () => {
                                 <Button>Login</Button>
                             </div>
                         </div>
-                    </form>
+                    </section>
                 </Dialog>
             </div>
         </section>

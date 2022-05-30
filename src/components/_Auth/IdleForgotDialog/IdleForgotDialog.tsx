@@ -13,13 +13,17 @@ export const IdleForgotDialog = React.memo(() => {
         subtitle: 'Forgot your password?',
     };
 
+    const clickHandler = () => {
+        console.log('click')
+    }
+
     return <>
         <Dialog {...initPropsForm}>
-            <form style={{justifyContent: "space-evenly"}}>
+            <section style={{justifyContent: "space-evenly"}}>
                 <div className="dialog__inputs">
                     <InputText name="login" placeholder="Email"/>
                     <div className="dialog__buttons">
-                        <Button>Send instructions</Button>
+                        <Button onClick={clickHandler}>Send instructions</Button>
                     </div>
                     <div className="dialog__description">
                         Enter your email address and we will send you further instructions
@@ -28,7 +32,7 @@ export const IdleForgotDialog = React.memo(() => {
                 <div className="dialog__footer">
                     <Link to={RouteNames.LOGIN}>I have an Account ?</Link>
                 </div>
-            </form>
+            </section>
         </Dialog>
     </>
 });

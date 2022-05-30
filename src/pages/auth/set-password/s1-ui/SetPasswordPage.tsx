@@ -16,7 +16,7 @@ export const SetPasswordPage = (): JSX.Element => {
             <AnimationBackground/>
             <div className="container">
                 <Dialog {...initPropsForm}>
-                    <form>
+                    <section>
                         <div className="dialog__inputs">
                             <div className="dialog__description">
                                 Create new password and we will send you further instructions to email
@@ -26,7 +26,7 @@ export const SetPasswordPage = (): JSX.Element => {
                                 <Button>Create new password</Button>
                             </div>
                         </div>
-                    </form>
+                    </section>
                 </Dialog>
             </div>
         </section>
