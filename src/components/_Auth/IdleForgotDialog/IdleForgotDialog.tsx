@@ -2,6 +2,8 @@ import {Dialog, DialogPropsType} from "../../Dialog/Dialog";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../Button/Button";
 import ForgotImg from "../../../assets/images/forgot_img.png";
+import {RouteNames} from "../../../constants/routes";
+import {Link} from "react-router-dom";
 
 export const IdleForgotDialog = () => {
     const initPropsForm: DialogPropsType = {
@@ -23,7 +25,7 @@ export const IdleForgotDialog = () => {
                     </div>
                 </div>
                 <div className="dialog__footer">
-                    <a href="/#">I have an Account ?</a>
+                    <Link to={RouteNames.LOGIN}>I have an Account ?</Link>
                 </div>
             </form>
         </Dialog>

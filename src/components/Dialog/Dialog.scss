@@ -8,7 +8,7 @@
 
   &__container {
     display: flex;
-    min-height: prc(450, 220);
+    min-height: prc(450, 100);
     border-radius: $appBorderRadiusPrimary;
     box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
     overflow: hidden;
@@ -168,7 +168,7 @@
     flex-direction: column;
 
     button {
-      margin-top: rem(15);
+      margin-top: rem(10);
     }
   }
 
