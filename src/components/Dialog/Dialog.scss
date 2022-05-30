@@ -128,6 +128,22 @@
       text-decoration: none;
     }
   }
+
+  &__center {
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__image {
+    text-align: center;
+    img {
+      width: prc(200, 100);
+      height: prc(200, 100);
+      object-fit: cover;
+    }
+  }
 }
 
 @media (max-width: 930px) {

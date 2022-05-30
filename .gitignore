@@ -28,3 +28,4 @@ yarn-error.log*
 .idea
 .pnp.cjs
 .pnp.loader.mjs
+.husky
