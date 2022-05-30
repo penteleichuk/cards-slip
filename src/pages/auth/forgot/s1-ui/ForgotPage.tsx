@@ -5,7 +5,7 @@ import {SuccessForgotDialog} from "../../../../components/_Auth/SuccessForgotDia
 
 export const ForgotPage = (): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [requestStatus, setRequestStatus] = useState<'idle' | 'success'>('success')
+    const [requestStatus, setRequestStatus] = useState<'idle' | 'success'>('idle')
 
     return <>
         <section className="content forgot">
