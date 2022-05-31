@@ -7,7 +7,6 @@ import axios from "axios";
 export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-        debugger
         await loginApi.login(data)
         dispatch(setLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
