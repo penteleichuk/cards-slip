@@ -7,29 +7,33 @@ import './Login.css'
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
-import {AppStoreType} from "../../../app/s2-bll/store";
+import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
 import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
+import {ThunkDispatch} from "redux-thunk";
+import {LoginParamsType} from "../s3-dal/LoginApi";
 
 export const LoginPage = (): JSX.Element => {
+    const initialState: LoginParamsType = {
+        email: '',
+        password: '',
+        rememberMe: false,
+    }
+    const [state, setState] = useState<LoginParamsType>(initialState)
+    const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
     const error = useSelector<AppStoreType, string | null>(state => state.app.error)
-    const [emailText, setEmailText] = useState<string>('')
-    const [passwordText, setPasswordText] = useState<string>('')
-    const [rememberMeChecked, setRememberMeChecked] = useState<boolean>(false)
-    const dispatch = useDispatch()
+
     const onChangeTextEmailHandler = (value: string) => {
         dispatch(setAppErrorAC(''))
-        setEmailText(value)
+        setState({...state, email: value})
     }
     const onChangeTextPasswordHandler = (value: string) => {
-        setPasswordText(value)
+        setState({...state, password: value})
     }
     const clickCheckbox = (checked: boolean) => {
-        setRememberMeChecked(checked)
+        setState({...state, rememberMe: checked})
     }
     const clickHandler = () => {
-        console.log(emailText, passwordText, rememberMeChecked)
-        //@ts-ignore
-        dispatch(loginTC(emailText, passwordText, rememberMeChecked))
+        dispatch(loginTC(state))
     }
 
     return (
@@ -43,7 +47,8 @@ export const LoginPage = (): JSX.Element => {
                         <h2>Sign In</h2>
                     </div>
                     <div>
-                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler} error={error}/>
+                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler}
+                                   error={error}/>
                         <InputText name="password" placeholder="Password" onChangeText={onChangeTextPasswordHandler}/>
                     </div>
                     <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
