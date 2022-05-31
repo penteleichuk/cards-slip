@@ -7,6 +7,8 @@ import {AppActionsType, appReducer} from "./AppReducer";
 import {LoginActionsType} from "../../auth/login/s2-bll/LoginActions";
 import {RegisterReducer} from "../../auth/register/s2-bll/RegisterReducer";
 import {passwordReducer} from "../../auth/set-password/s2-bll/SetPasswordReducer";
+import {ForgotActionTypes} from "../../auth/forgot/s2-bll/ForgotActions";
+import {SetPasswordActionTypes} from "../../auth/set-password/s2-bll/SetPasswordActions";
 
 const reducers = combineReducers({
     forgot: forgotReducer,
@@ -19,7 +21,7 @@ const reducers = combineReducers({
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type AppStoreType = ReturnType<typeof reducers>;
-export type ActionType = LoginActionsType | AppActionsType
+export type ActionType = LoginActionsType | AppActionsType | ForgotActionTypes | SetPasswordActionTypes;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStoreType, unknown, ActionType>
 
 if (DEV_VERSION) {
