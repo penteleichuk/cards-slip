@@ -1,0 +1,12 @@
+.paper {
+    padding: 50px;
+    width: 250px;
+    min-height: 350px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: rgb(60 64 67 / 30%) 0 1px 2px 0,
+    rgb(60 64 67 / 15%) 0 1px 3px 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
