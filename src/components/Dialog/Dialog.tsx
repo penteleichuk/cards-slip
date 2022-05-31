@@ -1,6 +1,6 @@
-import './Dialog.scss';
-import {Link} from "react-router-dom";
 import React from "react";
+import {Link} from "react-router-dom";
+import './Dialog.scss';
 
 export type DialogLinkType = {
     link: string
@@ -8,7 +8,7 @@ export type DialogLinkType = {
 }
 
 export type DialogPropsType = {
-    children?: JSX.Element
+    children?: React.ReactChild
     links?: Array<DialogLinkType>
     image: string
     title: string

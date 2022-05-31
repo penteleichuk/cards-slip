@@ -87,8 +87,8 @@ color: #114799;
 
 .form__errors {
     position: absolute;
-    top: 20px;
-    right: 0px;
+    top: -2px;
+    right: 0;
     font-size: .8rem;
     background: #df95a6;
     padding: 3px 5px;
