@@ -24,3 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+.yarn
+.idea
+.pnp.cjs
+.pnp.loader.mjs
+.husky
