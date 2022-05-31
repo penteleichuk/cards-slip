@@ -1,5 +1,7 @@
-type DefaultActionType = {
-    type: 'DEFAULT';
-};
+type SetLoggedInACType = ReturnType<typeof setLoggedInAC>
 
-export type LoginActionsType = DefaultActionType;
+export type LoginActionsType = SetLoggedInACType;
+
+export const setLoggedInAC = (value: boolean) => ({
+    type: 'SET-LOGGED-IN', value
+} as const);
