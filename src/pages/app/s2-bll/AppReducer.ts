@@ -1,6 +1,6 @@
 const initialState: InitialStateType = {
     status: 'idle',
-    error: null,
+    error: '',
     isInitialized: false
 }
 
