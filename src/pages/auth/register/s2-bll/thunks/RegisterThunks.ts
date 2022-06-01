@@ -1,25 +1,20 @@
-import {RegisterActionsType, setErrorMessageAC, setRegisterAC, setRequestStatusAC} from "../RegisterActions";
-import {Dispatch} from "redux";
+import {setRegisterAC} from "../RegisterActions";
 import {registerApi, UserDataType} from "../../s3-dal/RegisterApi";
-import {RequestStatus} from "../RegisterInitState";
 import axios from "axios";
+import {AppThunk} from "../../../../app/s2-bll/store";
+import {InitialStateType, setAppErrorAC, setAppStatusAC} from "../../../../app/s2-bll/AppReducer";
 
-type TodoErrorResponse = {
-    error: string
-}
-
-export const setRegisterUserTC = (userData: UserDataType) => async (dispatch: Dispatch<RegisterActionsType>) => {
-    dispatch(setRequestStatusAC(RequestStatus.inProgress))
+export const setRegisterUserTC = (userData: UserDataType):AppThunk => async dispatch => {
+    dispatch(setAppStatusAC('loading'))
     try {
         await registerApi.register(userData)
         dispatch(setRegisterAC(true))
-        dispatch(setRequestStatusAC(RequestStatus.succeeded))
-        dispatch(setErrorMessageAC(null))
+        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppErrorAC(null));
     } catch (err) {
         if(axios.isAxiosError(err) && err.response) {
-            console.log(err.response?.data)
-            dispatch(setErrorMessageAC((err.response?.data as TodoErrorResponse).error))
+            dispatch(setAppErrorAC((err.response?.data as InitialStateType).error))
         }
-        dispatch(setRequestStatusAC(RequestStatus.failed))
+        dispatch(setAppStatusAC('failed'))
     }
 }

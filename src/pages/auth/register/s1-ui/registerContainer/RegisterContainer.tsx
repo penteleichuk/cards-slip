@@ -18,10 +18,9 @@ const RegisterContainer: FC = memo((): JSX.Element => {
 
     return (
         <div>
-            <Register email={email} pass={pass}
-                      confirmPass={confirmPass} setEmail={setEmail}
-                      setPass={setPass} setConfirmPass={setConfirmPass}
-                      setRegister={setRegister}/>
+                <Register email={email} pass={pass} confirmPass={confirmPass}
+                setEmail={setEmail} setPass={setPass} setConfirmPass={setConfirmPass} setRegister={setRegister}
+                />
         </div>
     )
 })

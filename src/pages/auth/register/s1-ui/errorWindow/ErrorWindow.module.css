@@ -3,11 +3,13 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 150px;
-    left: 150px;
+    z-index: 10;
+    top: 20%;
+    left: 10%;
     min-width: 15%;
     min-height: 10%;
     background-color: #FFC0CB;
+    border-radius: 5px;
     font-size: large;
     box-shadow: 0 0 10px rgba(205, 92, 92, 0.8);
 }
