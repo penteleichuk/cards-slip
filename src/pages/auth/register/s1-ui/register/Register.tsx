@@ -77,38 +77,38 @@ const Register: FC<RegisterPropsType> = ({
         setRegister({email, password: pass})
     }
 
-    return <>
-            <div className="container">
-                <Dialog image={RegistrationImg} title={'It-incubator'} subtitle={'Sign Up'}
-                        links={loginLink}>
-                    <section>
-                        <div className="dialog__inputs">
-                            <InputText name="email" type="email" placeholder="Email"
-                                       value={email} onChange={validateEmail} error={emailError}/>
-                            <div className="item_container">
-                                <InputText style={{width: "240px"}} name="password"
-                                           type={inputTypes.pass} placeholder="Password"
-                                           value={pass} onChangeText={entryPass}
-                                           error={passError}/>
-                                <div className="eye" onClick={changeShowPass}/>
-                                {inputTypes.pass === InputVariant.text && <div className="close_eye"/>}
-                            </div>
-                            <div className="item_container">
-                                <InputText style={{width: "240px"}} name="confirmPassword"
-                                           type={inputTypes.confirmPass} placeholder="Confirm password"
-                                           value={confirmPass} onChangeText={entryConfirmPass}
-                                           error={confirmPassError}/>
-                                <div className="eye" onClick={changeShowConfirmPass}/>
-                                {inputTypes.confirmPass === InputVariant.text && <div className="close_eye"/>}
-                            </div>
-                            <div className="dialog__buttons dialog__block">
-                                <Button onClick={handleSubmit}>Register</Button>
-                            </div>
+    return (
+        <div className="container">
+            <Dialog image={RegistrationImg} title={'It-incubator'} subtitle={'Sign Up'}
+                    links={loginLink}>
+                <section>
+                    <div className="dialog__inputs">
+                        <InputText name="email" type="email" placeholder="Email"
+                                   value={email} onChange={validateEmail} error={emailError}/>
+                        <div className="item_container">
+                            <InputText style={{width: "240px"}} name="password"
+                                       type={inputTypes.pass} placeholder="Password"
+                                       value={pass} onChangeText={entryPass}
+                                       error={passError}/>
+                            <div className="eye" onClick={changeShowPass}/>
+                            {inputTypes.pass === InputVariant.text && <div className="close_eye"/>}
                         </div>
-                    </section>
-                </Dialog>
-            </div>
-    </>
+                        <div className="item_container">
+                            <InputText style={{width: "240px"}} name="confirmPassword"
+                                       type={inputTypes.confirmPass} placeholder="Confirm password"
+                                       value={confirmPass} onChangeText={entryConfirmPass}
+                                       error={confirmPassError}/>
+                            <div className="eye" onClick={changeShowConfirmPass}/>
+                            {inputTypes.confirmPass === InputVariant.text && <div className="close_eye"/>}
+                        </div>
+                        <div className="dialog__buttons dialog__block">
+                            <Button onClick={handleSubmit}>Register</Button>
+                        </div>
+                    </div>
+                </section>
+            </Dialog>
+        </div>
+    )
 }
 
 export default Register

@@ -1,5 +1,5 @@
-import s from "./ErrorWindow.module.css"
 import {FC} from "react";
+import './ErrorWindow.scss'
 
 type ErrorWindowPropsType = {
     error: string | null
@@ -15,8 +15,8 @@ const ErrorWindow: FC<ErrorWindowPropsType> = ({error, setError}): JSX.Element =
      }
 
     return (
-        <div className={s.error}>
-            <div className={s.errorMessage}>{error}</div>
+        <div className="error">
+            <div className="error_message">{error}</div>
         </div>
     )
 }
