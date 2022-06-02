@@ -11,8 +11,15 @@ import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
 import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {LoginParamsType} from "../s3-dal/LoginApi";
+import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
+import LoginImg from "../../../../assets/images/login.png";
+import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
 
 export const LoginPage = (): JSX.Element => {
+    const links: DialogLinkType[] = [
+        {name: 'Sing Up', link: RouteNames.REGISTRATION},
+        {name: 'Forgot Password', link: RouteNames.FORGOT}
+    ];
     const initialState: LoginParamsType = {
         email: '',
         password: '',
@@ -37,28 +44,25 @@ export const LoginPage = (): JSX.Element => {
     }
 
     return (
-        <div className='login'>
-            <div className="wrapper">
-                <div className="paper">
-                    <div>
-                        <h1>IT-INCUBATOR</h1>
-                    </div>
-                    <div>
-                        <h2>Sign In</h2>
-                    </div>
-                    <div>
-                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler}
-                                   error={error}/>
-                        <InputText name="password" placeholder="Password" onChangeText={onChangeTextPasswordHandler}/>
-                    </div>
-                    <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
-                    <Button onClick={clickHandler}>Login</Button>
-                    <div>
-                        <h4>Don't have account?</h4>
-                        <Link to={RouteNames.REGISTRATION}>Sign Up</Link>
-                    </div>
-                </div>
+        <section className="content set-password">
+            <AnimationBackground/>
+            <div className="container">
+                <Dialog image={LoginImg} title={'It-incubator'} subtitle={'Sign In'} links={links}>
+                    <section>
+                        <div className="dialog__inputs">
+                            <InputText name={'Email'} type={'email'} placeholder={'Email'}
+                                       onChangeText={onChangeTextEmailHandler}
+                                       error={error}/>
+                            <InputText name="password" placeholder="Password"
+                                       onChangeText={onChangeTextPasswordHandler}/>
+                        </div>
+                        <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
+                        <div className="dialog__buttons dialog__block">
+                            <Button onClick={clickHandler}>Login</Button>
+                        </div>
+                    </section>
+                </Dialog>
             </div>
-        </div>
+        </section>
     )
 }
