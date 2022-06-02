@@ -1,9 +1,7 @@
 import {InputText} from "../../../../components/InputText/InputText";
 import {Checkbox} from "../../../../components/Checkbox/Checkbox";
 import {Button} from "../../../../components/Button/Button";
-import {Link} from "react-router-dom";
 import {RouteNames} from "../../../../constants/routes";
-import './Login.css'
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
@@ -14,6 +12,7 @@ import {LoginParamsType} from "../s3-dal/LoginApi";
 import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
 import LoginImg from "../../../../assets/images/login.png";
 import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
+import style from '../../register/s1-ui/errorWindow/ErrorWindow.module.css'
 
 export const LoginPage = (): JSX.Element => {
     const links: DialogLinkType[] = [
@@ -34,6 +33,7 @@ export const LoginPage = (): JSX.Element => {
         setState({...state, email: value})
     }
     const onChangeTextPasswordHandler = (value: string) => {
+        dispatch(setAppErrorAC(''))
         setState({...state, password: value})
     }
     const clickCheckbox = (checked: boolean) => {
@@ -51,12 +51,14 @@ export const LoginPage = (): JSX.Element => {
                     <section>
                         <div className="dialog__inputs">
                             <InputText name={'Email'} type={'email'} placeholder={'Email'}
-                                       onChangeText={onChangeTextEmailHandler}
-                                       error={error}/>
+                                       onChangeText={onChangeTextEmailHandler}/>
                             <InputText name="password" placeholder="Password"
                                        onChangeText={onChangeTextPasswordHandler}/>
                         </div>
                         <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
+                        <div  style={{textAlign:'center', color:'#F56793'}}>
+                            {error}
+                        </div>
                         <div className="dialog__buttons dialog__block">
                             <Button onClick={clickHandler}>Login</Button>
                         </div>
