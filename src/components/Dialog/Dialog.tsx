@@ -8,7 +8,7 @@ export type DialogLinkType = {
 }
 
 export type DialogPropsType = {
-    children?: React.ReactChild
+    children?: React.ReactNode
     links?: Array<DialogLinkType>
     image: string
     title: string
