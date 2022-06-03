@@ -4,11 +4,11 @@
 .dialog {
   margin: rem(20) 0;
   padding: rem(10) 0;
-  width: prc(650, 300);
+  //width: prc(650, 300);
 
   &__container {
     display: flex;
-    min-height: prc(350, 100);
+    min-height: prc(450, 350);
     height: 100%;
     border-radius: $appBorderRadiusPrimary;
     box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
@@ -45,7 +45,7 @@
     img {
       background-position: center;
       position: absolute;
-      width: rem(400);
+      width: prc(400, 300);
       top: 50%;
       right: 50%;
       transform: translate(50%, -50%);
@@ -124,7 +124,7 @@
     align-items: center;
     position: absolute;
     top: -50px;
-    border-radius: $appBorderRadiusPrimary $appBorderRadiusPrimary  0 0;
+    border-radius: $appBorderRadiusPrimary $appBorderRadiusPrimary 0 0;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     background: #fff;
     z-index: 10;
@@ -175,6 +175,7 @@
 
   &__footer {
     text-align: center;
+
     a {
       color: #F56793;
       text-decoration: none;
@@ -190,6 +191,7 @@
 
   &__image {
     text-align: center;
+
     img {
       width: prc(100, 50);
       height: prc(100, 50);
@@ -198,18 +200,24 @@
   }
 }
 
-@media (max-width: 930px) {
+@media (max-width: 500px) {
   .dialog {
     &__present {
-     display: none;
+      display: none;
     }
+
     &__form {
       flex: 1 1 auto;
     }
+
     &__container {
       &:after, &:before {
         display: none;
       }
+    }
+
+    &__content {
+      max-width: 100%;
     }
 
     &__form {

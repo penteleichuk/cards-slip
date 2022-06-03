@@ -166,8 +166,10 @@ body {
 }
 
 .container {
+  box-sizing: border-box;
   padding: 0 prc(15, 5);
   max-width: rem($appContainerWidth);
+  width: calc(100% - #{prc(15, 5)});
   margin: 0 auto;
   position: relative;
 }
