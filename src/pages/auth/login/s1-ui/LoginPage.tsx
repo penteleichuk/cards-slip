@@ -12,8 +12,11 @@ import {LoginParamsType} from "../s3-dal/LoginApi";
 import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
 import LoginImg from "../../../../assets/images/login.png";
 import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
+import {Navigate} from "react-router-dom";
 
 export const LoginPage = (): JSX.Element => {
+    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
+
     const links: DialogLinkType[] = [
         {name: 'Sing Up', link: RouteNames.REGISTRATION},
         {name: 'Forgot Password', link: RouteNames.FORGOT}
@@ -41,6 +44,10 @@ export const LoginPage = (): JSX.Element => {
     }
     const clickHandler = () => {
         dispatch(loginTC(state))
+    }
+
+    if(isAuth) {
+        return <Navigate to={RouteNames.PROFILE} />
     }
 
     return (

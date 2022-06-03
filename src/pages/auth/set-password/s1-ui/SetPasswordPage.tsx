@@ -17,6 +17,7 @@ import {useAppDispatch} from "../../../../hooks/useAppDispatch";
 
 export const SetPasswordPage = (): JSX.Element => {
     const state = useSelector<AppStoreType, SetPasswordStateType>(state => state.password);
+    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
 
     const [password, setPassword] = useState<string>('');
     const [token, setToken] = useState<string>('');
@@ -44,6 +45,10 @@ export const SetPasswordPage = (): JSX.Element => {
     if(state.status === 'success') {
         dispatch(setStatusPassword({status: 'idle'}))
         return <Navigate to={RouteNames.LOGIN}/>
+    }
+
+    if(isAuth) {
+        return <Navigate to={RouteNames.PROFILE} />
     }
 
     return <>

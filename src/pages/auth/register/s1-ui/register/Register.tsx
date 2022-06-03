@@ -7,6 +7,9 @@ import React, {ChangeEvent, useState} from "react";
 import {RouteNames} from "../../../../../constants/routes";
 import {emailValidator, passwordValidator} from "../../../../../validations/validators";
 import {RegisterStatusType} from "../../s2-bll/RegisterInitState";
+import {useSelector} from "react-redux";
+import {AppStoreType} from "../../../../app/s2-bll/store";
+import {Navigate} from "react-router-dom";
 
 
 type RegisterPropsType = {
@@ -33,10 +36,12 @@ const Register = React.memo(({
                                  setPass, setConfirmPass, setRegister,
                                  registerStatus
                              }: RegisterPropsType) => {
+    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
+
     const [emailError, setEmailError] = useState<formErrorsType>(null)
     const [passError, setPassError] = useState<formErrorsType>(null)
     const [confirmPassError, setConfirmPassError] = useState<formErrorsType>(null)
-    const loginLink: DialogLinkType[] = [{name: 'You have an Account ?', link: RouteNames.LOGIN}]
+    const loginLink: DialogLinkType[] = [{name: 'You have an Account ?', link: RouteNames.LOGIN}];
 
     const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -68,6 +73,10 @@ const Register = React.memo(({
         if (confirmPassError || emailError) return
 
         setRegister({email, password: pass})
+    }
+
+    if(isAuth) {
+        return <Navigate to={RouteNames.PROFILE} />
     }
 
     return (

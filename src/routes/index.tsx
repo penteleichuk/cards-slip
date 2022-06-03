@@ -8,8 +8,7 @@ import {
     ProfilePage,
     RegisterPage,
     SetPasswordPage
-} from "./../pages/pages"
-import {LoginPageExample} from "../pages/auth/login/s1-ui/LoginPageExample";
+} from "./../pages/pages";
 
 type RouteType = {
     name: string
@@ -21,7 +20,7 @@ type RouteType = {
 export const routes: Array<RouteType> = [
     {
         name: 'Home',
-        public: true,
+        public: false,
         path: RouteNames.HOME,
         component: <HomePage/>,
     },
