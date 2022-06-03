@@ -3,7 +3,7 @@ export const RegisterInitState: RegisterStateType = {
     registerStatus: 'idle'
 }
 
-export type RegisterStatusType = 'idle' | 'process' | 'success' | 'failed';
+export type RegisterStatusType = 'idle' | 'process' | 'succeeded' | 'failed';
 
 export type RegisterStateType = {
     isRegistered: boolean

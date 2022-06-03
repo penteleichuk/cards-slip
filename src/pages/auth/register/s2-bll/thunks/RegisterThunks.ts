@@ -11,7 +11,7 @@ export const setRegisterUserTC = (userData: UserDataType):AppThunk => async disp
         await registerApi.register(userData)
         dispatch(setRegisterAC(true))
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setRegisterStatusAC('success'))
+        dispatch(setRegisterStatusAC('succeeded'))
         dispatch(setAppErrorAC(null))
     } catch (err) {
         if(axios.isAxiosError(err) && err.response) {
