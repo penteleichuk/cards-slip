@@ -1,11 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
-import {AppStoreType} from "../../../../app/s2-bll/store";
+import {ActionType, AppStoreType} from "../../../../app/s2-bll/store";
 import RegisterContainer from "../registerContainer/RegisterContainer";
 import {FC, useCallback} from "react";
 import {Navigate} from "react-router-dom";
 import ErrorWindow from "../errorWindow/ErrorWindow";
 import {setAppErrorAC} from "../../../../app/s2-bll/AppReducer";
 import {AnimationBackground} from "../../../../../components/AnimationBackground/AnimationBackground";
+import {ThunkDispatch} from "redux-thunk";
 
 type ErrorMessageType = string | null
 
@@ -13,9 +14,9 @@ export const RegisterPage: FC = (): JSX.Element => {
 
     const isRegistered = useSelector<AppStoreType, boolean>(state => state.register.isRegistered)
     const errorMessage = useSelector<AppStoreType, ErrorMessageType>(state => state.app.error)
-    const dispatch = useDispatch<any>() //to fix
+    const dispatch = useDispatch<ThunkDispatch<AppStoreType, ErrorMessageType, ActionType>>()
 
-    const setErrorMessage = useCallback((errorMessage: string | null) => {
+    const setErrorMessage = useCallback((errorMessage: ErrorMessageType) => {
         dispatch(setAppErrorAC(errorMessage))
     }, [dispatch])
 

@@ -1,4 +1,4 @@
-import {Dialog} from "../../../../../components/Dialog/Dialog";
+import {Dialog, DialogLinkType} from "../../../../../components/Dialog/Dialog";
 import RegistrationImg from "../../../../../assets/images/registration.png";
 import {InputText} from "../../../../../components/InputText/InputText";
 import {Button} from "../../../../../components/Button/Button";
@@ -24,7 +24,7 @@ type InputType = {
     pass: InputVariant,
     confirmPass: InputVariant
 }
-type formErrorsType = string | null
+export type formErrorsType = string | null
 
 const Register: FC<RegisterPropsType> = ({
                                              email, pass, confirmPass,
@@ -37,7 +37,7 @@ const Register: FC<RegisterPropsType> = ({
     const [emailError, setEmailError] = useState<formErrorsType>(null)
     const [passError, setPassError] = useState<formErrorsType>(null)
     const [confirmPassError, setConfirmPassError] = useState<formErrorsType>(null)
-    const loginLink = [{name: 'You have an Account ?', link: RouteNames.LOGIN}]
+    const loginLink: DialogLinkType[] = [{name: 'You have an Account ?', link: RouteNames.LOGIN}]
 
     const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -83,10 +83,10 @@ const Register: FC<RegisterPropsType> = ({
                     links={loginLink}>
                 <section>
                     <div className="dialog__inputs">
-                        <InputText name="email" type="email" placeholder="Email"
+                        <InputText className="item" name="email" type="email" placeholder="Email"
                                    value={email} onChange={validateEmail} error={emailError}/>
                         <div className="item_container">
-                            <InputText style={{width: "240px"}} name="password"
+                            <InputText style={{width:"240px"}} name="password"
                                        type={inputTypes.pass} placeholder="Password"
                                        value={pass} onChangeText={entryPass}
                                        error={passError}/>
@@ -94,7 +94,7 @@ const Register: FC<RegisterPropsType> = ({
                             {inputTypes.pass === InputVariant.text && <div className="close_eye"/>}
                         </div>
                         <div className="item_container">
-                            <InputText style={{width: "240px"}} name="confirmPassword"
+                            <InputText style={{width:"240px"}} name="confirmPassword"
                                        type={inputTypes.confirmPass} placeholder="Confirm password"
                                        value={confirmPass} onChangeText={entryConfirmPass}
                                        error={confirmPassError}/>
