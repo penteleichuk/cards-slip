@@ -5,14 +5,12 @@ import {setAppIsInitializedAC, setAppStatusAC} from "./AppReducer";
 
 export const initializedApp = () : AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
-
     try {
-        const res = await loginApi.me();
+        await loginApi.me();
         dispatch(setLoggedInAC(true));
         dispatch(setAppStatusAC('succeeded'));
     } catch (error){
         dispatch(setAppStatusAC('succeeded'));
     }
-
     dispatch(setAppIsInitializedAC(true));
 }
