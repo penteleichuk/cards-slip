@@ -9,6 +9,7 @@ import {
     RegisterPage,
     SetPasswordPage
 } from "./../pages/pages"
+import {LoginPageExample} from "../pages/auth/login/s1-ui/LoginPageExample";
 
 type RouteType = {
     name: string

@@ -1,23 +1,29 @@
 import {InputText} from "../../../../components/InputText/InputText";
 import {Checkbox} from "../../../../components/Checkbox/Checkbox";
 import {Button} from "../../../../components/Button/Button";
-import {Link} from "react-router-dom";
 import {RouteNames} from "../../../../constants/routes";
-import './Login.css'
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
 import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
-import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
+import {RequestStatusType, setAppErrorAC} from "../../../app/s2-bll/AppReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {LoginParamsType} from "../s3-dal/LoginApi";
+import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
+import LoginImg from "../../../../assets/images/login.png";
+import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
 
 export const LoginPage = (): JSX.Element => {
+    const links: DialogLinkType[] = [
+        {name: 'Sing Up', link: RouteNames.REGISTRATION},
+        {name: 'Forgot Password', link: RouteNames.FORGOT}
+    ];
     const initialState: LoginParamsType = {
         email: '',
         password: '',
         rememberMe: false,
     }
+    const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const [state, setState] = useState<LoginParamsType>(initialState)
     const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
     const error = useSelector<AppStoreType, string | null>(state => state.app.error)
@@ -27,6 +33,7 @@ export const LoginPage = (): JSX.Element => {
         setState({...state, email: value})
     }
     const onChangeTextPasswordHandler = (value: string) => {
+        dispatch(setAppErrorAC(''))
         setState({...state, password: value})
     }
     const clickCheckbox = (checked: boolean) => {
@@ -37,28 +44,29 @@ export const LoginPage = (): JSX.Element => {
     }
 
     return (
-        <div className='login'>
-            <div className="wrapper">
-                <div className="paper">
-                    <div>
-                        <h1>IT-INCUBATOR</h1>
-                    </div>
-                    <div>
-                        <h2>Sign In</h2>
-                    </div>
-                    <div>
-                        <InputText name={'Email'} placeholder={'Email'} onChangeText={onChangeTextEmailHandler}
-                                   error={error}/>
-                        <InputText name="password" placeholder="Password" onChangeText={onChangeTextPasswordHandler}/>
-                    </div>
-                    <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
-                    <Button onClick={clickHandler}>Login</Button>
-                    <div>
-                        <h4>Don't have account?</h4>
-                        <Link to={RouteNames.REGISTRATION}>Sign Up</Link>
-                    </div>
-                </div>
+        <section className="content set-password">
+            <AnimationBackground/>
+            <div className="container">
+                <Dialog image={LoginImg} title={'It-incubator'} subtitle={'Sign In'} links={links}>
+                    <section>
+                        <div className="dialog__inputs">
+                            <InputText disabled={status === 'loading'} name={'Email'} type={'email'}
+                                       placeholder={'Email'}
+                                       onChangeText={onChangeTextEmailHandler}/>
+                            <InputText disabled={status === 'loading'} name="password" placeholder="Password"
+                                       onChangeText={onChangeTextPasswordHandler}/>
+                        </div>
+                        <Checkbox disabled={status === 'loading'} onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
+                        <div style={{textAlign: 'center', color: '#F56793'}}>
+                            {error}
+                        </div>
+                        <div className="dialog__buttons dialog__block">
+                            <Button loading={status === 'loading'} disabled={status === 'loading'}
+                                    onClick={clickHandler}>Login</Button>
+                        </div>
+                    </section>
+                </Dialog>
             </div>
-        </div>
+        </section>
     )
 }
