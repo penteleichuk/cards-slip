@@ -7,6 +7,9 @@ export const loginApi = {
     },
     me(){
         return instance.post<MeProfileType>('auth/me')
+    },
+    logout() {
+        return instance.delete<{info: string, error: string}>('auth/me')
     }
 
 };

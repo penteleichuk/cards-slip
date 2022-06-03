@@ -4,7 +4,7 @@ import {AppStoreType} from "../../app/s2-bll/store";
 import { Navigate } from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setLoggedInAC} from "../../auth/login/s2-bll/LoginActions";
+import {logoutTC} from "../../auth/login/s2-bll/thunks/LoginThunks";
 
 export const ProfilePage = (): JSX.Element => {
 
@@ -12,7 +12,7 @@ export const ProfilePage = (): JSX.Element => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
 
     const logoutHandler = () => {
-        dispatch(setLoggedInAC(false));
+        dispatch(logoutTC());
     }
 
     if(!isAuth) {
