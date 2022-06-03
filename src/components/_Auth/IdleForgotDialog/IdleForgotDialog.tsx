@@ -38,6 +38,7 @@ export const IdleForgotDialog = React.memo(() => {
                                onChangeText={setEmail}
                                value={email}
                                placeholder="Email"/>
+
                     <div className="dialog__buttons">
                         <Button
                             loading={state.status === 'process'}

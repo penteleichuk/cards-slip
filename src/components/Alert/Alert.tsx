@@ -32,7 +32,7 @@ export const Alert = React.memo(() => {
 
     return <>
         {alertStatus &&
-            <div className={`notification ${state.style}`}>
+            <div className={`alert ${state.style}`}>
                 {state.error}
             </div>
         }

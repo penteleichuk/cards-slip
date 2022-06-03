@@ -1,7 +1,8 @@
 import axios from "axios";
 import {AppThunk} from "../../../../app/s2-bll/store";
-import {setErrorPassword, setStatusPassword} from "../SetPasswordActions";
+import {setStatusPassword} from "../SetPasswordActions";
 import {setPasswordApi} from "../../s3-dal/SetPasswordApi";
+import {setAppErrorAC} from "../../../../app/s2-bll/AppReducer";
 
 export const sendResetPassword = (password: string, token: string): AppThunk => async (dispatch) => {
     dispatch(setStatusPassword({status: 'process'}));
@@ -11,7 +12,7 @@ export const sendResetPassword = (password: string, token: string): AppThunk => 
         dispatch(setStatusPassword({status: 'success'}));
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            dispatch(setErrorPassword({error: error.message}));
+            dispatch(setAppErrorAC(error.message, error.message));
         }
         dispatch(setStatusPassword({status: 'idle'}));
     }
