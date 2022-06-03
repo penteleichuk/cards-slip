@@ -6,17 +6,18 @@ import ForgotImg from "../../../assets/images/forgot_img.png";
 import {RouteNames} from "../../../constants/routes";
 import {Link} from "react-router-dom";
 import {emailValidator} from "../../../validations/validators";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {sendRecoveryLink} from "../../../pages/auth/forgot/s2-bll/thunks/ForgotThunks";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {setErrorForget} from "../../../pages/auth/forgot/s2-bll/ForgotActions";
 import {ForgotStateType} from "../../../pages/auth/forgot/s2-bll/ForgotInitState";
+import {useAppDispatch} from "../../../hooks/useAppDispatch";
 
 export const IdleForgotDialog = React.memo(() => {
     const state = useSelector<AppStoreType, ForgotStateType>(state => state.forgot);
     const [email, setEmail] = useState<string>('');
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
 
     const clickHandler = () => {
         if (!emailValidator(email)) {

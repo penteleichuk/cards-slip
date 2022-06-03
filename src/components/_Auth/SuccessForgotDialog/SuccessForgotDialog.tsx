@@ -3,11 +3,15 @@ import {Dialog} from "../../Dialog/Dialog";
 import ForgotImg from "../../../assets/images/forgot_img.png";
 import ForgotSuccessImg from "../../../assets/images/forgot_img_success.png";
 import {Button} from "../../Button/Button";
-import {useDispatch} from "react-redux";
 import {setStatusForget} from "../../../pages/auth/forgot/s2-bll/ForgotActions";
+import {useAppDispatch} from "../../../hooks/useAppDispatch";
 
-export const SuccessForgotDialog: React.FC<{ sendEmail: string }> = React.memo(({sendEmail}) => {
-    const dispatch = useDispatch<any>();
+type SuccessForgotDialogPropsType = {
+    sendEmail: string
+}
+
+export const SuccessForgotDialog = React.memo(({sendEmail, ...props}: SuccessForgotDialogPropsType) => {
+    const dispatch = useAppDispatch();
 
     const clickHandler = () => {
         dispatch(setStatusForget({status: 'idle'}))

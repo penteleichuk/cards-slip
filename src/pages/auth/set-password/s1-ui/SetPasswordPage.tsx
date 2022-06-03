@@ -5,7 +5,7 @@ import {Button} from "../../../../components/Button/Button";
 import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
 import React, {useState} from "react";
 import {passwordValidator} from "../../../../validations/validators";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {sendResetPassword} from "../s2-bll/thunks/SetPasswordThunks";
 import {setErrorPassword, setStatusPassword} from "../s2-bll/SetPasswordActions";
 import {AppStoreType} from "../../../app/s2-bll/store";
@@ -13,6 +13,7 @@ import {SetPasswordStateType} from "../s2-bll/SetPasswordInitState";
 import {useLocation} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {RouteNames} from "../../../../constants/routes";
+import {useAppDispatch} from "../../../../hooks/useAppDispatch";
 
 export const SetPasswordPage = (): JSX.Element => {
     const state = useSelector<AppStoreType, SetPasswordStateType>(state => state.password);
@@ -20,7 +21,7 @@ export const SetPasswordPage = (): JSX.Element => {
     const [password, setPassword] = useState<string>('');
     const [token, setToken] = useState<string>('');
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const location = useLocation();
 
     React.useEffect(() => {
@@ -28,7 +29,7 @@ export const SetPasswordPage = (): JSX.Element => {
             const getToken = location.pathname.split('/').reverse()[0];
             setToken(getToken);
         }
-    }, []);
+    }, [location.pathname]);
 
     const clickHandler = () => {
         if (!passwordValidator(password)) {
