@@ -6,13 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
 import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
-import {setAppErrorAC} from "../../../app/s2-bll/AppReducer";
+import {RequestStatusType, setAppErrorAC} from "../../../app/s2-bll/AppReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {LoginParamsType} from "../s3-dal/LoginApi";
 import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
 import LoginImg from "../../../../assets/images/login.png";
 import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
-import style from '../../register/s1-ui/errorWindow/ErrorWindow.module.css'
 
 export const LoginPage = (): JSX.Element => {
     const links: DialogLinkType[] = [
@@ -24,6 +23,7 @@ export const LoginPage = (): JSX.Element => {
         password: '',
         rememberMe: false,
     }
+    const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const [state, setState] = useState<LoginParamsType>(initialState)
     const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
     const error = useSelector<AppStoreType, string | null>(state => state.app.error)
@@ -50,17 +50,19 @@ export const LoginPage = (): JSX.Element => {
                 <Dialog image={LoginImg} title={'It-incubator'} subtitle={'Sign In'} links={links}>
                     <section>
                         <div className="dialog__inputs">
-                            <InputText name={'Email'} type={'email'} placeholder={'Email'}
+                            <InputText disabled={status === 'loading'} name={'Email'} type={'email'}
+                                       placeholder={'Email'}
                                        onChangeText={onChangeTextEmailHandler}/>
-                            <InputText name="password" placeholder="Password"
+                            <InputText disabled={status === 'loading'} name="password" placeholder="Password"
                                        onChangeText={onChangeTextPasswordHandler}/>
                         </div>
-                        <Checkbox onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
-                        <div  style={{textAlign:'center', color:'#F56793'}}>
+                        <Checkbox disabled={status === 'loading'} onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
+                        <div style={{textAlign: 'center', color: '#F56793'}}>
                             {error}
                         </div>
                         <div className="dialog__buttons dialog__block">
-                            <Button onClick={clickHandler}>Login</Button>
+                            <Button loading={status === 'loading'} disabled={status === 'loading'}
+                                    onClick={clickHandler}>Login</Button>
                         </div>
                     </section>
                 </Dialog>
