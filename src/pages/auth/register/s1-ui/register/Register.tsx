@@ -6,6 +6,8 @@ import {UserDataType} from "../../s3-dal/RegisterApi";
 import React, {ChangeEvent, useState} from "react";
 import {RouteNames} from "../../../../../constants/routes";
 import {emailValidator, passwordValidator} from "../../../../../validations/validators";
+import {RegisterStatusType} from "../../s2-bll/RegisterInitState";
+
 
 type RegisterPropsType = {
     email: string
@@ -15,18 +17,15 @@ type RegisterPropsType = {
     setPass: (pass: string) => void
     setConfirmPass: (confirmPass: string) => void
     setRegister: (userData: UserDataType) => void
+    registerStatus: RegisterStatusType
 }
 
 export type formErrorsType = string | null
 
 const Register = React.memo(({
-                                 email,
-                                 pass,
-                                 confirmPass,
-                                 setEmail,
-                                 setPass,
-                                 setConfirmPass,
-                                 setRegister
+                                 email, pass, confirmPass, setEmail,
+                                 setPass, setConfirmPass, setRegister,
+                                 registerStatus
                              }: RegisterPropsType) => {
     const [emailError, setEmailError] = useState<formErrorsType>(null)
     const [passError, setPassError] = useState<formErrorsType>(null)
@@ -54,7 +53,12 @@ const Register = React.memo(({
     }
 
     const handleSubmit = () => {
-        if (pass === '' || confirmPass === '' || email === '') return
+        if (pass === '' || confirmPass === '' || email === '') {
+            setEmailError('empty field')
+            setPassError('empty field')
+            setConfirmPassError('empty field')
+            return
+        }
         if (confirmPassError || emailError) return
 
         setRegister({email, password: pass})
@@ -86,7 +90,9 @@ const Register = React.memo(({
                                    eye={true}
                         />
                         <div className="dialog__buttons dialog__block">
-                            <Button onClick={handleSubmit}>Register</Button>
+                            <Button onClick={handleSubmit}
+                                    loading={registerStatus === 'process'}
+                                    disabled={registerStatus === 'process'}>Register</Button>
                         </div>
                     </div>
                 </section>
