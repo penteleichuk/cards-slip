@@ -6,7 +6,6 @@ import {UserDataType} from "../../s3-dal/RegisterApi";
 import React, {ChangeEvent, useState} from "react";
 import {RouteNames} from "../../../../../constants/routes";
 import {emailValidator, passwordValidator} from "../../../../../validations/validators";
-import './register.scss'
 
 type RegisterPropsType = {
     email: string
@@ -66,8 +65,14 @@ const Register = React.memo(({
             <Dialog image={RegistrationImg} title={'It-incubator'} subtitle={'Sign Up'} links={loginLink}>
                 <section>
                     <div className="dialog__inputs">
-                        <InputText className="item" name="email" type="email" placeholder="Email"
-                                   value={email} onChange={validateEmail} error={emailError}/>
+                        <InputText className="item"
+                                   name="email"
+                                   type="email"
+                                   placeholder="Email"
+                                   value={email}
+                                   onChange={validateEmail}
+                                   error={emailError}
+                        />
                         <InputText name="password"
                                    type={'password'} placeholder="Password"
                                    value={pass} onChangeText={entryPass}

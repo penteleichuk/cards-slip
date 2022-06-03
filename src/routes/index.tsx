@@ -27,7 +27,7 @@ export const routes: Array<RouteType> = [
     },
     {
         name: 'Example',
-        public: true,
+        public: false,
         path: RouteNames.EXAMPLE,
         component: <ExamplePage/>,
     },
