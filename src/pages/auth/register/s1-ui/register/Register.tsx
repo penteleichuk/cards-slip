@@ -20,6 +20,12 @@ type RegisterPropsType = {
     registerStatus: RegisterStatusType
 }
 
+enum variantError {
+    invalid = 'invalid',
+    empty = 'empty field',
+    charError = '7+ characters'
+}
+
 export type formErrorsType = string | null
 
 const Register = React.memo(({
@@ -34,16 +40,16 @@ const Register = React.memo(({
 
     const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-        setEmailError((!emailValidator(e.currentTarget.value)) ? 'invalid' : null)
+        setEmailError((!emailValidator(e.currentTarget.value)) ? variantError.invalid : null)
     }
 
     const validatePass = (value: string, compareItem: string) => {
-        (compareItem !== value) ? setConfirmPassError('invalid') : setConfirmPassError(null)
+        (compareItem !== value) ? setConfirmPassError(variantError.invalid) : setConfirmPassError(null)
     }
 
     const entryPass = (value: string) => {
         setPass(value);
-        (!passwordValidator(value)) ? setPassError('7+ characters') : setPassError(null)
+        (!passwordValidator(value)) ? setPassError(variantError.charError) : setPassError(null)
         confirmPass !== '' && validatePass(value, confirmPass)
     }
 
@@ -54,9 +60,9 @@ const Register = React.memo(({
 
     const handleSubmit = () => {
         if (pass === '' || confirmPass === '' || email === '') {
-            setEmailError('empty field')
-            setPassError('empty field')
-            setConfirmPassError('empty field')
+            setEmailError(variantError.empty)
+            setPassError(variantError.empty)
+            setConfirmPassError(variantError.empty)
             return
         }
         if (confirmPassError || emailError) return
