@@ -95,3 +95,21 @@ color: #114799;
     color: #fff;
     opacity: .5;
 }
+
+.form__eye {
+    display: flex;
+    position: absolute;
+    right: 5px;
+    top: 15px;
+}
+
+.form__eye img {
+    width: 25px;
+    transition: .5s;
+}
+
+.form__eye img:hover {
+    cursor: pointer;
+    opacity: .5;
+    transition: .5s;
+}

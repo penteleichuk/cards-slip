@@ -3,7 +3,7 @@ import RegistrationImg from "../../../../../assets/images/registration.png";
 import {InputText} from "../../../../../components/InputText/InputText";
 import {Button} from "../../../../../components/Button/Button";
 import {UserDataType} from "../../s3-dal/RegisterApi";
-import {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {RouteNames} from "../../../../../constants/routes";
 import {emailValidator, passwordValidator} from "../../../../../validations/validators";
 import './register.scss'
@@ -18,22 +18,17 @@ type RegisterPropsType = {
     setRegister: (userData: UserDataType) => void
 }
 
-enum InputVariant { password = "password", text = "text" }
-
-type InputType = {
-    pass: InputVariant,
-    confirmPass: InputVariant
-}
 export type formErrorsType = string | null
 
-const Register: FC<RegisterPropsType> = ({
-                                             email, pass, confirmPass,
-                                             setEmail, setPass, setConfirmPass, setRegister
-                                         }): JSX.Element => {
-
-    const [inputTypes, setInputTypes] = useState<InputType>({
-        pass: InputVariant.password, confirmPass: InputVariant.password
-    })
+const Register = React.memo(({
+                                 email,
+                                 pass,
+                                 confirmPass,
+                                 setEmail,
+                                 setPass,
+                                 setConfirmPass,
+                                 setRegister
+                             }: RegisterPropsType) => {
     const [emailError, setEmailError] = useState<formErrorsType>(null)
     const [passError, setPassError] = useState<formErrorsType>(null)
     const [confirmPassError, setConfirmPassError] = useState<formErrorsType>(null)
@@ -53,21 +48,10 @@ const Register: FC<RegisterPropsType> = ({
         (!passwordValidator(value)) ? setPassError('7+ characters') : setPassError(null)
         confirmPass !== '' && validatePass(value, confirmPass)
     }
+
     const entryConfirmPass = (value: string) => {
         setConfirmPass(value)
         validatePass(value, pass)
-    }
-
-    const changeShowPass = () => {
-        (inputTypes.pass === InputVariant.password)
-            ? setInputTypes({...inputTypes, pass: InputVariant.text})
-            : setInputTypes({...inputTypes, pass: InputVariant.password})
-    }
-
-    const changeShowConfirmPass = () => {
-        (inputTypes.confirmPass === InputVariant.password)
-            ? setInputTypes({...inputTypes, confirmPass: InputVariant.text})
-            : setInputTypes({...inputTypes, confirmPass: InputVariant.password})
     }
 
     const handleSubmit = () => {
@@ -79,28 +63,23 @@ const Register: FC<RegisterPropsType> = ({
 
     return (
         <div className="container">
-            <Dialog image={RegistrationImg} title={'It-incubator'} subtitle={'Sign Up'}
-                    links={loginLink}>
+            <Dialog image={RegistrationImg} title={'It-incubator'} subtitle={'Sign Up'} links={loginLink}>
                 <section>
                     <div className="dialog__inputs">
                         <InputText className="item" name="email" type="email" placeholder="Email"
                                    value={email} onChange={validateEmail} error={emailError}/>
-                        <div className="item_container">
-                            <InputText style={{width:"240px"}} name="password"
-                                       type={inputTypes.pass} placeholder="Password"
-                                       value={pass} onChangeText={entryPass}
-                                       error={passError}/>
-                            <div className="eye" onClick={changeShowPass}/>
-                            {inputTypes.pass === InputVariant.text && <div className="close_eye"/>}
-                        </div>
-                        <div className="item_container">
-                            <InputText style={{width:"240px"}} name="confirmPassword"
-                                       type={inputTypes.confirmPass} placeholder="Confirm password"
-                                       value={confirmPass} onChangeText={entryConfirmPass}
-                                       error={confirmPassError}/>
-                            <div className="eye" onClick={changeShowConfirmPass}/>
-                            {inputTypes.confirmPass === InputVariant.text && <div className="close_eye"/>}
-                        </div>
+                        <InputText name="password"
+                                   type={'password'} placeholder="Password"
+                                   value={pass} onChangeText={entryPass}
+                                   error={passError}
+                                   eye={true}
+                        />
+                        <InputText name="confirmPassword"
+                                   type={'password'} placeholder="Confirm password"
+                                   value={confirmPass} onChangeText={entryConfirmPass}
+                                   error={confirmPassError}
+                                   eye={true}
+                        />
                         <div className="dialog__buttons dialog__block">
                             <Button onClick={handleSubmit}>Register</Button>
                         </div>
@@ -109,6 +88,6 @@ const Register: FC<RegisterPropsType> = ({
             </Dialog>
         </div>
     )
-}
+})
 
 export default Register

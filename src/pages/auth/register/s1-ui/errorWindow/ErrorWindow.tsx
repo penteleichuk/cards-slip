@@ -1,12 +1,10 @@
-import {FC} from "react";
 import './ErrorWindow.scss'
 
 type ErrorWindowPropsType = {
     error: string | null
     setError: (errorMessage: string | null) => void
 }
-
-const ErrorWindow: FC<ErrorWindowPropsType> = ({error, setError}): JSX.Element => {
+const ErrorWindow = ({error, setError}: ErrorWindowPropsType) => {
 
      if(error) {
          setTimeout(() => {

@@ -1,4 +1,4 @@
-export const DEV_VERSION = false;
+export const DEV_VERSION = true;
 
 export const appURL = !DEV_VERSION
     ? 'http://localhost:3000/'
