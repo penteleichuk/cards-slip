@@ -1,4 +1,4 @@
-.notification {
+.alert {
   position: fixed;
   width: 100%;
   padding: 20px;
@@ -13,6 +13,6 @@
   transition: .8s;
 }
 
-.notification.danger {
+.alert.danger {
   background: #d440658b;
 }

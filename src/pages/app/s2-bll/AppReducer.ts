@@ -1,6 +1,9 @@
+import {AlertStyleType} from "../../../components/Alert/Alert";
+
 const initialState: InitialStateType = {
     status: 'idle',
     error: '',
+    style: 'primary',
     isInitialized: false
 }
 
@@ -9,7 +12,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
         case 'APP/SET-ERROR':
-            return {...state, error: action.error}
+            return {...state, error: action.message, style: action.style}
         case 'APP/SET-INITIALIZED':
             return {...state, isInitialized: action.isInitialized}
         default:
@@ -23,10 +26,11 @@ export type InitialStateType = {
     status: RequestStatusType
     // если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
     error: string | null,
+    style: AlertStyleType,
     isInitialized: boolean
 }
 
-export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
+export const setAppErrorAC = (message: string | null, style: AlertStyleType = 'primary') => ({type: 'APP/SET-ERROR', message, style} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setAppIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-INITIALIZED', isInitialized} as const)
 
