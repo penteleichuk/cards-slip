@@ -12,7 +12,7 @@ export const sendResetPassword = (password: string, token: string): AppThunk => 
         dispatch(setStatusPassword({status: 'success'}));
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            dispatch(setAppErrorAC(error.message, error.message));
+            dispatch(setAppErrorAC(error.message, 'danger'));
         }
         dispatch(setStatusPassword({status: 'idle'}));
     }
