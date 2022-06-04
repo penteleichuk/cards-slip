@@ -2,7 +2,8 @@ import {setRegisterAC, setRegisterStatusAC} from "../RegisterActions";
 import {registerApi, UserDataType} from "../../s3-dal/RegisterApi";
 import axios from "axios";
 import {AppThunk} from "../../../../app/s2-bll/store";
-import {InitialStateType, setAppErrorAC, setAppStatusAC} from "../../../../app/s2-bll/AppReducer";
+import {InitialStateType} from "../../../../app/s2-bll/AppReducer";
+import {setAppErrorAC, setAppStatusAC} from "../../../../app/s2-bll/actions";
 
 export const setRegisterUserTC = (userData: UserDataType):AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))

@@ -1,15 +1,18 @@
 import {setLoggedInAC} from "../LoginActions";
 import {loginApi, LoginParamsType} from "../../s3-dal/LoginApi";
-import {InitialStateType, setAppErrorAC, setAppStatusAC} from "../../../../app/s2-bll/AppReducer";
+import {InitialStateType} from "../../../../app/s2-bll/AppReducer";
 import {AppThunk} from "../../../../app/s2-bll/store";
 import axios from "axios";
+import {setAppErrorAC, setAppStatusAC} from "../../../../app/s2-bll/actions";
+import {initializedApp} from "../../../../app/s2-bll/thunks";
 
 export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await loginApi.login(data)
+        await loginApi.login(data)
         dispatch(setAppStatusAC('succeeded'))
         dispatch(setLoggedInAC(true))
+        dispatch(initializedApp())
     } catch (err) {
         dispatch(setAppStatusAC('succeeded'))
         if(axios.isAxiosError(err) && err.response) {
@@ -21,7 +24,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
 export const logoutTC = (): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const rest = await loginApi.logout()
+        await loginApi.logout()
         dispatch(setAppStatusAC('succeeded'))
         dispatch(setLoggedInAC(false))
     } catch (err) {

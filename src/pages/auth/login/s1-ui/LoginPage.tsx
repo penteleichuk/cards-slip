@@ -6,13 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../s2-bll/thunks/LoginThunks";
 import {useState} from "react";
 import {ActionType, AppStoreType} from "../../../app/s2-bll/store";
-import {RequestStatusType, setAppErrorAC} from "../../../app/s2-bll/AppReducer";
+import {RequestStatusType} from "../../../app/s2-bll/AppReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {LoginParamsType} from "../s3-dal/LoginApi";
 import {AnimationBackground} from "../../../../components/AnimationBackground/AnimationBackground";
 import LoginImg from "../../../../assets/images/login.png";
 import {Dialog, DialogLinkType} from "../../../../components/Dialog/Dialog";
 import {Navigate} from "react-router-dom";
+import {setAppErrorAC} from "../../../app/s2-bll/actions";
 
 export const LoginPage = (): JSX.Element => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);

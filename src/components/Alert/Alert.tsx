@@ -2,8 +2,8 @@ import React, {useEffect} from "react";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../pages/app/s2-bll/store";
-import {setAppErrorAC} from "../../pages/app/s2-bll/AppReducer";
 import './Alert.scss';
+import {setAppErrorAC} from "../../pages/app/s2-bll/actions";
 
 export type AlertType = {
     message: string | null;
