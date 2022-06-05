@@ -3,7 +3,7 @@ import {AxiosResponse} from "axios";
 
 export const PackApi = {
     getPacks(params: GetPackRequestType) {
-        return instance.get<GetPackRequestType, AxiosResponse<GetPacksResponse>>('/cards/pack', {params})
+        return instance.get<GetPackRequestType, AxiosResponse<GetPacksResponse>>('cards/pack', {params})
             .then((res) => res.data);
     },
 
@@ -21,7 +21,7 @@ export const PackApi = {
 }
 
 // Submit a request for getPacks types
-type GetPackRequestType = {
+export type GetPackRequestType = {
     packName?: string   // english - default value
     min?: number
     max?: number
