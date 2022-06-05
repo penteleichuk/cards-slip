@@ -3,7 +3,7 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import {DEV_VERSION} from '../../../configs/config';
 import {forgotReducer} from '../../auth/forgot/s2-bll/ForgotReducer';
 import {loginReducer} from "../../auth/login/s2-bll/LoginReducer";
-import {AppActionsType, appReducer} from "./AppReducer";
+import {appReducer} from "./AppReducer";
 import {LoginActionsType} from "../../auth/login/s2-bll/LoginActions";
 import {registerReducer} from "../../auth/register/s2-bll/RegisterReducer";
 import {passwordReducer} from "../../auth/set-password/s2-bll/SetPasswordReducer";
