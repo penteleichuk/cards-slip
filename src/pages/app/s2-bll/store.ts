@@ -10,19 +10,22 @@ import {passwordReducer} from "../../auth/set-password/s2-bll/SetPasswordReducer
 import {ForgotActionTypes} from "../../auth/forgot/s2-bll/ForgotActions";
 import {SetPasswordActionTypes} from "../../auth/set-password/s2-bll/SetPasswordActions";
 import {RegisterActionsType} from "../../auth/register/s2-bll/RegisterActions";
+import {PackActionsType} from "../../pack/s2-bll/PackActions";
+import {packReducer} from "../../pack/s2-bll/PackReducer";
 
 const reducers = combineReducers({
     forgot: forgotReducer,
     password: passwordReducer,
     register: registerReducer,
     login: loginReducer,
-    app: appReducer
+    app: appReducer,
+    pack: packReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type AppStoreType = ReturnType<typeof reducers>;
-export type ActionType = LoginActionsType | AppActionsType | ForgotActionTypes | SetPasswordActionTypes | RegisterActionsType;
+export type ActionType = LoginActionsType | AppActionsType | ForgotActionTypes | SetPasswordActionTypes | RegisterActionsType | PackActionsType;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStoreType, unknown, ActionType>
 
 if (DEV_VERSION) {
