@@ -1,8 +1,8 @@
 import {RouteNames} from "../constants/routes";
 import {
     ExamplePage,
+    PackPage,
     ForgotPage,
-    HomePage,
     LoginPage,
     NotFoundPage,
     ProfilePage,
@@ -19,10 +19,10 @@ type RouteType = {
 
 export const routes: Array<RouteType> = [
     {
-        name: 'Home',
-        public: false,
+        name: 'Pack',
+        public: true,
         path: RouteNames.HOME,
-        component: <HomePage/>,
+        component: <PackPage/>,
     },
     {
         name: 'Example',

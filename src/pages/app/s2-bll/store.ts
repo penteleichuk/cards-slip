@@ -3,7 +3,7 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import {DEV_VERSION} from '../../../configs/config';
 import {forgotReducer} from '../../auth/forgot/s2-bll/ForgotReducer';
 import {loginReducer} from "../../auth/login/s2-bll/LoginReducer";
-import {appReducer} from "./AppReducer";
+import {AppActionsType, appReducer} from "./AppReducer";
 import {LoginActionsType} from "../../auth/login/s2-bll/LoginActions";
 import {registerReducer} from "../../auth/register/s2-bll/RegisterReducer";
 import {passwordReducer} from "../../auth/set-password/s2-bll/SetPasswordReducer";
@@ -13,6 +13,8 @@ import {RegisterActionsType} from "../../auth/register/s2-bll/RegisterActions";
 import {AppActionsType} from "./actions";
 import {profileReducer} from "../../profile/s2-bll/ProfileReducer";
 import {ProfileActionsType} from "../../profile/s2-bll/ProfileActions";
+import {PackActionsType} from "../../pack/s2-bll/PackActions";
+import {packReducer} from "../../pack/s2-bll/PackReducer";
 
 const reducers = combineReducers({
     forgot: forgotReducer,
@@ -20,7 +22,8 @@ const reducers = combineReducers({
     register: registerReducer,
     login: loginReducer,
     app: appReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    pack: packReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
@@ -32,7 +35,8 @@ export type ActionType =
     | ForgotActionTypes
     | SetPasswordActionTypes
     | RegisterActionsType
-    | ProfileActionsType;
+    | ProfileActionsType
+    | PackActionsType;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStoreType, unknown, ActionType>
 
 if (DEV_VERSION) {
