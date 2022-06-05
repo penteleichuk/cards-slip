@@ -7,28 +7,26 @@ import {CardPacksType, GetPackRequestType} from "../s3-dal/PackApi";
 import React, {useEffect} from "react";
 import {Navigate} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {PaginatedPage} from "./paginatedPage/PaginatedPage";
+import {PaginatedPage} from "../../../components/Paginated/PaginatedPage";
 import {setCurrentPageAC} from "../s2-bll/PackActions";
 
 export const PackPage = React.memo(() => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack)
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page)
-    const totalPacksCards = useSelector<AppStoreType,number>(state => state.pack.cardPacksTotalCount)
+    const totalPacksCards = useSelector<AppStoreType, number>(state => state.pack.cardPacksTotalCount)
     const countPages = useSelector<AppStoreType, number>(state => state.pack.pageCount)
     const packCards = useSelector<AppStoreType, CardPacksType[]>(state => state.pack.cardPacks)
     const dispatch: ThunkDispatch<AppStoreType, GetPackRequestType, ActionType> = useDispatch()
 
 
-
-    const clickPageHandler = (page:number)=>{
-       dispatch(setCurrentPageAC(page))
+    const clickPageHandler = (page: number) => {
+        dispatch(setCurrentPageAC(page))
     }
 
     useEffect(() => {
-        dispatch(getPacksTC(paramsCards))
+        dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
     }, [currentPage])
-
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }
@@ -46,18 +44,19 @@ export const PackPage = React.memo(() => {
                 </tr>
                 </thead>
                 <tbody>
-            {packCards.map(c=>
-                <tr key={c._id}>
-                    <td>{c.name}</td>
-                    <td>{c.cardsCount}</td>
-                    <td>{JSON.stringify(c.created)}</td>
-                    <td>{JSON.stringify(c.updated)}</td>
-                </tr>
-            )}
+                {packCards.map(c =>
+                    <tr key={c._id}>
+                        <td>{c.name}</td>
+                        <td>{c.cardsCount}</td>
+                        <td>{JSON.stringify(c.created)}</td>
+                        <td>{JSON.stringify(c.updated)}</td>
+                    </tr>
+                )}
                 </tbody>
-                </table>
+            </table>
             <div>
-            <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages} currentPage={currentPage}/>
+                <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages}
+                               currentPage={currentPage}/>
             </div>
         </section>
     )
