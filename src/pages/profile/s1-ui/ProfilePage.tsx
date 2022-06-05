@@ -7,7 +7,7 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {logoutTC} from "../../auth/login/s2-bll/thunks/LoginThunks";
 import {MeProfileType} from "../s3-dal/ProfileApi";
 import {EditableSpan} from "./editableSpan/EditableSpan";
-import {settingProfile} from "../s2-bll/thunks/ProfileThunks";
+import {settingProfileTC} from "../s2-bll/thunks/ProfileThunks";
 
 export const ProfilePage = (): JSX.Element => {
     const profileMe = useSelector<AppStoreType, MeProfileType>(state => state.profile)
@@ -18,7 +18,7 @@ export const ProfilePage = (): JSX.Element => {
         dispatch(logoutTC());
     }
     const changeNameHandler = (newValue:string) => {
-        dispatch(settingProfile(newValue))
+        dispatch(settingProfileTC(newValue))
     }
 
     if(!isAuth) {
