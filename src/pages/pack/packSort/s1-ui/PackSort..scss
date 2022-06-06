@@ -1,0 +1,19 @@
+.packs {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .sortContainer {
+    min-width: 50%;
+    display: flex;
+    justify-content: space-between;
+
+    .sortItem {
+      padding: 15px
+    }
+  }
+
+}
