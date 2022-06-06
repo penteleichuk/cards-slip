@@ -31,7 +31,6 @@ type GetPackRequestType = {
     user_id?: string
 }
 
-//
 export type CardPacksType = {
     _id: string
     user_id: string
