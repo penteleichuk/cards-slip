@@ -9,8 +9,13 @@ import {Navigate} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {PaginatedPage} from "../../../components/Paginated/PaginatedPage";
 import {setCurrentPageAC} from "../s2-bll/PackActions";
+import {CardsPerPage} from "../../../components/CardsPerPage/CardsPerPage";
+import {RequestStatusType} from "../../app/s2-bll/AppReducer";
+import {LoadingPage} from "../../../components/_Pages/Loading/LoadingPage";
+import {PacksContainer} from "./packsContainer/PacksContainer";
 
 export const PackPage = React.memo(() => {
+    const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack)
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page)
@@ -26,37 +31,21 @@ export const PackPage = React.memo(() => {
 
     useEffect(() => {
         dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
-    }, [currentPage])
+    }, [currentPage, paramsCards.pageCount])
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }
 
     return (
         <section className="content forgot">
-            <div>Pack Page</div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Cards Count</th>
-                    <th>Created</th>
-                    <th>Update</th>
-                </tr>
-                </thead>
-                <tbody>
-                {packCards.map(c =>
-                    <tr key={c._id}>
-                        <td>{c.name}</td>
-                        <td>{c.cardsCount}</td>
-                        <td>{JSON.stringify(c.created)}</td>
-                        <td>{JSON.stringify(c.updated)}</td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+            {status === 'loading' ?
+                <LoadingPage/> :
+                <PacksContainer packCards={packCards}/>
+            }
             <div>
                 <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages}
                                currentPage={currentPage}/>
+                <CardsPerPage pageCount={paramsCards.pageCount}/>
             </div>
         </section>
     )

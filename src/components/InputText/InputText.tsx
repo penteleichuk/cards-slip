@@ -52,7 +52,7 @@ export const InputText = React.memo((
     const initType = eye && eyeStatus ? 'text' : type;
 
     return (
-        <div className={`form__group field${error ? ' form__error' : ''}`}>
+        <span className={`form__group field${error ? ' form__error' : ''}`}>
             <input className={`form__field`}
                    placeholder={placeholder}
                    name={name}
@@ -67,6 +67,6 @@ export const InputText = React.memo((
             {eye &&
                 <span className={'form__eye'}><img onClick={eyeHandler} src={eyeStatus ? EyeIconOff : EyeIconOn} alt=""/></span>
             }
-        </div>
+        </span>
     )
 });
