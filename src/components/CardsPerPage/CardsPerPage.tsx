@@ -15,14 +15,15 @@ export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,}: CardsPerP
     const changePageCount = () => {
         dispatch(setCardPerPageAC(total))
     }
-    const changeTotalHandler = (value:string) => {
-      setTotal(JSON.parse(value))
+    const changeTotalHandler = (value: string) => {
+        setTotal(JSON.parse(value))
     }
     return (
         <span>
             <span>Show</span>
-            <InputText value={total} onChangeText={changeTotalHandler} onEnter={changePageCount} style={{width:'30px', textAlign:'center'}}/>
-            <span>cards per Page</span>
+            <InputText value={total} onChangeText={changeTotalHandler} onEnter={changePageCount}
+                       style={{width: '30px', textAlign: 'center'}}/>
+            <span>cards per page</span>
         </span>
     );
 };

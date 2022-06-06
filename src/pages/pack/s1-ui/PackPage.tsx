@@ -12,6 +12,7 @@ import {setCurrentPageAC} from "../s2-bll/PackActions";
 import {CardsPerPage} from "../../../components/CardsPerPage/CardsPerPage";
 import {RequestStatusType} from "../../app/s2-bll/AppReducer";
 import {LoadingPage} from "../../../components/_Pages/Loading/LoadingPage";
+import {PacksContainer} from "./packsContainer/PacksContainer";
 
 export const PackPage = React.memo(() => {
     const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
@@ -37,31 +38,9 @@ export const PackPage = React.memo(() => {
 
     return (
         <section className="content forgot">
-            <div>Pack Page</div>
             {status === 'loading' ?
                 <LoadingPage/> :
-                <div className="content loading-page">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Cards Count</th>
-                            <th>Created</th>
-                            <th>Update</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {packCards.map(c =>
-                            <tr key={c._id}>
-                                <td>{c.name}</td>
-                                <td>{c.cardsCount}</td>
-                                <td>{JSON.stringify(c.created)}</td>
-                                <td>{JSON.stringify(c.updated)}</td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </div>
+                <PacksContainer packCards={packCards}/>
             }
             <div>
                 <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages}
