@@ -61,8 +61,8 @@ export const LoginPage = (): JSX.Element => {
                             <InputText disabled={status === 'loading'} name={'Email'} type={'email'}
                                        placeholder={'Email'}
                                        onChangeText={onChangeTextEmailHandler}/>
-                            <InputText disabled={status === 'loading'} name="password" placeholder="Password"
-                                       onChangeText={onChangeTextPasswordHandler}/>
+                            <InputText disabled={status === 'loading'} name="password" type='password' placeholder="Password"
+                                       onChangeText={onChangeTextPasswordHandler} eye={true}/>
                         </div>
                         <Checkbox disabled={status === 'loading'} onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
                         <div style={{textAlign: 'center', color: '#F56793'}}>

@@ -26,11 +26,11 @@ export const PaginatedPage: React.FC<PaginatedPageType> = ({totalCards, countPag
     }
 
     return (
-        <div>
+        <span>
             <button onClick={clickHandlerMin} disabled={startPages <= 1}>⟪⟪⟪</button>
             <button>{pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)} style={currentPage === p ? {fontSize:'medium'}: {}}>
                 {p} </span>)}</button>
             <button onClick={clickHandlerPlus} disabled={endPages > totalPages}>⟫⟫⟫</button>
-        </div>
+        </span>
     );
 };
