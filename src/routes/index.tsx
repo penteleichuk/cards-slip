@@ -9,6 +9,7 @@ import {
     RegisterPage,
     SetPasswordPage
 } from "./../pages/pages";
+import {CardPage} from "../pages/card/s1-ui/CardPage";
 
 type RouteType = {
     name: string
@@ -23,6 +24,12 @@ export const routes: Array<RouteType> = [
         public: true,
         path: RouteNames.HOME,
         component: <PackPage/>,
+    },
+    {
+        name: 'CardS',
+        public: true,
+        path: RouteNames.CARDS,
+        component: <CardPage/>,
     },
     {
         name: 'Example',

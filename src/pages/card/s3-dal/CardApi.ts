@@ -20,7 +20,7 @@ export const CardApi = {
     }
 };
 
-type GetCardRequestType = {
+export type GetCardRequestType = {
     cardAnswer?: string     // english - default value
     cardQuestion?: string   // english - default value
     cardsPack_id?: string
@@ -31,17 +31,17 @@ type GetCardRequestType = {
     pageCount?: number
 }
 
-type GetCardResponseType = {
+export type GetCardResponseType = {
     cards: CardType[]
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
     page: number
     pageCount: number
-    packUserId: string
+    packUserId: string | null
 }
 
-type CardType = {
+export type CardType = {
     answer?: string
     question?: string
     cardsPack_id?: string
@@ -53,7 +53,7 @@ type CardType = {
     _id?: string
 }
 
-type AddCardRequestType = {
+export type AddCardRequestType = {
     cardsPack_id: string
     question: string        // если не отправить будет таким - "no question"
     answer: string          // если не отправить будет таким - "no answer"
