@@ -28,13 +28,14 @@ export const PackPage = React.memo(() => {
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
-    const changeCardPerPageHandler = (value:number)=>{
+    const changeCardPerPageHandler = (value: number) => {
         dispatch(setCardPerPageAC(value))
     }
 
     useEffect(() => {
         dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
     }, [currentPage, paramsCards.pageCount])
+
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }

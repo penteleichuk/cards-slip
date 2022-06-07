@@ -10,10 +10,11 @@ export const initializedApp = (): AppThunk => async dispatch => {
         const res = await profileApi.profileMe();
         dispatch(profileMeAC(res.data))
         dispatch(setLoggedInAC(true));
-        dispatch(setAppIsInitializedAC(true));
+
     } catch (error) {
         console.log(error)
     }finally {
+        dispatch(setAppIsInitializedAC(true));
         dispatch(setAppStatusAC('succeeded'));
     }
 }
