@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+import './Pagination.css';
 
 type PaginatedPageType = {
     totalCards: number,
@@ -8,29 +9,31 @@ type PaginatedPageType = {
 }
 
 export const PaginatedPage: React.FC<PaginatedPageType> = ({totalCards, countPages, onPageChanged, currentPage}) => {
-    const [startPages, setSmallPages] = useState(1)
-    const [endPages, setEndPages] = useState(20)
     const totalPages = Math.ceil(totalCards / countPages)
 
     let pages = [];
-    for (let i = startPages; i <= endPages; i++) {
-        pages.push(i)
-    }
-    const clickHandlerPlus = () => {
-        setSmallPages(startPages + 20)
-        setEndPages(endPages + 20)
-    }
-    const clickHandlerMin = () => {
-        setSmallPages(startPages - 20)
-        setEndPages(endPages - 20)
+    if (totalPages > 10) {
+        if (currentPage > 5) {
+            for (let i = currentPage - 4; i <= currentPage + 5; i++) {
+                pages.push(i)
+                if (i == totalPages) break
+            }
+        } else {
+            for (let i = 1; i <= 10; i++) {
+                pages.push(i)
+                if (i == totalPages) break
+            }
+        }
+    } else {
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(i)
+        }
     }
 
     return (
-        <span>
-            <button onClick={clickHandlerMin} disabled={startPages <= 1}>⟪⟪⟪</button>
-            <button>{pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)} style={currentPage === p ? {fontSize:'medium'}: {}}>
-                {p} </span>)}</button>
-            <button onClick={clickHandlerPlus} disabled={endPages > totalPages}>⟫⟫⟫</button>
+        <span className="pages">
+            {pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)}
+                                         className={currentPage === p ? 'currentPage' : 'page'}>{p}</span>)}
         </span>
-    );
+    )
 };
