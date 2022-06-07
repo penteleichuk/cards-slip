@@ -27,7 +27,7 @@ export type GetPackRequestType = {
     max?: number
     sortPacks?: string  // 0updated - default value
     page?: number
-    pageCount?: number
+    pageCount: number
     user_id?: string
 }
 

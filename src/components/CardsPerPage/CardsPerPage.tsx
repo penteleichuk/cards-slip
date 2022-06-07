@@ -1,29 +1,28 @@
-import React, {useState} from 'react';
-import {InputText} from "../InputText/InputText";
-import {useDispatch} from "react-redux";
-import {setCardPerPageAC} from "../../pages/pack/s2-bll/PackActions";
-
+import React, {ChangeEvent, useState} from 'react';
 
 type CardsPerPageType = {
-    pageCount: number | undefined
+    pageCount: number
+    callBack: (e:number)=>void
 }
 
-export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,}: CardsPerPageType) => {
-    const [total, setTotal] = useState<number>(40)
+export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,callBack}: CardsPerPageType) => {
+    const [total, setTotal] = useState<number>(pageCount)
 
-    const dispatch = useDispatch()
-    const changePageCount = () => {
-        dispatch(setCardPerPageAC(total))
+    const changeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+        setTotal(JSON.parse(e.currentTarget.value))
+        callBack(JSON.parse(e.currentTarget.value))
     }
-    const changeTotalHandler = (value: string) => {
-        setTotal(JSON.parse(value))
-    }
+
     return (
-        <span>
+        <section>
             <span>Show</span>
-            <InputText value={total} onChangeText={changeTotalHandler} onEnter={changePageCount}
-                       style={{width: '30px', textAlign: 'center'}}/>
+            <select multiple={false} value={total} onChange={changeSelect}>
+                <option value={'10'}>10</option>
+                <option value={'20'}>20</option>
+                <option value={'30'}>30</option>
+                <option value={'40'}>40</option>
+            </select>
             <span>cards per page</span>
-        </span>
+        </section>
     );
 };

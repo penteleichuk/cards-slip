@@ -8,7 +8,7 @@ import React, {useEffect} from "react";
 import {Navigate} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {PaginatedPage} from "../../../components/Paginated/PaginatedPage";
-import {setCurrentPageAC} from "../s2-bll/PackActions";
+import {setCardPerPageAC, setCurrentPageAC} from "../s2-bll/PackActions";
 import {CardsPerPage} from "../../../components/CardsPerPage/CardsPerPage";
 import {RequestStatusType} from "../../app/s2-bll/AppReducer";
 import {LoadingPage} from "../../../components/_Pages/Loading/LoadingPage";
@@ -28,6 +28,9 @@ export const PackPage = React.memo(() => {
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
+    const changeCardPerPageHandler = (value:number)=>{
+        dispatch(setCardPerPageAC(value))
+    }
 
     useEffect(() => {
         dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
@@ -45,7 +48,8 @@ export const PackPage = React.memo(() => {
             <div>
                 <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages}
                                currentPage={currentPage}/>
-                <CardsPerPage pageCount={paramsCards.pageCount}/>
+                <CardsPerPage pageCount={paramsCards.pageCount} callBack={changeCardPerPageHandler}/>
+
             </div>
         </section>
     )
