@@ -14,7 +14,7 @@ export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,callBack}: C
     }
 
     return (
-        <section>
+        <span>
             <span>Show</span>
             <select multiple={false} value={total} onChange={changeSelect}>
                 <option value={'10'}>10</option>
@@ -23,6 +23,6 @@ export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,callBack}: C
                 <option value={'40'}>40</option>
             </select>
             <span>cards per page</span>
-        </section>
+        </span>
     );
 };
