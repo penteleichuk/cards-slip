@@ -1,12 +1,23 @@
-import {GetPacksResponse} from "../s3-dal/PackApi";
+import {CardPacksType} from "../s3-dal/PackApi";
 
-export type PackStateType = GetPacksResponse;
+export type PackInitStateType = {
+    cardPacks: CardPacksType[],
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    sortType: string
+    sortCode: string
+}
 
-export const PackInitState: PackStateType = {
+export const PackInitState: PackInitStateType = {
     cardPacks: [],
     cardPacksTotalCount: 10,
     maxCardsCount: 10,
     minCardsCount: 0,
     page: 1,
-    pageCount: 40
+    pageCount: 40,
+    sortType: '',
+    sortCode: ''
 }

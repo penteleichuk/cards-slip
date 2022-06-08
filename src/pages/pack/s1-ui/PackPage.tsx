@@ -1,5 +1,5 @@
 import './PackPage.scss';
-import {getPacksTC} from "../s2-bll/PackThunks";
+import {getPacksTC, setCardsSortTC} from "../s2-bll/PackThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionType, AppStoreType} from "../../app/s2-bll/store";
 import {ThunkDispatch} from "redux-thunk";
@@ -18,7 +18,18 @@ export const PackPage = React.memo(() => {
     const countPages = useSelector<AppStoreType, number>(state => state.pack.pageCount)
     const packCards = useSelector<AppStoreType, CardPacksType[]>(state => state.pack.cardPacks)
     const dispatch: ThunkDispatch<AppStoreType, GetPackRequestType, ActionType> = useDispatch()
+    const tableFieldNames = [
+        {id: 1, title: 'Name', name: 'name'},
+        {id: 2, title: 'Cords count', name: 'cardsCount'},
+        {id: 3, title: 'Created', name: 'created'},
+        {id: 4, title: 'Updated', name: 'updated'}
+    ]
 
+    const sort = (e: React.MouseEvent<HTMLElement>) => {
+        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+        const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
+        (type != '' && code != '') && dispatch(setCardsSortTC( { code, type }))
+     }
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
@@ -32,15 +43,22 @@ export const PackPage = React.memo(() => {
     }
 
     return (
-        <section className="content forgot">
+        <section className="content forgot" style={{marginTop: '50px'}}>
             <div>Pack Page</div>
             <table>
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Cards Count</th>
-                    <th>Created</th>
-                    <th>Update</th>
+                    {
+                        tableFieldNames.map(el => <th key={el.id}>
+                            <div className="names__container">
+                                <span>{el.title}</span>
+                                <div>
+                                    <div data-t={el.name} data-c="0" onClick={sort}>▲</div>
+                                    <div data-t={el.name} data-c="1" onClick={sort}>▼</div>
+                                </div>
+                            </div>
+                        </th>)
+                    }
                 </tr>
                 </thead>
                 <tbody>
