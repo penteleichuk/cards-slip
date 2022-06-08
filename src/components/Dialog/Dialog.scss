@@ -11,7 +11,7 @@
     min-height: prc(450, 350);
     height: 100%;
     border-radius: $appBorderRadiusPrimary;
-    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+    box-shadow: $primaryShadow;
     overflow: hidden;
     position: relative;
 
@@ -20,7 +20,7 @@
       position: absolute;
       width: 100%;
       height: 50%;
-      background: #639EFF;
+      background: $primaryColor;
       z-index: 0;
     }
 
@@ -37,7 +37,7 @@
 
   &__present {
     flex: 0 0 50%;
-    background: linear-gradient(to bottom right, #80C9FF, #4774FF) no-repeat;
+    background: linear-gradient(to bottom right, #80C9FF, $secondaryColor) no-repeat;
     border-radius: 0 0 40px 0;
     position: relative;
     z-index: 10;

@@ -1,0 +1,38 @@
+@import "./src/styles/vars";
+
+.tack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: $bgButton;
+  border-radius: $handlerBorderRadius;
+  box-shadow: $handlerBoxShadow;
+  transition: background-color .5s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+
+  &__title {
+    font-size: .8rem;
+    margin-right: 20px;
+    color: #fff;
+  }
+
+  &:hover {
+    transition: background-color .5s;
+    background-color: $bgButtonHover;
+  }
+
+  &__img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+  }
+}
+
+.tack.active {
+    background-color: $bgButtonActive;
+}

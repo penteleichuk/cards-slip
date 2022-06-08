@@ -1,0 +1,59 @@
+@import "./src/styles/vars";
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+  transition: background-color .5s;
+  border-radius: 9px;
+  background: unset;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: 100%;
+
+  &__body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    text-align: left;
+    flex: 1 1 60%;
+    color: $bgButton;
+    font-size: .9rem;
+  }
+
+  &:hover {
+    transition: background-color .5s;
+    background-color: $bgButtonHover;
+  }
+
+  &__img {
+    flex: 1 1 40%;
+    width: 15px;
+    height: 15px;
+    padding-left: 10px;
+    padding-right: 25px;
+    filter: invert(43%) sepia(15%) saturate(1624%) hue-rotate(188deg) brightness(93%) contrast(93%);
+  }
+}
+
+.nav-button:hover .nav-button__title, .nav-button.active .nav-button__title{
+  color: #fff;
+}
+
+.nav-button:hover .nav-button__img, .nav-button.active .nav-button__img {
+  filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(224deg) brightness(110%) contrast(101%);
+}
+
+.nav-button.active {
+  background-color: $bgButtonActive;
+  border-radius: $handlerBorderRadius;
+  //box-shadow: $handlerBoxShadow;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}

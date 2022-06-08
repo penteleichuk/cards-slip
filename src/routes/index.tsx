@@ -7,7 +7,7 @@ import {
     NotFoundPage,
     ProfilePage,
     RegisterPage,
-    SetPasswordPage
+    SetPasswordPage, PackPageExample
 } from "./../pages/pages";
 import {CardPage} from "../pages/card/s1-ui/CardPage";
 
@@ -30,6 +30,12 @@ export const routes: Array<RouteType> = [
         public: true,
         path: RouteNames.CARDS,
         component: <CardPage/>,
+    },
+    {
+        name: 'Pack example',
+        public: true,
+        path: RouteNames.PACK_EXAMPLE,
+        component: <PackPageExample/>,
     },
     {
         name: 'Example',

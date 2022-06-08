@@ -1,0 +1,67 @@
+@import "./src/styles/vars";
+
+.range {
+  display: flex;
+  padding: 10px 5px 0 5px;
+  position: relative;
+  justify-content: center;
+
+  &__body {
+    position: absolute;
+    display: flex;
+    top: -20px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  &__count {
+    flex: 0 1 27px;
+    font-size: .9rem;
+    text-align: center;
+    background: #d3dfe9;
+    border-radius: 4px;
+    padding: 3px;
+    color: #8282c9;
+  }
+
+  &__title {
+    font-size: .8rem;
+    color: #55616f;
+  }
+}
+
+.rc-slider {
+  width: 95%;
+}
+
+.rc-slider-track {
+  background-color: $bgButton;
+}
+
+.rc-slider-handle {
+  width: 17px;
+  height: 17px;
+  margin-top: -7px;
+  border: solid 2px $bgButton;
+  background-color: $bgButtonActive;
+}
+
+.rc-slider-handle:hover {
+  border-color: $bgButtonActive;
+}
+
+.rc-slider-handle:active {
+  border-color: $bgButtonActive;
+  box-shadow: 0 0 5px $bgButtonActive;
+}
+
+.rc-slider-handle-click-focused:focus {
+  border-color: $bgButtonActive;
+}
+
+.rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border-color: $bgButtonActive;
+  box-shadow: 0 0 5px $bgButtonActive;
+}
