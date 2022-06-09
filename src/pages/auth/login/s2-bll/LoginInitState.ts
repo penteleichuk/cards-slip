@@ -1,5 +1,10 @@
-export type LoginStateType = typeof LoginInitState;
 
-export const LoginInitState = {
-    isLoggedIn: false
+export type LoginStateType = {
+    _id: string
+    isLoggedIn: boolean
+};
+
+export const LoginInitState: LoginStateType = {
+    _id: "",
+    isLoggedIn: false,
 };

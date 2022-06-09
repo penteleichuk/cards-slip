@@ -1,0 +1,65 @@
+@import "../../../styles/vars";
+
+.profile {
+  &__image {
+    img {
+      width: 50px;
+      border: 2px solid #fff;
+      border-radius: 100%;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    max-width: 180px;
+  }
+
+  &__body {
+    margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__name {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+    font-size: .9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__email {
+    font-size: .9rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    border: none;
+    padding: 10px 15px;
+    width: 100%;
+    border-radius: 9px;
+    margin-top: 15px;
+    background-color: $bgButton;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .5s;
+
+    &:hover {
+      background-color: $bgButtonHover;
+      transition: background-color .5s;
+    }
+  }
+}
+
+.profile .dashboard__indent {
+  padding-top: 0;
+}

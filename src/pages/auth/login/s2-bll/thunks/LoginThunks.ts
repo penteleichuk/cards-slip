@@ -9,13 +9,12 @@ import {initializedApp} from "../../../../app/s2-bll/thunks";
 export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-        await loginApi.login(data)
-        dispatch(setAppStatusAC('succeeded'))
-        dispatch(setLoggedInAC(true))
+        const res = await loginApi.login(data)
         dispatch(initializedApp())
+        dispatch(setAppStatusAC('succeeded'))
     } catch (err) {
         dispatch(setAppStatusAC('succeeded'))
-        if(axios.isAxiosError(err) && err.response) {
+        if (axios.isAxiosError(err) && err.response) {
             dispatch(setAppErrorAC((err.response?.data as InitialStateType).error))
         }
     }
@@ -26,10 +25,10 @@ export const logoutTC = (): AppThunk => async dispatch => {
     try {
         await loginApi.logout()
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setLoggedInAC(false))
+        dispatch(setLoggedInAC({_id: "", isLoggedIn: true}))
     } catch (err) {
         dispatch(setAppStatusAC('succeeded'))
-        if(axios.isAxiosError(err) && err.response) {
+        if (axios.isAxiosError(err) && err.response) {
             dispatch(setAppErrorAC((err.response?.data as InitialStateType).error))
         }
     }

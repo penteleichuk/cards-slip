@@ -1,0 +1,25 @@
+.logo {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    width: 35px;
+  }
+
+  &__title {
+    text-align: center;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    text-transform: uppercase;
+  }
+}

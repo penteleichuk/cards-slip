@@ -137,6 +137,16 @@ input:-webkit-autofill {
   color: #999 !important; /* цвет текста */
 }
 
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 ////
 @import "./src/styles/mixins";
 @import "./src/styles/vars";
