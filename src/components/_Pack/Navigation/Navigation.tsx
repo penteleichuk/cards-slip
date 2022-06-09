@@ -84,7 +84,7 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
                           location.pathname === RouteNames.CARDS
                       }
                 />
-                <Tack iconSrc={createIcon}/>
+                <Tack iconSrc={createIcon} onClick={()=>alert('add pack')}/>
             </div>
         </div>
     </div>

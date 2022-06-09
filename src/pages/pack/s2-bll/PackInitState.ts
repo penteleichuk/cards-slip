@@ -34,7 +34,7 @@ export const PackInitState: PackInitStateType = {
     minCardsCount: 0,
     maxCardsCount: 500,
     page: 1,
-    pageCount: 40,
+    pageCount: 6,
     sortType: '',
     sortCode: '',
     isInit: 'idle',

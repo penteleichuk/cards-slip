@@ -5,10 +5,11 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setCardPerPageAC, setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './Packs.scss';
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 
 export const Packs = React.memo(() => {
 
@@ -19,6 +20,7 @@ export const Packs = React.memo(() => {
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
+
 
     return <>
         {isFetch === 'loading' ?
@@ -39,6 +41,7 @@ export const Packs = React.memo(() => {
                                countPages={pageCount}
                                currentPage={page}
                 />
+
             </>
         }
     </>

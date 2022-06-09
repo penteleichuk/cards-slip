@@ -7,8 +7,12 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {Range} from "../../Range/Range";
+import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
+import {setCardPerPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {useAppDispatch} from "../../../hooks/useAppDispatch";
 
 type FiltersType = {
+    pageCount?: number
     isCards: string | null
     user_id?: string | undefined
     value: number[]
@@ -17,9 +21,12 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({pageCount,isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
-
+    const dispatch = useAppDispatch();
+    const changeCardPerPageHandler = (value: number) => {
+        dispatch(setCardPerPageAC(value))
+    }
     return <div className="filters">
         {isFetch === 'loading' ?
             <SkeletonFilters/> :
@@ -40,6 +47,7 @@ export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsC
                     <NavButton title="Last updated" iconSvg={timeSvg}/>
                     <NavButton title="Created by" iconSvg={updateSvg}/>
                 </div>
+                <CardsPerPage pageCount={pageCount} callBack={changeCardPerPageHandler}/>
             </>
         }
     </div>

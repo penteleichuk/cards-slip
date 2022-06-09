@@ -19,13 +19,13 @@ type PackPropsType = {
 }
 
 export const Pack = React.memo(({author, description, packs, date, author_id, id}: PackPropsType) => {
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const packId: string = e.currentTarget.dataset.pack || '';
-        //dispatch(fetchCards({cardsPack_id: packId}));
+        dispatch(fetchCards({cardsPack_id: packId}));
         return navigate(`/profile?id=${packId}`);
     }
 

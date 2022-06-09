@@ -25,7 +25,7 @@ export const logoutTC = (): AppThunk => async dispatch => {
     try {
         await loginApi.logout()
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setLoggedInAC({_id: "", isLoggedIn: true}))
+        dispatch(setLoggedInAC({_id: "", isLoggedIn: false}))
     } catch (err) {
         dispatch(setAppStatusAC('succeeded'))
         if (axios.isAxiosError(err) && err.response) {

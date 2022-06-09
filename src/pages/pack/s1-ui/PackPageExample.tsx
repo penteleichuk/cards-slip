@@ -17,14 +17,12 @@ export const PackPageExample = React.memo(() => {
 
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
-    const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
-    const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
-    const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
+    const {minCardsCount, maxCardsCount, pageCount, page} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {
-        dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
-    }, [currentPage, dispatch, paramsCards.pageCount]);
+        dispatch(getPacksTC({page: page, pageCount: pageCount}))
+    }, [page, dispatch, pageCount]);
 
 
     if (!isAuth) {
@@ -49,6 +47,7 @@ export const PackPageExample = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
+                                            pageCount ={pageCount}
                                             isCards={isCards}
                                             value={rangeValue}
                                             setValue={setRangeValue}

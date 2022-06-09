@@ -14,15 +14,15 @@ export const CardsPerPage = ({pageCount,callBack}: CardsPerPageType) => {
     }
 
     return (
-        <span>
-            <span>Show</span>
+        <div className="selector">
+            <span>Show </span>
             <select multiple={false} value={total} onChange={changeSelect}>
-                <option value={'10'}>10</option>
-                <option value={'20'}>20</option>
-                <option value={'30'}>30</option>
-                <option value={'40'}>40</option>
+                <option value={'6'}>6</option>
+                <option value={'9'}>9</option>
+                <option value={'12'}>12</option>
+                <option value={'15'}>15</option>
             </select>
-            <span>cards per page</span>
-        </span>
+            <span> cards per page</span>
+        </div>
     );
 };
