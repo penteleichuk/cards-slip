@@ -1,7 +1,5 @@
 import {RouteNames} from "../constants/routes";
 import {
-    ExamplePage,
-    PackPage,
     ForgotPage,
     LoginPage,
     NotFoundPage,
@@ -20,28 +18,22 @@ type RouteType = {
 
 export const routes: Array<RouteType> = [
     {
-        name: 'Pack',
-        public: true,
-        path: RouteNames.HOME,
-        component: <PackPage/>,
-    },
-    {
-        name: 'CardS',
+        name: 'Card',
         public: true,
         path: RouteNames.CARDS,
         component: <CardPage/>,
     },
     {
-        name: 'Pack example',
+        name: 'Card',
         public: true,
-        path: RouteNames.PACK_EXAMPLE,
-        component: <PackPageExample/>,
+        path: RouteNames.CARDS_ARG,
+        component: <CardPage/>,
     },
     {
-        name: 'Example',
-        public: false,
-        path: RouteNames.EXAMPLE,
-        component: <ExamplePage/>,
+        name: 'Pack example',
+        public: true,
+        path: RouteNames.PACK,
+        component: <PackPageExample/>,
     },
     {
         name: 'Profile',

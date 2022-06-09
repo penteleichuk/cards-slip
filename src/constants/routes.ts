@@ -1,8 +1,7 @@
 export enum RouteNames {
-    HOME = '/',
     CARDS = '/cards',
-    PACK_EXAMPLE = '/packexample',
-    EXAMPLE = '/example',
+    CARDS_ARG = '/cards/:id',
+    PACK = '/pack',
     PROFILE = '/profile/',
     PROFILE_ARG = '/profile/:id',
     LOGIN = '/login',

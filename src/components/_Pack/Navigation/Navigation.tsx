@@ -33,12 +33,20 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
         return navigate(RouteNames.PROFILE);
     }
 
+    const goToProfile = () => {
+        return navigate(RouteNames.PROFILE);
+    }
+
+    const goToMain = () => {
+        return navigate(RouteNames.PACK);
+    }
+
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
-        if(search !== null) {
-            if(packId) {
+        if (search !== null) {
+            if (packId) {
                 dispatch(fetchCards({cardsPack_id: packId, cardAnswer: search}));
-            } else if(location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
+            } else if (location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
                 dispatch(getPacksTC({user_id: user_id, packName: search}));
             } else {
                 dispatch(getPacksTC({packName: search}));
@@ -60,8 +68,22 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
                 />
             </div>
             <div className="header__inputs">
-                <Tack title="Profile" active={true} iconSrc={userIcon}/>
-                <Tack title="Pack lists" iconSrc={cardsIcon}/>
+                <Tack onClick={goToProfile}
+                      title="Profile"
+                      active={
+                          location.pathname === RouteNames.PROFILE ||
+                          location.pathname === RouteNames.PROFILE_ARG}
+                      iconSrc={userIcon}
+                />
+                <Tack onClick={goToMain}
+                      title="Pack lists"
+                      iconSrc={cardsIcon}
+                      active={
+                          location.pathname === RouteNames.PACK ||
+                          location.pathname === RouteNames.CARDS_ARG ||
+                          location.pathname === RouteNames.CARDS
+                      }
+                />
                 <Tack iconSrc={createIcon}/>
             </div>
         </div>
