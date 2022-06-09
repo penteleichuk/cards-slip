@@ -22,7 +22,7 @@ export const PackPageExample = React.memo(() => {
 
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
-    }, [page, dispatch, pageCount]);
+    }, [page, dispatch, pageCount, ]);
 
 
     if (!isAuth) {

@@ -5,7 +5,7 @@ type EditableSpanPropsType = {
     onChange: (newValue: string) => void
 }
 
-export const EditableSpan:React.FC<EditableSpanPropsType> = React.memo(({value, onChange})=> {
+export const EditableSpan = React.memo(({value, onChange}:EditableSpanPropsType)=> {
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(value);
 
