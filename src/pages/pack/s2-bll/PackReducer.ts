@@ -11,6 +11,11 @@ export const packReducer = (state:PackStateType = PackInitState, action: PackAct
             return {...state, page: action.currenPage}
         case "SET-CARDS-PER-PAGE":
             return {...state, pageCount: action.totalCards}
+        case 'SET-CARDS-SORT':
+            return {...state, cardPacks: action.cardPacks}
+        case 'SET-SORT-PARAMS': {
+            return {...state, sortCode: action.sortCode, sortType: action.sortType}
+        }
         default: {
             return state;
         }
