@@ -9,6 +9,7 @@ import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {Range} from "../../Range/Range";
 
 type FiltersType = {
+    isCards: string | null
     user_id?: string | undefined
     value: number[]
     setValue: (value: number[]) => void
@@ -16,20 +17,23 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-export const Filters = React.memo(({user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
 
     return <div className="filters">
         {isFetch === 'loading' ?
             <SkeletonFilters/> :
             <>
+                {!isCards &&
                 <Range step={1}
                        user_id={user_id}
                        value={value}
                        setValue={setValue}
                        minCardsCount={minCardsCount}
                        maxCardsCount={maxCardsCount}
-                       title={"Number of cards"}/>
+                       title={"Number of cards"}
+                />}
+
                 <div className="filters__buttons">
                     <NavButton title="Name" iconSvg={TextSvg}/>
                     <NavButton title="Count card" iconSvg={cardsSvg}/>

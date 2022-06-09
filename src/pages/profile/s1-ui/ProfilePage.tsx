@@ -3,13 +3,14 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {getPacksTC} from "../../pack/s2-bll/PackThunks";
-import {Navigate} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 import {Filters} from "../../../components/_Pack/Filters/Filters";
 import {Packs} from "../../../components/_Pack/Packs/Packs";
 import {PackStateType} from "../../pack/s2-bll/PackInitState";
+import {Cards} from "../../../components/components";
 
 // const logoutHandler = () => {
 //     dispatch(logoutTC());
@@ -20,6 +21,8 @@ import {PackStateType} from "../../pack/s2-bll/PackInitState";
 
 export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
+    const [urlParams] = useSearchParams();
+    const isCards = urlParams.get('id');
 
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
@@ -27,10 +30,11 @@ export const ProfilePage = React.memo(() => {
 
     // filter
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
-    // const [searchValue, setSearchValue] = useState<string | undefined>();
 
     useEffect(() => {
-        dispatch(getPacksTC({user_id: user_id}));
+        if (!isCards) {
+            dispatch(getPacksTC({user_id: user_id}));
+        }
     }, [])
 
     if (!isAuth) {
@@ -48,13 +52,14 @@ export const ProfilePage = React.memo(() => {
                                     <Logo/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation/>
+                                    <Navigation user_id={user_id}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
+                                            isCards={isCards}
                                             user_id={user_id}
                                             value={rangeValue}
                                             setValue={setRangeValue}
@@ -64,7 +69,7 @@ export const ProfilePage = React.memo(() => {
                                 </div>
                                 <div className="dashboard__page">
                                     <div className="dashboard__indent dashboard__pack">
-                                        <Packs/>
+                                        {!isCards ? <Packs/> : <Cards/>}
                                     </div>
                                 </div>
                             </div>

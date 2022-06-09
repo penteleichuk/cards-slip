@@ -68,6 +68,10 @@
     justify-content: space-between;
   }
 
+  &__search {
+    display: flex;
+  }
+
   &__sidebar {
     display: flex;
     flex: 0 0 $sizeSidebar;
@@ -95,8 +99,6 @@
 .filters {
 
   &__buttons {
-    margin-top: 30px;
-
     button {
       margin-bottom: 20px;
     }
@@ -108,7 +110,7 @@
   justify-content: center;
   position: absolute;
   width: 100%;
-  bottom: 10px;
+  bottom: 3px;
   left: 0;
 
   &__body {

@@ -19,7 +19,6 @@ export const PackPage = React.memo(() => {
     const packCards = useSelector<AppStoreType, CardPacksType[]>(state => state.pack.cardPacks)
     const dispatch: ThunkDispatch<AppStoreType, GetPackRequestType, ActionType> = useDispatch()
 
-
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }

@@ -50,6 +50,12 @@ export const routes: Array<RouteType> = [
         component: <ProfilePage/>,
     },
     {
+        name: 'Profile',
+        public: true,
+        path: RouteNames.PROFILE_ARG,
+        component: <ProfilePage/>,
+    },
+    {
         name: 'Login',
         public: true,
         path: RouteNames.LOGIN,

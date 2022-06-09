@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './Navigation.scss';
 import {
+    backSvg,
     cardsIcon,
     clearIcon, createIcon,
     searchIcon,
@@ -9,16 +10,26 @@ import {
 import {Input} from "../../Input/Input";
 import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {RouteNames} from "../../../constants/routes";
 
-export const Navigation = React.memo(() => {
+type NavigationType = {
+    user_id: string | undefined
+}
+
+export const Navigation = React.memo(({user_id}: NavigationType) => {
     const dispatch = useAppDispatch();
+    const [urlParams] = useSearchParams();
+    const navigate = useNavigate();
+    const packId = urlParams.get('id');
 
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const [search, setSearch] = useState<string | null>(null);
+
+    const goBackHandler = () => {
+        return navigate(RouteNames.PROFILE);
+    }
 
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
@@ -28,10 +39,10 @@ export const Navigation = React.memo(() => {
         }
     }, [searchDebounce]);
 
-
     return <div className="dashboard__indent">
         <div className="header__content">
             <div className="header__search">
+                {packId && <Tack onClick={goBackHandler} iconSvg={true} iconSrc={backSvg}/>}
                 <Input type={'text'}
                        iconBefore={searchIcon}
                        iconAfter={clearIcon}

@@ -16,6 +16,7 @@ import updateSvg from './update.svg';
 import viewSvg from './view.svg';
 import editSvg from './edit.svg';
 import removeSvg from './remove.svg';
+import backSvg from './back.svg';
 
 export {
     searchIcon,
@@ -35,5 +36,6 @@ export {
     updateSvg,
     viewSvg,
     editSvg,
-    removeSvg
+    removeSvg,
+    backSvg,
 };

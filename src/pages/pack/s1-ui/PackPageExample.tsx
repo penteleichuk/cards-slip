@@ -10,6 +10,7 @@ import './PackPage.scss';
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 
 export const PackPageExample = React.memo(() => {
+    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
@@ -35,7 +36,7 @@ export const PackPageExample = React.memo(() => {
                                     <Logo/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation/>
+                                    <Navigation user_id={user_id}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">

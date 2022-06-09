@@ -31,6 +31,13 @@
     height: 20px;
     object-fit: cover;
   }
+
+  &__svg {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    filter: invert(100%) sepia(76%) saturate(1074%) hue-rotate(167deg) brightness(108%) contrast(106%);
+  }
 }
 
 .tack.active {
