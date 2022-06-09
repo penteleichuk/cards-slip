@@ -22,9 +22,12 @@ export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
 
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
+    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackStateType>(state => state.pack);
-    const user_id = useSelector<AppStoreType, string>(state => state.login._id);
+
+    // filter
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
+    // const [searchValue, setSearchValue] = useState<string | undefined>();
 
     useEffect(() => {
         dispatch(getPacksTC({user_id: user_id}));
