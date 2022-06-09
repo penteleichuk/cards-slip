@@ -9,7 +9,7 @@ import {initializedApp} from "../../../../app/s2-bll/thunks";
 export const loginTC = (data: LoginParamsType): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await loginApi.login(data)
+         await loginApi.login(data)
         dispatch(initializedApp())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err) {

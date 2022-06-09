@@ -30,10 +30,15 @@ export const PaginatedPage = ({totalCards, countPages, onPageChanged, currentPag
     }
 
     return (
-        <span className="pages">
-            {pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)}
-                                         className={currentPage === p ? 'currentPage' : 'page'}>{p}</span>)}
-        </span>
+        <div className="pagination">
+            <div className="dashboard__indent">
+                <div className="pagination__body">
+                    {pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)}
+                                                 className={`pagination__item${currentPage === p ? ' active' : ''}`}>
+                            {p}</span>)}
+                </div>
+            </div>
+        </div>
         // <div className="pagination">
         //     <div className="dashboard__indent">
         //         <div className="pagination__body">
@@ -50,6 +55,6 @@ export const PaginatedPage = ({totalCards, countPages, onPageChanged, currentPag
         //         </div>
         //     </div>
         // </div>
-    // );
+        // );
     )
 };

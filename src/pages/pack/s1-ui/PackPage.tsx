@@ -68,7 +68,7 @@ export const PackPage = React.memo(() => {
             <div>
                 <PaginatedPage onPageChanged={clickPageHandler} totalCards={totalPacksCards} countPages={countPages}
                                currentPage={currentPage}/>
-                <CardsPerPage pageCount={paramsCards.pageCount} callBack={changeCardPerPageHandler}/>
+                {/*<CardsPerPage pageCount={paramsCards.pageCount} callBack={changeCardPerPageHandler}/>*/}
 
             </div>
         </section>
