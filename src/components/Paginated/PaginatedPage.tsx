@@ -1,5 +1,4 @@
 import React from 'react';
-import './Pagination.css';
 
 type PaginatedPageType = {
     totalCards: number,
@@ -8,7 +7,7 @@ type PaginatedPageType = {
     currentPage: number,
 }
 
-export const PaginatedPage: React.FC<PaginatedPageType> = ({totalCards, countPages, onPageChanged, currentPage}) => {
+export const PaginatedPage = ({totalCards, countPages, onPageChanged, currentPage}: PaginatedPageType) => {
     const totalPages = Math.ceil(totalCards / countPages)
 
     let pages = [];
@@ -35,5 +34,22 @@ export const PaginatedPage: React.FC<PaginatedPageType> = ({totalCards, countPag
             {pages.map((p, key) => <span key={key} onClick={() => onPageChanged(p)}
                                          className={currentPage === p ? 'currentPage' : 'page'}>{p}</span>)}
         </span>
+        // <div className="pagination">
+        //     <div className="dashboard__indent">
+        //         <div className="pagination__body">
+        //             <button className="pagination__nav" onClick={clickHandlerMin} disabled={startPages <= 1}>⟪⟪⟪
+        //             </button>
+        //             {pages.map((p, key) =>
+        //                 <button key={key}
+        //                         className={`pagination__item${currentPage === p ? ' active' : ''}`}
+        //                         onClick={() => onPageChanged(p)}> {p}
+        //                 </button>
+        //             )}
+        //             <button className="pagination__nav" onClick={clickHandlerPlus} disabled={endPages > totalPages}>⟫⟫⟫
+        //             </button>
+        //         </div>
+        //     </div>
+        // </div>
+    // );
     )
 };

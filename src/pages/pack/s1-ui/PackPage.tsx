@@ -1,5 +1,5 @@
 import './PackPage.scss';
-import {getPacksTC, setCardsSortTC} from "../s2-bll/PackThunks";
+import {getPacksTC} from "../s2-bll/PackThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionType, AppStoreType} from "../../app/s2-bll/store";
 import {ThunkDispatch} from "redux-thunk";

@@ -1,13 +1,11 @@
 import {RouteNames} from "../constants/routes";
 import {
-    ExamplePage,
-    PackPage,
     ForgotPage,
     LoginPage,
     NotFoundPage,
     ProfilePage,
     RegisterPage,
-    SetPasswordPage
+    SetPasswordPage, PackPageExample
 } from "./../pages/pages";
 import {CardPage} from "../pages/card/s1-ui/CardPage";
 
@@ -20,27 +18,33 @@ type RouteType = {
 
 export const routes: Array<RouteType> = [
     {
-        name: 'Pack',
-        public: true,
-        path: RouteNames.HOME,
-        component: <PackPage/>,
-    },
-    {
-        name: 'CardS',
+        name: 'Card',
         public: true,
         path: RouteNames.CARDS,
         component: <CardPage/>,
     },
     {
-        name: 'Example',
-        public: false,
-        path: RouteNames.EXAMPLE,
-        component: <ExamplePage/>,
+        name: 'Card',
+        public: true,
+        path: RouteNames.CARDS_ARG,
+        component: <CardPage/>,
+    },
+    {
+        name: 'Pack example',
+        public: true,
+        path: RouteNames.PACK,
+        component: <PackPageExample/>,
     },
     {
         name: 'Profile',
         public: true,
         path: RouteNames.PROFILE,
+        component: <ProfilePage/>,
+    },
+    {
+        name: 'Profile',
+        public: true,
+        path: RouteNames.PROFILE_ARG,
         component: <ProfilePage/>,
     },
     {

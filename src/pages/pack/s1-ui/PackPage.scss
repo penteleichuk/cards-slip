@@ -1,6 +1,167 @@
-.names__container {
+@import "./src/styles/mixins";
+@import "./src/styles/vars";
+
+.dashboard {
+  margin: rem(20) 0;
+  padding: rem(10) 0;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    min-height: prc(450, 350);
+    height: 100%;
+    border-radius: $appBorderRadiusPrimary;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+    overflow: hidden;
+    position: relative;
+    background: $bgPrimary;
+  }
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 $sizeSidebar;
+    background: $bgSidebarPrimary;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
+  }
+
+  &__page {
+    position: relative;
+    flex: 0 auto;
+    width: 100%;
+  }
+
+  &__content {
+    display: flex;
+    flex: 1 1 auto;
+  }
+
+  &__indent {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 35px;
+  }
+
+  &__pack {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-gap: 20px;
+    max-height: 500px;
+    overflow: scroll;
+  }
+}
+
+.profiles .dashboard {
+  &__page {
+    margin-top: -125px;
+  }
+}
+
+.profiles .dashboard__pack {
+  padding-top: 0;
+}
+
+.header {
+  display: flex;
+  background: $bgHeader;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__search {
+    display: flex;
+  }
+
+  &__sidebar {
+    display: flex;
+    flex: 0 0 $sizeSidebar;
+    background: $primaryGradient;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
+  }
+
+  &__navigation {
+    flex: 1 0 auto;
+  }
+
+  &__inputs {
+    display: flex;
+  }
+
+  .tack {
+    margin-right: 15px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.filters {
+
+  &__buttons {
+    button {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 30px;
+  position: absolute;
+  width: 100%;
+  bottom: 3px;
+  left: 0;
+
+  &__body {
+    padding: 10px 20px;
+    background: #9dbed387;
+    border-radius: 7px;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background: #5a83bc;
+      color: #fff;
+    }
+  }
+
+  &__nav {
+    padding: 3px 5px;
+    border: none;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    color: #556bae;
+  }
+
+  &__item {
+    padding: 3px 5px;
+    border: none;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    color: #556bae;
+  }
+}
+
+.pagination .active {
+  background: #7a8bc2;
+  color: #fff;
+}
+
+.pagination .dashboard__indent {
+  width: 100%;
+  padding-bottom: 0;
 }

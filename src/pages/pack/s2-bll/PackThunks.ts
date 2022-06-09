@@ -8,6 +8,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
 
         dispatch(setAppStatusAC('loading'));
+
         const pack = getState().pack
 
         const processedParams = (pack.sortCode !== '' && pack.sortType !== '')
@@ -15,9 +16,11 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk =>
             : params
 
         try {
-            const res = await PackApi.getPacks(processedParams)
-            dispatch(getPacksCardAC(res.cardPacks))
-            dispatch(setCardTotalCountAC(res.cardPacksTotalCount))
+            const {minCardsCount, maxCardsCount, cardPacks, cardPacksTotalCount, ...res} = await PackApi.getPacks(processedParams)
+            dispatch(setMinMaxCards({minCardsCount, maxCardsCount}))
+            dispatch(setAppStatusAC('idle'))
+            dispatch(getPacksCardAC(cardPacks))
+            dispatch(setCardTotalCountAC(cardPacksTotalCount))
         } catch (err) {
             console.log(err)
         } finally {

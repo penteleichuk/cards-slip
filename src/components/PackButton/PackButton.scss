@@ -1,0 +1,24 @@
+.pack-button {
+  display: flex;
+  font-size: .8rem;
+  align-items: center;
+  color: #0091E9;
+
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+  border-radius: 9px;
+  padding: 7px 9px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #eff4fa;
+  }
+
+  &__img {
+    filter: invert(40%) sepia(8%) saturate(3380%) hue-rotate(188deg) brightness(97%) contrast(81%);
+    object-fit: cover;
+    width: 16px;
+    height: 16px;
+  }
+}

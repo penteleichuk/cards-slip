@@ -15,7 +15,7 @@ export type DialogPropsType = {
     subtitle?: string
 }
 
-export const Dialog: React.FC<DialogPropsType> = React.memo((props) => {
+export const Dialog = React.memo((props: DialogPropsType) => {
     const {children, links, image, title, subtitle} = props;
 
     return <>

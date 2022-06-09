@@ -1,0 +1,49 @@
+@import "../../styles/vars";
+
+.input {
+    display: flex;
+    position: relative;
+
+    &__field {
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        padding: 15px;
+        color: #6D8379;
+        border-radius: $handlerBorderRadius;
+        box-shadow: $handlerBoxShadow;
+    }
+
+    &__field-indent {
+        padding: 15px 35px;
+    }
+
+    &__icon-before {
+        width: 15px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translate(0, -50%);
+    }
+
+    &__icon-after {
+        width: 15px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translate(0, -50%);
+        cursor: pointer;
+
+        &:hover {
+            opacity: .5;
+            transition: opacity .5s;
+        }
+    }
+
+    &__error {
+        position: absolute;
+        left: 0;
+        top: -35px;
+        color: #ff6c6c;
+    }
+}

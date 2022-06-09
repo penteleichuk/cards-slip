@@ -33,6 +33,8 @@ export type GetPackRequestType = {
 
 export type CardPacksType = {
     _id: string
+    user_name: string
+    rating: number
     user_id: string
     name: string
     cardsCount: number

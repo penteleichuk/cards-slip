@@ -5,3 +5,32 @@ $appContainerWidth: 1050;
 $appBackground: #fff;
 
 $appBorderRadiusPrimary: 26px;
+
+//
+$primaryShadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+
+$primaryGradient: linear-gradient(to bottom right, #80C9FF, #4774FF) no-repeat;
+
+$primaryColor: #639EFF;
+$secondaryColor: #4774FF;
+$lightColor: #F3F5FF;
+
+//
+
+// Кнопки дашбоард
+$bgButton: #556bae;
+$bgButtonActive: #7a8bc2;
+$bgButtonHover: #5a83bc;
+
+// Range
+
+
+$bgPrimary: #F0F4F8;
+$bgSidebarPrimary: #FFFFFF;
+$bgSidebarSecondary: #81B89A;
+$bgHeader: #7ec3ff;
+
+$sizeSidebar: 250px;
+
+$handlerBorderRadius: 7px;
+$handlerBoxShadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;

@@ -6,8 +6,18 @@ type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
 type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
 type SetCartsSortACType = ReturnType<typeof setCardsSortAC>;
 type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
+type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
+type SetInitActionType = ReturnType<typeof setInitCards>;
 
-export type PackActionsType = GetCardsACType | SetCardTotalCountACType | SetCurrentPageACType | SetCardPerPageACType | SetCartsSortACType | SetSortParamsACType;
+export type PackActionsType =
+    GetCardsACType
+    | SetCardTotalCountACType
+    | SetCurrentPageACType
+    | SetCardPerPageACType
+    | SetCartsSortACType
+    | SetSortParamsACType
+    | SetMinMaxCardsActionType
+    | SetInitActionType;
 
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
 export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
@@ -20,3 +30,8 @@ export const setSortParamsAC = (sortCode: string, sortType: string) => ({
     sortCode,
     sortType
 } as const)
+export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
+    type: 'SET-MIN-MAX-CARDS',
+    payload
+} as const);
+export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);

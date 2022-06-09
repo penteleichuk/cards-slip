@@ -1,7 +1,7 @@
-import {PackInitState, PackInitStateType} from "./PackInitState";
+import {PackInitState, PackStateType} from "./PackInitState";
 import {PackActionsType} from "./PackActions";
 
-export const packReducer = (state:PackInitStateType = PackInitState, action: PackActionsType): PackInitStateType => {
+export const packReducer = (state:PackStateType = PackInitState, action: PackActionsType): PackStateType => {
     switch (action.type) {
         case "GET-PACK-CARDS":
             return {...state, cardPacks: action.cardsPack}
@@ -16,6 +16,9 @@ export const packReducer = (state:PackInitStateType = PackInitState, action: Pac
         case 'SET-SORT-PARAMS': {
             return {...state, sortCode: action.sortCode, sortType: action.sortType}
         }
+        case "SET-IS-INIT":
+        case "SET-MIN-MAX-CARDS":
+            return {...state, ...action.payload};
         default: {
             return state;
         }

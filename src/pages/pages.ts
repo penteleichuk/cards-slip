@@ -6,6 +6,7 @@ import {NotFoundPage} from './errors/404/NotFoundPage';
 import {ExamplePage} from './example/ExamplePage';
 import {ProfilePage} from './profile/s1-ui/ProfilePage';
 import {PackPage} from './pack/s1-ui/PackPage';
+import {PackPageExample} from './pack/s1-ui/PackPageExample';
 
 export {
     PackPage,
@@ -16,4 +17,5 @@ export {
     NotFoundPage,
     ProfilePage,
     ExamplePage,
+    PackPageExample,
 };
