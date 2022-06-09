@@ -45,17 +45,33 @@
   button {
     border: none;
     padding: 10px 15px;
-    width: 100%;
     border-radius: 9px;
     margin-top: 15px;
     background-color: $bgButton;
     color: #fff;
     cursor: pointer;
     transition: background-color .5s;
+    flex: 1 1 auto;
 
     &:hover {
       background-color: $bgButtonHover;
       transition: background-color .5s;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+  }
+
+  &__logout {
+    display: flex;
+    flex: 0 0 auto !important;
+    margin-left: 15px;
+
+    img {
+      filter: invert(100%) sepia(0%) saturate(7497%) hue-rotate(148deg) brightness(111%) contrast(92%);
+      width: 15px;
+      height: 15px;
     }
   }
 }

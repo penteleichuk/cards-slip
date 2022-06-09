@@ -16,8 +16,6 @@ import {Cards} from "../../../components/components";
 //     dispatch(logoutTC());
 // }
 
-// <EditableSpan value={profileMe.name} onChange={changeNameHandler}/>
-
 
 export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -27,8 +25,6 @@ export const ProfilePage = React.memo(() => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackStateType>(state => state.pack);
-
-    // filter
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {
@@ -49,7 +45,7 @@ export const ProfilePage = React.memo(() => {
                         <div className="dashboard__container">
                             <div className="header">
                                 <div className="header__sidebar">
-                                    <Logo/>
+                                    <Logo isProfile={true}/>
                                 </div>
                                 <div className="header__navigation">
                                     <Navigation user_id={user_id}/>
@@ -64,7 +60,8 @@ export const ProfilePage = React.memo(() => {
                                             value={rangeValue}
                                             setValue={setRangeValue}
                                             minCardsCount={minCardsCount}
-                                            maxCardsCount={maxCardsCount}/>
+                                            maxCardsCount={maxCardsCount}
+                                        />
                                     </div>
                                 </div>
                                 <div className="dashboard__page">

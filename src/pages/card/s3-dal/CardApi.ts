@@ -21,7 +21,7 @@ export const CardApi = {
 };
 
 export type GetCardRequestType = {
-    cardAnswer?: string     // english - default value
+    cardAnswer?: string | null     // english - default value
     cardQuestion?: string   // english - default value
     cardsPack_id?: string
     min?: number

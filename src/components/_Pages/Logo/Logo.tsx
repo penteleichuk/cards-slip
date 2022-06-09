@@ -3,7 +3,11 @@ import React from "react";
 import {logoImg} from "../../../assets/images";
 import {Profile} from "../Profile/Profile";
 
-export const Logo = React.memo(() => {
+type LogoType = {
+    isProfile: boolean
+}
+
+export const Logo = React.memo(({isProfile}: LogoType) => {
     return <div className="logo">
         <div className="dashboard__indent">
             <div className="logo__content">
@@ -11,6 +15,6 @@ export const Logo = React.memo(() => {
                 <span className="logo__title">Cards <br/> Slip</span>
             </div>
         </div>
-        <Profile/>
+        {isProfile && <Profile/>}
     </div>
 });

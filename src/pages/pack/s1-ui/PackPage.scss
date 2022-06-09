@@ -44,7 +44,6 @@
   }
 
   &__pack {
-    padding-top: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(200px, 1fr));
     grid-gap: 20px;
@@ -57,6 +56,10 @@
   &__page {
     margin-top: -125px;
   }
+}
+
+.profiles .dashboard__pack {
+  padding-top: 0;
 }
 
 .header {
