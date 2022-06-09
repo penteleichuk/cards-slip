@@ -1,7 +1,7 @@
-import {PackInitState, PackStateType} from "./PackInitState";
+import {PackInitState, PackInitStateType} from "./PackInitState";
 import {PackActionsType} from "./PackActions";
 
-export const packReducer = (state:PackStateType = PackInitState, action: PackActionsType): PackStateType => {
+export const packReducer = (state:PackInitStateType = PackInitState, action: PackActionsType): PackInitStateType => {
     switch (action.type) {
         case "GET-PACK-CARDS":
             return {...state, cardPacks: action.cardsPack}
