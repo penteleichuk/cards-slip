@@ -1,4 +1,4 @@
-import {CardPacksType} from "../s3-dal/PackApi";
+import {CardPacksType, GetPackRequestType} from "../s3-dal/PackApi";
 
 // export type PackStateType = GetPacksResponse & {
 //     isInit: 'idle' | 'pre' | 'init'
@@ -10,7 +10,7 @@ import {CardPacksType} from "../s3-dal/PackApi";
 //     maxCards?: number,
 // };
 
-export type PackInitStateType = {
+export type PackInitStateType = GetPackRequestType & {
     isInit: 'idle' | 'pre' | 'init'
     isMyCardsPack: boolean | null
     search?: string | null
@@ -44,4 +44,5 @@ export const PackInitState: PackInitStateType = {
     sortPacks: '0updated',
     minCards: 0,
     maxCards: 1,
+    user_id: undefined,
 }

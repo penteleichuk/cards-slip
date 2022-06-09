@@ -9,8 +9,8 @@ import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 import {Filters} from "../../../components/_Pack/Filters/Filters";
 import {Packs} from "../../../components/_Pack/Packs/Packs";
-import {PackStateType} from "../../pack/s2-bll/PackInitState";
 import {Cards} from "../../../components/components";
+import {PackInitStateType} from "../../pack/s2-bll/PackInitState";
 
 // const logoutHandler = () => {
 //     dispatch(logoutTC());
@@ -24,7 +24,7 @@ export const ProfilePage = React.memo(() => {
 
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
-    const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackStateType>(state => state.pack);
+    const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {

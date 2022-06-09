@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
 
 type CardsPerPageType = {
-    pageCount: number
+    pageCount?: number | undefined
     callBack: (e:number)=>void
 }
 
-export const CardsPerPage: React.FC<CardsPerPageType> = ({pageCount,callBack}: CardsPerPageType) => {
-    const [total, setTotal] = useState<number>(pageCount)
+export const CardsPerPage = ({pageCount,callBack}: CardsPerPageType) => {
+    const [total, setTotal] = useState<number>(pageCount || 0)
 
     const changeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         setTotal(JSON.parse(e.currentTarget.value))

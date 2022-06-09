@@ -6,9 +6,9 @@ import {RouteNames} from "../../../constants/routes";
 import {getPacksTC} from "../s2-bll/PackThunks";
 import {GetPackRequestType} from "../s3-dal/PackApi";
 import {Logo, Filters, Packs, Navigation} from "../../../components/components";
-import './PackPage.scss';
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {PackStateType} from "../s2-bll/PackInitState";
+import {PackInitStateType} from "../s2-bll/PackInitState";
+import './PackPage.scss';
 
 export const PackPageExample = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ export const PackPageExample = React.memo(() => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
-    const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackStateType>(state => state.pack);
+    const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {

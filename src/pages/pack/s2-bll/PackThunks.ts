@@ -1,32 +1,30 @@
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
 import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
-import {setCardsSortAC, setSortParamsAC, getPacksCardAC, setCardTotalCountAC} from "./PackActions";
+import {setCardsSortAC, setSortParamsAC, getPacksCardAC, setCardTotalCountAC, setMinMaxCards} from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
 
-export const getPacksTC = (params: GetPackRequestType): AppThunk =>
-    async (dispatch: Dispatch, getState: () => AppStoreType) => {
 
-        dispatch(setAppStatusAC('loading'));
+export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
+    dispatch(setAppStatusAC('loading'));
+    const pack = getState().pack
 
-        const pack = getState().pack
+    const processedParams = (pack.sortCode !== '' && pack.sortType !== '')
+        ? {...params, sortPacks: pack.sortCode + pack.sortType}
+        : params
 
-        const processedParams = (pack.sortCode !== '' && pack.sortType !== '')
-            ? {...params, sortPacks: pack.sortCode + pack.sortType}
-            : params
-
-        try {
-            const {minCardsCount, maxCardsCount, cardPacks, cardPacksTotalCount, ...res} = await PackApi.getPacks(processedParams)
-            dispatch(setMinMaxCards({minCardsCount, maxCardsCount}))
-            dispatch(setAppStatusAC('idle'))
-            dispatch(getPacksCardAC(cardPacks))
-            dispatch(setCardTotalCountAC(cardPacksTotalCount))
-        } catch (err) {
-            console.log(err)
-        } finally {
-            dispatch(setAppStatusAC('succeeded'));
-        }
+    try {
+        const {minCardsCount, maxCardsCount, cardPacks, cardPacksTotalCount} = await PackApi.getPacks(processedParams)
+        dispatch(setMinMaxCards({minCardsCount, maxCardsCount}))
+        dispatch(setAppStatusAC('idle'))
+        dispatch(getPacksCardAC(cardPacks))
+        dispatch(setCardTotalCountAC(cardPacksTotalCount))
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'));
     }
+}
 
 
 export const setCardsSortTC = (sortParams: SortParamsType) =>

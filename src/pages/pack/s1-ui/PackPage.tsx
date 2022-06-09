@@ -1,5 +1,5 @@
 import './PackPage.scss';
-import {getPacksTC} from "../s2-bll/PackThunks";
+import {getPacksTC, setCardsSortTC} from "../s2-bll/PackThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionType, AppStoreType} from "../../app/s2-bll/store";
 import {ThunkDispatch} from "redux-thunk";
@@ -10,9 +10,7 @@ import {RouteNames} from "../../../constants/routes";
 import {PaginatedPage} from "../../../components/Paginated/PaginatedPage";
 import {setCardPerPageAC, setCurrentPageAC} from "../s2-bll/PackActions";
 import {CardsPerPage} from "../../../components/CardsPerPage/CardsPerPage";
-import {RequestStatusType} from "../../app/s2-bll/AppReducer";
-import {LoadingPage} from "../../../components/_Pages/Loading/LoadingPage";
-import {PacksContainer} from "./packsContainer/PacksContainer";
+
 
 export const PackPage = React.memo(() => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
@@ -26,7 +24,7 @@ export const PackPage = React.memo(() => {
     const sort = (e: React.MouseEvent<HTMLElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
         const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
-        (type != '' && code != '') && dispatch(setCardsSortTC( { code, type }))
+        (type !== '' && code !== '') && dispatch(setCardsSortTC( { code, type }))
      }
 
     const clickPageHandler = (page: number) => {
