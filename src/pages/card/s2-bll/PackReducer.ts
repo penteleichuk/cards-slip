@@ -5,6 +5,8 @@ export const cardReducer = (state: CardStateType = cardInitState, action: CardAc
     switch (action.type) {
         case 'SET-CARDS':
             return {...state, ...action.payload};
+        case "SET-CARDS-PER-PAGE":
+            return {...state, ...action.payload}
         default:
             return state;
     }

@@ -28,7 +28,7 @@ export const PackPageExample = React.memo(() => {
     // pagination
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
-    }, [page, dispatch, pageCount, location]);
+    }, [page, pageCount, location]);
 
     // redirect login page
     if (!isAuth) {

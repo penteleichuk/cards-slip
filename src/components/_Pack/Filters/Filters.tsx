@@ -10,6 +10,7 @@ import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setCardPerPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './Filters.scss';
+import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
 
 type FiltersType = {
     pageCount?: number
@@ -32,8 +33,14 @@ export const Filters = React.memo(({
                                    }: FiltersType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
     const dispatch = useAppDispatch();
+
     const changeCardPerPageHandler = (value: number) => {
-        dispatch(setCardPerPageAC(value))
+        dispatch(setCardsPerPage({cardsTotalCount: value}));
+        // if(isCards) {
+        //     dispatch(setCardPerPageAC(value))
+        // } else {
+        //     dispatch(setCardsPerPage({cardsTotalCount: value}));
+        // }
     }
     return <div className="filters">
         {isFetch === 'loading' ?
