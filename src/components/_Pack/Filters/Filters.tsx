@@ -1,3 +1,4 @@
+import './Filters.scss';
 import React, {useState} from "react";
 import {SkeletonFilters} from "../Skeleton/SkeletonFilters/SkeletonFilters";
 import {NavButton} from "../../NavButton/NavButton";
@@ -6,17 +7,12 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {Range} from "../../Range/Range";
-import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
-import {setCardPerPageAC} from "../../../pages/pack/s2-bll/PackActions";
-import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
 import {getPacksTC, setCardsSortTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {GetPackRequestType} from "../../../pages/pack/s3-dal/PackApi";
 import {setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
-import './Filters.scss';
 
 type FiltersType = {
-    pageCount?: number
     isCards: string | null
     user_id?: string | undefined
     value: number[]
@@ -32,12 +28,9 @@ type filterCodeType = {
     created: string
 }
 
-export const Filters = React.memo(({pageCount, isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const [filterCode, setFilterCode] = useState<filterCodeType>({
-        name: '0',
-        cardsCount: '0',
-        updated: '0',
-        created: '0'
+        name: '0', cardsCount: '0', updated: '0', created: '0'
     })
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
@@ -61,59 +54,43 @@ export const Filters = React.memo(({pageCount, isCards, user_id, value, setValue
             }
         } else {
             if (activeType !== type) {
+                const filter = {...filterCode} as any
                 for (let key in filterCode) {
-                    (key !== type) ? setFilterCode({...filterCode, [key]: '0'})
-                        : setFilterCode({
-                        ...filterCode,
-                        [key]: '1'
-                    })
+                    filter[key] = (key !== type) ? '0' : '1'
                 }
+                filter && setFilterCode(filter);
                 (type !== '' && code !== '') && dispatch(setCardsSortTC({code, type}))
                 dispatch(setSortParamsAC(code, type))
             }
         }
     }
 
-    const changeCardPerPageHandler = (value: number) => {
-        if(!isCards) {
-            dispatch(setCardPerPageAC(value))
-        } else {
-            dispatch(setCardsPerPage({pageCount: value}));
-        }
-    }
     return <div className="filters">
         {isFetch === 'loading' ?
             <SkeletonFilters/> :
             <>
                 {!isCards &&
-                    <div className="filters__item">
-                        <p className="filters__title" style={{marginBottom: "30px"}}>Number of cards</p>
-                        <Range step={1}
-                               user_id={user_id}
-                               value={value}
-                               setValue={setValue}
-                               minCardsCount={minCardsCount}
-                               maxCardsCount={maxCardsCount}
-                               title={" "}
-                        />
-                    </div>
-                }
-                <div className="filters__item">
-                    <p className="filters__title">Filters</p>
-                    <div className="filters__buttons">
-                        <NavButton title="Name" data-t='name' data-c={filterCode.name} iconSvg={TextSvg}
-                                   onClick={sort} active={activeType === 'name' && activeCode !== ''}/>
-                        <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount} iconSvg={cardsSvg}
-                                   onClick={sort} active={activeType === 'cardsCount' && activeCode !== ''}/>
-                        <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated} iconSvg={timeSvg}
-                                   onClick={sort} active={activeType === 'updated' && activeCode !== ''}/>
-                        <NavButton title="Created by" data-t='created' data-c={filterCode.created} iconSvg={updateSvg}
-                                   onClick={sort} active={activeType === 'created' && activeCode !== ''}/>
-                    </div>
-                </div>
-                <div className="filters__item">
-                    <p className="filters__title">Show cards per page</p>
-                    <CardsPerPage pageCount={pageCount} callBack={changeCardPerPageHandler}/>
+                    <Range step={1}
+                           user_id={user_id}
+                           value={value}
+                           setValue={setValue}
+                           minCardsCount={minCardsCount}
+                           maxCardsCount={maxCardsCount}
+                           title={"Number of cards"}
+                    />}
+
+                <div className="filters__buttons">
+                    <NavButton title="Name" data-t='name' data-c={filterCode.name} sortCode={filterCode.name}
+                               iconSvg={TextSvg} onClick={sort} active={activeType === 'name' && activeCode !== ''}/>
+                    <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount}
+                               sortCode={filterCode.cardsCount} iconSvg={cardsSvg}
+                               onClick={sort} active={activeType === 'cardsCount' && activeCode !== ''}/>
+                    <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated}
+                               sortCode={filterCode.updated} iconSvg={timeSvg}
+                               onClick={sort} active={activeType === 'updated' && activeCode !== ''}/>
+                    <NavButton title="Created by" data-t='created' data-c={filterCode.created}
+                               sortCode={filterCode.created} iconSvg={updateSvg}
+                               onClick={sort} active={activeType === 'created' && activeCode !== ''}/>
                 </div>
             </>
         }

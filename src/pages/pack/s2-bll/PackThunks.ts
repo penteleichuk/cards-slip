@@ -29,6 +29,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
 
 export const setCardsSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
+        dispatch(setAppStatusAC('loading'));
 
         const state = getState().pack
         const params = {page: state.page, pageCount: state.pageCount, sortPacks: sortParams.code + sortParams.type}
@@ -37,8 +38,11 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
             const res = await PackApi.getPacks(params)
             dispatch(setCardsSortAC(res.cardPacks))
             dispatch(setSortParamsAC(sortParams.code, sortParams.type))
-        } catch (e) {
-            console.log(e)
+            dispatch(setAppStatusAC('idle'))
+        } catch (err) {
+            console.log(err)
+        } finally {
+            dispatch(setAppStatusAC('succeeded'));
         }
     }
 
