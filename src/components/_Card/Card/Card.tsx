@@ -1,12 +1,9 @@
 import React from "react";
 import moment from 'moment';
-import {cardsDarkIcon, editSvg, removeSvg, viewSvg} from "../../../assets/images/icons";
+import {cardsDarkIcon, editSvg, removeSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
-import {useNavigate} from "react-router-dom";
-import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
-import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './../../_Pack/Pack/Pack.scss';
 
 type CardPropsType = {
@@ -19,7 +16,6 @@ type CardPropsType = {
 }
 
 export const Card = React.memo(({id, author_id, answer, question, grade, created}: CardPropsType) => {
-    const dispatch = useAppDispatch();
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
 
     return <div className="pack">

@@ -12,15 +12,16 @@ import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
 import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {useLocation, useNavigate, useSearchParams, Navigate as NavigateRoute} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
 
 type NavigationType = {
     user_id?: string | undefined
+    navigatePage: string
 }
 
-export const Navigation = React.memo(({user_id}: NavigationType) => {
+export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) => {
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
     const location = useLocation();
@@ -30,7 +31,7 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
     const [search, setSearch] = useState<string | null>(null);
 
     const goBackHandler = () => {
-        return navigate(RouteNames.PROFILE, {replace: true});
+        return navigate(navigatePage, {replace: true});
     }
 
     const goToProfile = () => {
@@ -84,7 +85,7 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
                           location.pathname === RouteNames.CARDS
                       }
                 />
-                <Tack iconSrc={createIcon} onClick={()=>alert('add pack')}/>
+                <Tack iconSrc={createIcon} onClick={() => alert('add pack')}/>
             </div>
         </div>
     </div>

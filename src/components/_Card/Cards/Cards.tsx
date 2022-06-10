@@ -9,9 +9,13 @@ import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
 import './../../_Pack/Packs/Packs.scss';
 import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
-export const Cards = React.memo(() => {
+type CardsPropsType = {
+    navigatePage: string
+}
+
+export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
 
@@ -20,7 +24,7 @@ export const Cards = React.memo(() => {
 
     useEffect(() => {
         const packId = urlParams.get('id');
-        if(packId) {
+        if (packId) {
             dispatch(fetchCards({cardsPack_id: packId}));
         }
     }, [])

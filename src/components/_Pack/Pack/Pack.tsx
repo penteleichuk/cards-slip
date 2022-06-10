@@ -6,10 +6,9 @@ import './Pack.scss';
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
-import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
-import {useAppDispatch} from "../../../hooks/useAppDispatch";
 
 type PackPropsType = {
+    navigatePage: string
     author: string
     author_id: string
     id: string
@@ -18,13 +17,13 @@ type PackPropsType = {
     date: Date
 }
 
-export const Pack = React.memo(({author, description, packs, date, author_id, id}: PackPropsType) => {
+export const Pack = React.memo(({navigatePage, author, description, packs, date, author_id, id}: PackPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const packId: string = e.currentTarget.dataset.pack || '';
-        return navigate(`/profile?id=${packId}`);
+        return navigate(`${navigatePage}?id=${packId}`);
     }
 
     return <div className="pack">

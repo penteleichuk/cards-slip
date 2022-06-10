@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {Navigate, useSearchParams} from "react-router-dom";
+import {Navigate, useLocation, useSearchParams} from "react-router-dom";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {RouteNames} from "../../../constants/routes";
 import {getPacksTC} from "../s2-bll/PackThunks";
@@ -11,6 +11,7 @@ import './PackPage.scss';
 
 export const PackPageExample = React.memo(() => {
     const dispatch = useAppDispatch();
+    const location = useLocation();
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
 
@@ -27,7 +28,7 @@ export const PackPageExample = React.memo(() => {
     // pagination
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
-    }, [page, dispatch, pageCount, ]);
+    }, [page, dispatch, pageCount, location]);
 
     // redirect login page
     if (!isAuth) {
@@ -45,7 +46,7 @@ export const PackPageExample = React.memo(() => {
                                     <Logo isProfile={false}/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation user_id={user_id}/>
+                                    <Navigation user_id={user_id} navigatePage={RouteNames.PACK}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
@@ -63,7 +64,7 @@ export const PackPageExample = React.memo(() => {
                                 </div>
                                 <div className="dashboard__page">
                                     <div className="dashboard__indent dashboard__pack">
-                                        <Packs/>
+                                        <Packs navigatePage={RouteNames.PACK}/>
                                     </div>
                                 </div>
                             </div>

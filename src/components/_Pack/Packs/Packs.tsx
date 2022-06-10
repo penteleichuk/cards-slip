@@ -10,8 +10,13 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './Packs.scss';
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
+import {RouteNames} from "../../../constants/routes";
 
-export const Packs = React.memo(() => {
+type Packs = {
+    navigatePage: string
+}
+
+export const Packs = React.memo(({navigatePage}: Packs) => {
 
     const {cardPacksTotalCount, pageCount, cardPacks, page} = useAppSelector(state => state.pack);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
@@ -20,7 +25,6 @@ export const Packs = React.memo(() => {
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
-
 
     return <>
         {isFetch === 'loading' ?
@@ -34,7 +38,7 @@ export const Packs = React.memo(() => {
                           description={c.name}
                           packs={c.cardsCount}
                           date={c.created}
-                    />
+                          navigatePage={navigatePage}/>
                 )}
                 <PaginatedPage onPageChanged={clickPageHandler}
                                totalCards={cardPacksTotalCount}

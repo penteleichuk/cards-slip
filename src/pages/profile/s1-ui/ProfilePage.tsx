@@ -23,6 +23,11 @@ export const ProfilePage = React.memo(() => {
     const {minCardsCount, maxCardsCount} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
+    // switch page
+    useEffect(() => {
+        setRangeValue([minCardsCount, maxCardsCount]);
+    }, [minCardsCount, maxCardsCount]);
+
     useEffect(() => {
         if (!isCards) {
             dispatch(getPacksTC({user_id: user_id}));
@@ -44,7 +49,7 @@ export const ProfilePage = React.memo(() => {
                                     <Logo isProfile={true}/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation user_id={user_id}/>
+                                    <Navigation user_id={user_id} navigatePage={RouteNames.PROFILE}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
@@ -62,7 +67,7 @@ export const ProfilePage = React.memo(() => {
                                 </div>
                                 <div className="dashboard__page">
                                     <div className="dashboard__indent dashboard__pack">
-                                        {!isCards ? <Packs/> : <Cards/>}
+                                        {!isCards ? <Packs navigatePage={RouteNames.PROFILE}/> : <Cards navigatePage={RouteNames.PROFILE}/>}
                                     </div>
                                 </div>
                             </div>

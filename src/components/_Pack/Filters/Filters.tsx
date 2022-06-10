@@ -21,7 +21,15 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-export const Filters = React.memo(({pageCount,isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({
+                                       pageCount,
+                                       isCards,
+                                       user_id,
+                                       value,
+                                       setValue,
+                                       minCardsCount,
+                                       maxCardsCount
+                                   }: FiltersType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
     const dispatch = useAppDispatch();
     const changeCardPerPageHandler = (value: number) => {
@@ -32,14 +40,14 @@ export const Filters = React.memo(({pageCount,isCards, user_id, value, setValue,
             <SkeletonFilters/> :
             <>
                 {!isCards &&
-                <Range step={1}
-                       user_id={user_id}
-                       value={value}
-                       setValue={setValue}
-                       minCardsCount={minCardsCount}
-                       maxCardsCount={maxCardsCount}
-                       title={"Number of cards"}
-                />}
+                    <Range step={1}
+                           user_id={user_id}
+                           value={value}
+                           setValue={setValue}
+                           minCardsCount={minCardsCount}
+                           maxCardsCount={maxCardsCount}
+                           title={"Number of cards"}
+                    />}
 
                 <div className="filters__buttons">
                     <NavButton title="Name" iconSvg={TextSvg}/>
