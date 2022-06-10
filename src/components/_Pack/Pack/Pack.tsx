@@ -19,7 +19,6 @@ type PackPropsType = {
 }
 
 export const Pack = React.memo(({author, description, packs, date, author_id, id}: PackPropsType) => {
-    const dispatch = useAppDispatch();
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 

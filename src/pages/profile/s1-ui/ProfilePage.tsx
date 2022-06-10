@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {getPacksTC} from "../../pack/s2-bll/PackThunks";
-import {Navigate, useSearchParams} from "react-router-dom";
+import {Navigate, useLocation, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
@@ -12,13 +12,9 @@ import {Packs} from "../../../components/_Pack/Packs/Packs";
 import {Cards} from "../../../components/components";
 import {PackInitStateType} from "../../pack/s2-bll/PackInitState";
 
-// const logoutHandler = () => {
-//     dispatch(logoutTC());
-// }
-
-
 export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
+    const location = useLocation();
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
 
@@ -31,7 +27,7 @@ export const ProfilePage = React.memo(() => {
         if (!isCards) {
             dispatch(getPacksTC({user_id: user_id}));
         }
-    }, [])
+    }, [location])
 
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>

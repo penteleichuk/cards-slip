@@ -30,15 +30,15 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
     const [search, setSearch] = useState<string | null>(null);
 
     const goBackHandler = () => {
-        return navigate(RouteNames.PROFILE);
+        return navigate(RouteNames.PROFILE, {replace: true});
     }
 
     const goToProfile = () => {
-        return navigate(RouteNames.PROFILE);
+        return navigate(RouteNames.PROFILE, {replace: true});
     }
 
     const goToMain = () => {
-        return navigate(RouteNames.PACK);
+        return navigate(RouteNames.PACK, {replace: true});
     }
     // console.log(location.pathname.includes(RouteNames.PROFILE), location, RouteNames.PROFILE_ARG)
     const searchDebounce = useDebounce(search, 1500);
