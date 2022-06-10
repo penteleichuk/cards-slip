@@ -53,7 +53,7 @@ export const PackPageExample = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
-                                            pageCount ={pageCount}
+                                            pageCount={pageCount}
                                             isCards={isCards}
                                             value={rangeValue}
                                             setValue={setRangeValue}

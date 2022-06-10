@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
 import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
-import {useSearchParams} from "react-router-dom";
+import {useLocation, useSearchParams} from "react-router-dom";
 import './../../_Pack/Packs/Packs.scss';
 
 type CardsPropsType = {
@@ -18,6 +18,7 @@ type CardsPropsType = {
 export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
+    const location = useLocation();
 
     const {cardsTotalCount, pageCount, cards, page} = useAppSelector(state => state.card);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
@@ -25,9 +26,9 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     useEffect(() => {
         const packId = urlParams.get('id');
         if (packId) {
-            dispatch(fetchCards({cardsPack_id: packId}));
+            dispatch(fetchCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
         }
-    }, [])
+    }, [page, pageCount, location])
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
