@@ -30,10 +30,7 @@ type filterCodeType = {
 
 export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const [filterCode, setFilterCode] = useState<filterCodeType>({
-        name: '0',
-        cardsCount: '0',
-        updated: '0',
-        created: '0'
+        name: '0', cardsCount: '0', updated: '0', created: '0'
     })
     const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
@@ -57,13 +54,11 @@ export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsC
             }
         } else {
             if (activeType !== type) {
+                const filter = {...filterCode} as any
                 for (let key in filterCode) {
-                    (key !== type) ? setFilterCode({...filterCode, [key]: '0'})
-                        : setFilterCode({
-                        ...filterCode,
-                        [key]: '1'
-                    })
+                    filter[key] = (key !== type) ? '0' : '1'
                 }
+                filter && setFilterCode(filter);
                 (type !== '' && code !== '') && dispatch(setCardsSortTC({code, type}))
                 dispatch(setSortParamsAC(code, type))
             }
@@ -85,13 +80,16 @@ export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsC
                     />}
 
                 <div className="filters__buttons">
-                    <NavButton title="Name" data-t='name' data-c={filterCode.name} iconSvg={TextSvg}
-                               onClick={sort} active={activeType === 'name' && activeCode !== ''}/>
-                    <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount} iconSvg={cardsSvg}
+                    <NavButton title="Name" data-t='name' data-c={filterCode.name} sortCode={filterCode.name}
+                               iconSvg={TextSvg} onClick={sort} active={activeType === 'name' && activeCode !== ''}/>
+                    <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount}
+                               sortCode={filterCode.cardsCount} iconSvg={cardsSvg}
                                onClick={sort} active={activeType === 'cardsCount' && activeCode !== ''}/>
-                    <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated} iconSvg={timeSvg}
+                    <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated}
+                               sortCode={filterCode.updated} iconSvg={timeSvg}
                                onClick={sort} active={activeType === 'updated' && activeCode !== ''}/>
-                    <NavButton title="Created by" data-t='created' data-c={filterCode.created} iconSvg={updateSvg}
+                    <NavButton title="Created by" data-t='created' data-c={filterCode.created}
+                               sortCode={filterCode.created} iconSvg={updateSvg}
                                onClick={sort} active={activeType === 'created' && activeCode !== ''}/>
                 </div>
             </>
