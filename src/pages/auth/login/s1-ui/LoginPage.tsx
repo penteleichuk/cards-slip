@@ -30,7 +30,6 @@ export const LoginPage = (): JSX.Element => {
     const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const [state, setState] = useState<LoginParamsType>(initialState)
     const dispatch: ThunkDispatch<AppStoreType, LoginParamsType, ActionType> = useDispatch()
-    const error = useSelector<AppStoreType, string | null>(state => state.app.error)
 
     const onChangeTextEmailHandler = (value: string) => {
         dispatch(setAppErrorAC(''))
@@ -65,9 +64,6 @@ export const LoginPage = (): JSX.Element => {
                                        onChangeText={onChangeTextPasswordHandler} eye={true}/>
                         </div>
                         <Checkbox disabled={status === 'loading'} onChangeChecked={clickCheckbox}>Remember Me</Checkbox>
-                        <div style={{textAlign: 'center', color: '#F56793'}}>
-                            {error}
-                        </div>
                         <div className="dialog__buttons dialog__block">
                             <Button loading={status === 'loading'} disabled={status === 'loading'}
                                     onClick={clickHandler}>Login</Button>

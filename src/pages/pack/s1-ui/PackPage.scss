@@ -117,7 +117,7 @@
   left: 0;
 
   &__body {
-    padding: 10px 20px;
+    padding: 8px 13px;
     background: #9dbed387;
     border-radius: 7px;
     backdrop-filter: blur(2px);
@@ -162,6 +162,5 @@
 }
 
 .pagination .dashboard__indent {
-  width: 70%;
-  padding-bottom: 0;
+  padding-bottom: 5px;
 }
