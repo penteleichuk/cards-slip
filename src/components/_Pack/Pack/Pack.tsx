@@ -2,10 +2,10 @@ import React from "react";
 import moment from 'moment';
 import {cardsDarkIcon, editSvg, removeSvg, viewSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
-import './Pack.scss';
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
+import './Pack.scss';
 
 type PackPropsType = {
     navigatePage: string

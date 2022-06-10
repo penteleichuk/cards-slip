@@ -5,18 +5,16 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCardPerPageAC, setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import './Packs.scss';
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
-import {RouteNames} from "../../../constants/routes";
+import './Packs.scss';
 
-type Packs = {
+type PacksType = {
     navigatePage: string
 }
 
-export const Packs = React.memo(({navigatePage}: Packs) => {
+export const Packs = React.memo(({navigatePage}: PacksType) => {
 
     const {cardPacksTotalCount, pageCount, cardPacks, page} = useAppSelector(state => state.pack);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);

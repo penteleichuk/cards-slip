@@ -7,9 +7,9 @@ import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
-import './../../_Pack/Packs/Packs.scss';
 import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
 import {useSearchParams} from "react-router-dom";
+import './../../_Pack/Packs/Packs.scss';
 
 type CardsPropsType = {
     navigatePage: string
