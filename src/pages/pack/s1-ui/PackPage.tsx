@@ -1,5 +1,5 @@
 import './PackPage.scss';
-import {getPacksTC, setCardsSortTC} from "../s2-bll/PackThunks";
+import {getPacksTC} from "../s2-bll/PackThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionType, AppStoreType} from "../../app/s2-bll/store";
 import {ThunkDispatch} from "redux-thunk";
@@ -20,12 +20,6 @@ export const PackPage = React.memo(() => {
     const countPages = useSelector<AppStoreType, number>(state => state.pack.pageCount)
     const packCards = useSelector<AppStoreType, CardPacksType[]>(state => state.pack.cardPacks)
     const dispatch: ThunkDispatch<AppStoreType, GetPackRequestType, ActionType> = useDispatch()
-
-    const sort = (e: React.MouseEvent<HTMLElement>) => {
-        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
-        (type !== '' && code !== '') && dispatch(setCardsSortTC( { code, type }))
-     }
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
