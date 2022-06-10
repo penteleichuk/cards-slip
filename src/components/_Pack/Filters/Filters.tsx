@@ -13,6 +13,7 @@ import {GetPackRequestType} from "../../../pages/pack/s3-dal/PackApi";
 import {setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
 
 type FiltersType = {
+    pageCount: number
     isCards: string | null
     user_id?: string | undefined
     value: number[]
@@ -28,11 +29,11 @@ type filterCodeType = {
     created: string
 }
 
-export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({pageCount, isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const [filterCode, setFilterCode] = useState<filterCodeType>({
         name: '0', cardsCount: '0', updated: '0', created: '0'
     })
-    const paramsCards = useSelector<AppStoreType, GetPackRequestType>(state => state.pack);
+
     const currentPage = useSelector<AppStoreType, number>(state => state.pack.page);
     const activeType = useSelector<AppStoreType, string>(state => state.pack.sortType)
     const activeCode = useSelector<AppStoreType, string>(state => state.pack.sortCode)
@@ -50,7 +51,7 @@ export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsC
             (type !== '' && code !== '') && dispatch(setCardsSortTC({code, type}));
             if (code === '') {
                 dispatch(setSortParamsAC('', ''))
-                dispatch(getPacksTC({page: currentPage, pageCount: paramsCards.pageCount}))
+                dispatch(getPacksTC({page: currentPage, pageCount: pageCount}))
             }
         } else {
             if (activeType !== type) {
