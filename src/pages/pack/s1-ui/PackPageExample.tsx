@@ -4,7 +4,6 @@ import {Navigate, useSearchParams} from "react-router-dom";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {RouteNames} from "../../../constants/routes";
 import {getPacksTC} from "../s2-bll/PackThunks";
-import {GetPackRequestType} from "../s3-dal/PackApi";
 import {Logo, Filters, Packs, Navigation} from "../../../components/components";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {PackInitStateType} from "../s2-bll/PackInitState";
@@ -20,11 +19,17 @@ export const PackPageExample = React.memo(() => {
     const {minCardsCount, maxCardsCount, pageCount, page} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
+    // switch page
+    useEffect(() => {
+        setRangeValue([minCardsCount, maxCardsCount]);
+    }, [minCardsCount, maxCardsCount]);
+
+    // pagination
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
     }, [page, dispatch, pageCount, ]);
 
-
+    // redirect login page
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }
