@@ -5,7 +5,8 @@ import {
     NotFoundPage,
     ProfilePage,
     RegisterPage,
-    SetPasswordPage, PackPageExample
+    SetPasswordPage,
+    PackPage
 } from "./../pages/pages";
 import {CardPage} from "../pages/card/s1-ui/CardPage";
 import {Navigate} from "react-router-dom";
@@ -22,7 +23,7 @@ export const routes: Array<RouteType> = [
         name: 'Card',
         public: true,
         path: RouteNames.HOME,
-        component: <Navigate to={RouteNames.PACK} />,
+        component: <Navigate to={RouteNames.PACK}/>,
     },
     {
         name: 'Card',
@@ -40,7 +41,7 @@ export const routes: Array<RouteType> = [
         name: 'Pack example',
         public: true,
         path: RouteNames.PACK,
-        component: <PackPageExample/>,
+        component: <PackPage/>,
     },
     {
         name: 'Profile',

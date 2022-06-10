@@ -62,7 +62,7 @@ export const Filters = React.memo(({
     const sort = (e: React.MouseEvent<HTMLElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
         const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
-        console.log(code)
+
         if (activeType === type) {
             (code === '0') && setFilterCode({...filterCode, [type]: '1'});
             (code === '1') && setFilterCode({...filterCode, [type]: ''});
@@ -102,22 +102,25 @@ export const Filters = React.memo(({
                         />
                     </div>
                 }
-                <div className="filters__item">
-                    <p className="filters__title">Filters</p>
-                    <div className="filters__buttons">
-                        <NavButton title="Name" data-t='name' data-c={filterCode.name} sortCode={filterCode.name}
-                                   iconSvg={TextSvg} onClick={sort} active={activeType === 'name' && activeCode !== ''}/>
-                        <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount}
-                                   sortCode={filterCode.cardsCount} iconSvg={cardsSvg}
-                                   onClick={sort} active={activeType === 'cardsCount' && activeCode !== ''}/>
-                        <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated}
-                                   sortCode={filterCode.updated} iconSvg={timeSvg}
-                                   onClick={sort} active={activeType === 'updated' && activeCode !== ''}/>
-                        <NavButton title="Created by" data-t='created' data-c={filterCode.created}
-                                   sortCode={filterCode.created} iconSvg={updateSvg}
-                                   onClick={sort} active={activeType === 'created' && activeCode !== ''}/>
+                {!isCards &&
+                    <div className="filters__item">
+                        <p className="filters__title">Filters</p>
+                        <div className="filters__buttons">
+                            <NavButton title="Name" data-t='name' data-c={filterCode.name} sortCode={filterCode.name}
+                                       iconSvg={TextSvg} onClick={sort}
+                                       active={activeType === 'name' && activeCode !== ''}/>
+                            <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount}
+                                       sortCode={filterCode.cardsCount} iconSvg={cardsSvg}
+                                       onClick={sort} active={activeType === 'cardsCount' && activeCode !== ''}/>
+                            <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated}
+                                       sortCode={filterCode.updated} iconSvg={timeSvg}
+                                       onClick={sort} active={activeType === 'updated' && activeCode !== ''}/>
+                            <NavButton title="Created by" data-t='created' data-c={filterCode.created}
+                                       sortCode={filterCode.created} iconSvg={updateSvg}
+                                       onClick={sort} active={activeType === 'created' && activeCode !== ''}/>
+                        </div>
                     </div>
-                </div>
+                }
                 <div className="filters__item">
                     <p className="filters__title">Show cards per page</p>
                     <CardsPerPage pageCount={pageCount} callBack={changeCardPerPageHandler}/>

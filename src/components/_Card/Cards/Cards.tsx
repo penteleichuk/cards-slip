@@ -16,6 +16,7 @@ type CardsPropsType = {
 }
 
 export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
+
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
     const location = useLocation();
