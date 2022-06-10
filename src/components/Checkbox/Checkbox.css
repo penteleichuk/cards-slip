@@ -2,9 +2,8 @@
     align-items: center;
     border-radius: 100px;
     display: flex;
-    font-weight: 700;
     margin-bottom: 16px;
-    font-size: 1rem;
+    font-size: .8rem;
     color: #676565;
 }
 
@@ -42,15 +41,15 @@
     align-items: center;
     background: #9b9b9b;
     border-radius: 24px;
-    bottom: 1px;
+    bottom: 2px;
     display: flex;
-    height: 18px;
+    height: 14px;
     justify-content: center;
-    left: 2px;
+    left: 3px;
     outline: solid 2px transparent;
     position: absolute;
     transition: 0.25s;
-    width: 18px;
+    width: 14px;
 }
 
 .checkMark {
