@@ -7,8 +7,8 @@ import {getPacksTC} from "../s2-bll/PackThunks";
 import {Logo, Filters, Packs, Navigation, Cards} from "../../../components/components";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {PackInitStateType} from "../s2-bll/PackInitState";
-import './PackPage.scss';
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import './PackPage.scss';
 
 export const PackPage = React.memo(() => {
     const dispatch = useAppDispatch();
