@@ -11,6 +11,7 @@ import {Filters} from "../../../components/_Pack/Filters/Filters";
 import {Packs} from "../../../components/_Pack/Packs/Packs";
 import {Cards} from "../../../components/components";
 import {PackInitStateType} from "../../pack/s2-bll/PackInitState";
+import {CardStateType} from "../../card/s2-bll/PackInitState";
 
 export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ export const ProfilePage = React.memo(() => {
         page,
         pageCount
     } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
+
+    const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
+
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     // switch page
@@ -61,7 +65,7 @@ export const ProfilePage = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
-                                            pageCount={pageCount}
+                                            pageCount={isCards ? pageCountCards : pageCount}
                                             isCards={isCards}
                                             user_id={user_id}
                                             value={rangeValue}

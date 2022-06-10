@@ -18,8 +18,8 @@ export const NavButton = React.memo(({iconSvg, active = false, title, sortCode, 
         <div className="nav-button__body">
             <img className="nav-button__img" src={iconSvg} alt=""/>
             {title && <span className="nav-button__title">{title}</span>}
-            {sortCode && (sortCode === '0' || sortCode === '') ? <img className="nav-button__img" src={downArrow} alt=""/> : null}
-            {sortCode && (sortCode === '1') ? <img className="nav-button__img" src={upArrow} alt=""/> : null}
         </div>
+        {sortCode && (sortCode === '0' || sortCode === '') ? <img className="nav-button__img-status" src={downArrow} alt=""/> : null}
+        {sortCode && (sortCode === '1') ? <img className="nav-button__img-status" src={upArrow} alt=""/> : null}
     </button>
 })
