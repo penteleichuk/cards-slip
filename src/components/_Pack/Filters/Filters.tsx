@@ -1,5 +1,3 @@
-import React from "react";
-import './Filters.scss';
 import React, {useState} from "react";
 import {SkeletonFilters} from "../Skeleton/SkeletonFilters/SkeletonFilters";
 import {NavButton} from "../../NavButton/NavButton";
@@ -11,12 +9,11 @@ import {Range} from "../../Range/Range";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setCardPerPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import './Filters.scss';
 import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
 import {getPacksTC, setCardsSortTC} from "../../../pages/pack/s2-bll/PackThunks";
-import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {GetPackRequestType} from "../../../pages/pack/s3-dal/PackApi";
 import {setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
+import './Filters.scss';
 
 type FiltersType = {
     pageCount?: number
@@ -35,20 +32,7 @@ type filterCodeType = {
     created: string
 }
 
-export const Filters = React.memo(({
-                                       pageCount,
-                                       isCards,
-                                       user_id,
-                                       value,
-                                       setValue,
-                                       minCardsCount,
-                                       maxCardsCount
-                                   }: FiltersType) => {
-    const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
-    const dispatch = useAppDispatch();
-
-
-export const Filters = React.memo(({isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
+export const Filters = React.memo(({pageCount, isCards, user_id, value, setValue, minCardsCount, maxCardsCount}: FiltersType) => {
     const [filterCode, setFilterCode] = useState<filterCodeType>({
         name: '0',
         cardsCount: '0',
