@@ -1,0 +1,34 @@
+.pre-page {
+  display: flex;
+  justify-content: space-between;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #556aae;
+    background-color: #95a1cf;
+    border-radius: 50%;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: .8rem;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .5s;
+
+    &:hover {
+      border: 2px solid #556aae;
+      background-color: unset;
+      color: #556aae;
+      transition: background-color .5s;
+    }
+
+    &.active {
+      border: 2px solid #95a1cf;
+      background-color: #556aae;
+      color: #fff;
+    }
+  }
+}

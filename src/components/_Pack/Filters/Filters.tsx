@@ -1,4 +1,3 @@
-import './Filters.scss';
 import React from "react";
 import {SkeletonFilters} from "../Skeleton/SkeletonFilters/SkeletonFilters";
 import {NavButton} from "../../NavButton/NavButton";
@@ -10,6 +9,7 @@ import {Range} from "../../Range/Range";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setCardPerPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
+import './Filters.scss';
 
 type FiltersType = {
     pageCount?: number
@@ -40,22 +40,31 @@ export const Filters = React.memo(({
             <SkeletonFilters/> :
             <>
                 {!isCards &&
-                    <Range step={1}
-                           user_id={user_id}
-                           value={value}
-                           setValue={setValue}
-                           minCardsCount={minCardsCount}
-                           maxCardsCount={maxCardsCount}
-                           title={"Number of cards"}
-                    />}
-
-                <div className="filters__buttons">
-                    <NavButton title="Name" iconSvg={TextSvg}/>
-                    <NavButton title="Count card" iconSvg={cardsSvg}/>
-                    <NavButton title="Last updated" iconSvg={timeSvg}/>
-                    <NavButton title="Created by" iconSvg={updateSvg}/>
+                    <div className="filters__item">
+                        <p className="filters__title" style={{marginBottom: "30px"}}>Number of cards</p>
+                        <Range step={1}
+                               user_id={user_id}
+                               value={value}
+                               setValue={setValue}
+                               minCardsCount={minCardsCount}
+                               maxCardsCount={maxCardsCount}
+                               title={" "}
+                        />
+                    </div>
+                }
+                <div className="filters__item">
+                    <p className="filters__title">Filters</p>
+                    <div className="filters__buttons">
+                        <NavButton title="Name" iconSvg={TextSvg}/>
+                        <NavButton title="Count card" iconSvg={cardsSvg}/>
+                        <NavButton title="Last updated" iconSvg={timeSvg}/>
+                        <NavButton title="Created by" iconSvg={updateSvg}/>
+                    </div>
                 </div>
-                <CardsPerPage pageCount={pageCount} callBack={changeCardPerPageHandler}/>
+                <div className="filters__item">
+                    <p className="filters__title">Show cards per page</p>
+                    <CardsPerPage pageCount={pageCount} callBack={changeCardPerPageHandler}/>
+                </div>
             </>
         }
     </div>

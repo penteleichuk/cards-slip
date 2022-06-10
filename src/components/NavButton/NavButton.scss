@@ -1,6 +1,7 @@
 @import "../../styles/vars";
 
 .nav-button {
+  background-color: #f7f8f9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +10,7 @@
   box-sizing: border-box;
   transition: background-color .5s;
   border-radius: 9px;
-  background: unset;
+  //background: unset;
   cursor: pointer;
   border: none;
   outline: none;
