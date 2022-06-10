@@ -23,7 +23,7 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
-    console.log(pageCount)
+
     return <>
         {isFetch === 'loading' ?
             <SkeletonItems/> :

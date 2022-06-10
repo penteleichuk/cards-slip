@@ -20,7 +20,12 @@ export const ProfilePage = React.memo(() => {
 
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
-    const {minCardsCount, maxCardsCount, page, pageCount} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
+    const {
+        minCardsCount,
+        maxCardsCount,
+        page,
+        pageCount
+    } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     // switch page
@@ -56,6 +61,7 @@ export const ProfilePage = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
+                                            pageCount={pageCount}
                                             isCards={isCards}
                                             user_id={user_id}
                                             value={rangeValue}
@@ -67,7 +73,8 @@ export const ProfilePage = React.memo(() => {
                                 </div>
                                 <div className="dashboard__page">
                                     <div className="dashboard__indent dashboard__pack">
-                                        {!isCards ? <Packs navigatePage={RouteNames.PROFILE}/> : <Cards navigatePage={RouteNames.PROFILE}/>}
+                                        {!isCards ? <Packs navigatePage={RouteNames.PROFILE}/> :
+                                            <Cards navigatePage={RouteNames.PROFILE}/>}
                                     </div>
                                 </div>
                             </div>

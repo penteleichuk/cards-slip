@@ -35,12 +35,11 @@ export const Filters = React.memo(({
     const dispatch = useAppDispatch();
 
     const changeCardPerPageHandler = (value: number) => {
-        dispatch(setCardsPerPage({cardsTotalCount: value}));
-        // if(isCards) {
-        //     dispatch(setCardPerPageAC(value))
-        // } else {
-        //     dispatch(setCardsPerPage({cardsTotalCount: value}));
-        // }
+        if(!isCards) {
+            dispatch(setCardPerPageAC(value))
+        } else {
+            dispatch(setCardsPerPage({pageCount: value}));
+        }
     }
     return <div className="filters">
         {isFetch === 'loading' ?
