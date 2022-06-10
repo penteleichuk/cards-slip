@@ -25,7 +25,6 @@ export const Pack = React.memo(({author, description, packs, date, author_id, id
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const packId: string = e.currentTarget.dataset.pack || '';
-        dispatch(fetchCards({cardsPack_id: packId}));
         return navigate(`/profile?id=${packId}`);
     }
 

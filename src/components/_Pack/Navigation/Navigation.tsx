@@ -12,7 +12,7 @@ import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
 import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams, Navigate as NavigateRoute} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
 
@@ -40,7 +40,7 @@ export const Navigation = React.memo(({user_id}: NavigationType) => {
     const goToMain = () => {
         return navigate(RouteNames.PACK);
     }
-
+    // console.log(location.pathname.includes(RouteNames.PROFILE), location, RouteNames.PROFILE_ARG)
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
         if (search !== null) {
