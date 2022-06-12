@@ -8,6 +8,8 @@ type SetCartsSortACType = ReturnType<typeof setCardsSortAC>;
 type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
 type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
 type SetInitActionType = ReturnType<typeof setInitCards>;
+type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
+type SetActiveSortPage = ReturnType<typeof setActiveSortPage>
 
 export type PackActionsType =
     GetCardsACType
@@ -17,13 +19,16 @@ export type PackActionsType =
     | SetCartsSortACType
     | SetSortParamsACType
     | SetMinMaxCardsActionType
-    | SetInitActionType;
+    | SetInitActionType
+    | SetIsMyCardsPack
+    | SetActiveSortPage;
 
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
 export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setCurrentPageAC = (currenPage: number) => ({type: 'SET-CURRENT-PAGE', currenPage} as const)
 export const setCardPerPageAC = (totalCards: number) => ({type: 'SET-CARDS-PER-PAGE', totalCards} as const)
-
+export const setIsMyCardsPack = (isMyCardsPack: boolean) => ({type: 'SET-IS-MY-CARDS-PACK', isMyCardsPack} as const)
+export const setActiveSortPage = (activeSortPage: string) => ({type: 'SET-ACTIVE-SORT-PAGE', activeSortPage} as const)
 export const setCardsSortAC = (cardPacks: CardPacksType[]) => ({type: 'SET-CARDS-SORT', cardPacks} as const)
 export const setSortParamsAC = (sortCode: string, sortType: string) => ({
     type: 'SET-SORT-PARAMS',
