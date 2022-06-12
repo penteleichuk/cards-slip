@@ -12,6 +12,7 @@ import {Packs} from "../../../components/_Pack/Packs/Packs";
 import {Cards} from "../../../components/components";
 import {PackInitStateType} from "../../pack/s2-bll/PackInitState";
 import {CardStateType} from "../../card/s2-bll/PackInitState";
+import {setSortParamsAC} from "../../pack/s2-bll/PackActions";
 
 export const ProfilePage = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -31,6 +32,10 @@ export const ProfilePage = React.memo(() => {
     const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
 
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
+
+    useEffect(() => {
+        dispatch(setSortParamsAC('0', ''))
+    }, [])
 
     // switch page
     useEffect(() => {

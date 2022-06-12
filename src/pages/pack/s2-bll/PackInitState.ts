@@ -24,6 +24,7 @@ export type PackInitStateType = GetPackRequestType & {
     minCardsCount: number
     page: number
     pageCount: number
+    activeSortPage: string
     sortType: string
     sortCode: string
 }
@@ -35,6 +36,7 @@ export const PackInitState: PackInitStateType = {
     maxCardsCount: 500,
     page: 1,
     pageCount: 6,
+    activeSortPage: '',
     sortType: '',
     sortCode: '',
     isInit: 'idle',

@@ -1,17 +1,26 @@
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
 import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
-import {setCardsSortAC, setSortParamsAC, getPacksCardAC, setCardTotalCountAC, setMinMaxCards} from "./PackActions";
+import {
+    setCardsSortAC,
+    setSortParamsAC,
+    getPacksCardAC,
+    setCardTotalCountAC,
+    setMinMaxCards,
+    setIsMyCardsPack, setActiveSortPage
+} from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
 
 
 export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
-    const pack = getState().pack
+    const { sortCode, sortType } = getState().pack
 
-    const processedParams = (pack.sortCode !== '' && pack.sortType !== '')
-        ? {...params, sortPacks: pack.sortCode + pack.sortType}
+    const processedParams = (sortCode !== '' && sortType !== '')
+        ? {...params, sortPacks: sortCode + sortType}
         : params
+
+    const myCardsPackId = params.user_id || null
 
     try {
         const {minCardsCount, maxCardsCount, cardPacks, cardPacksTotalCount} = await PackApi.getPacks(processedParams)
@@ -19,6 +28,8 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
         dispatch(setAppStatusAC('idle'))
         dispatch(getPacksCardAC(cardPacks))
         dispatch(setCardTotalCountAC(cardPacksTotalCount))
+        myCardsPackId ? dispatch(setIsMyCardsPack(true)) : dispatch(setIsMyCardsPack(false));
+        myCardsPackId ? dispatch(setActiveSortPage('Profile')) : dispatch(setActiveSortPage('Packs'))
     } catch (err) {
         console.log(err)
     } finally {
@@ -31,8 +42,11 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
-        const state = getState().pack
-        const params = {page: state.page, pageCount: state.pageCount, sortPacks: sortParams.code + sortParams.type}
+        const { page, pageCount, isMyCardsPack, user_id } = getState().pack
+
+        const params = isMyCardsPack
+            ? { page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
+            : { page, pageCount, sortPacks: sortParams.code + sortParams.type}
 
         try {
             const res = await PackApi.getPacks(params)
@@ -48,5 +62,6 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
 
 type SortParamsType = {
     type: string,
-    code: string
+    code: string,
+    user_id?: string | undefined
 }
