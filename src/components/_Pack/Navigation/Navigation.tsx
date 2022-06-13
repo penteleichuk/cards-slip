@@ -12,6 +12,8 @@ import {addCardTC, fetchCards} from "../../../pages/card/s2-bll/PackThunks";
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../components";
+import {useSelector} from "react-redux";
+import {AppStoreType} from "../../../pages/app/s2-bll/store";
 
 type NavigationType = {
     user_id?: string | undefined
@@ -25,6 +27,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const navigate = useNavigate();
     const packId = urlParams.get('id');
 
+
     //for modal
     const [show, setShow] = useState<boolean>(false);
     const [question, setQuestion] = useState<string>('');
@@ -34,12 +37,10 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     }
     const clickCloseModalHandler = () => {
         setShow(false);
-        setQuestion('')
-        setAnswer('')
         if (packId) {
             dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}))
         } else {
-            dispatch(addNewPackTC({name: answer}))
+            dispatch(addNewPackTC({name: question}))
         }
     }
     const changeValue = (value: string) => {
@@ -75,7 +76,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
 
             setSearch(null);
         }
-    }, [searchDebounce]);
+    }, [dispatch, searchDebounce]);
 
     return <div className="dashboard__indent">
         <div className="header__content">
@@ -110,10 +111,12 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
                 <Popup show={show} modalOnClick={() => {
                     setShow(!show)
                 }} title={packId ? 'Card info' : 'Add new pack'}>
-                    <InputText onChangeText={changeValue}/>
-                    {packId && <InputText onChangeText={(value) => {
-                        setAnswer(value)
-                    }}/>}
+
+                    <InputText placeholder={packId ? 'Question' : 'Name pack'} onChangeText={changeValue}/>
+                    {packId && <InputText style={{marginTop: '15px'}} name={'answer'} placeholder={'Answer'}
+                                          onChangeText={(value) => {
+                                              setAnswer(value)
+                                          }}/>}
                     <div>
                         <Button style={{margin: '10px'}} onClick={() => {
                             setShow(!show)

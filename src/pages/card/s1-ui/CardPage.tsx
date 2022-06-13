@@ -16,7 +16,7 @@ export const CardPage = () => {
 
     useLayoutEffect(() => {
         dispatch(fetchCards({cardsPack_id: "607fece70857db0004f314d1", max: 20}));
-    }, [dispatch]);
+    }, [dispatch,cards]);
 
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
