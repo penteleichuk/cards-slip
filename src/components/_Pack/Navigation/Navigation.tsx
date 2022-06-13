@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from "react";
 import './Navigation.scss';
-import {
-    backSvg,
-    cardsIcon,
-    clearIcon, createIcon,
-    searchIcon,
-    userIcon
-} from "../../../assets/images/icons";
+import {backSvg, cardsIcon, clearIcon, createIcon, searchIcon, userIcon} from "../../../assets/images/icons";
 import {Input} from "../../Input/Input";
 import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
-import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {addNewPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
+import {addCardTC, fetchCards} from "../../../pages/card/s2-bll/PackThunks";
+import {Popup} from "../../Popup/Popup";
+import {InputText} from "../../InputText/InputText";
+import {Button} from "../../components";
 
 type NavigationType = {
     user_id?: string | undefined
@@ -27,6 +24,28 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const location = useLocation();
     const navigate = useNavigate();
     const packId = urlParams.get('id');
+
+    //for modal
+    const [show, setShow] = useState<boolean>(false);
+    const [question, setQuestion] = useState<string>('');
+    const [answer, setAnswer] = useState<string>('');
+    const clickAddPackHandler = () => {
+        setShow(true)
+    }
+    const clickCloseModalHandler = () => {
+        setShow(false);
+        setQuestion('')
+        setAnswer('')
+        if (packId) {
+            dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}))
+        } else {
+            dispatch(addNewPackTC({name: answer}))
+        }
+    }
+    const changeValue = (value: string) => {
+        setQuestion(value)
+    }
+    //
 
     const [search, setSearch] = useState<string | null>(null);
 
@@ -41,6 +60,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const goToMain = () => {
         return navigate(RouteNames.PACK, {replace: true});
     }
+
     // console.log(location.pathname.includes(RouteNames.PROFILE), location, RouteNames.PROFILE_ARG)
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
@@ -85,7 +105,22 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
                           location.pathname === RouteNames.CARDS
                       }
                 />
-                <Tack iconSrc={createIcon} onClick={() => alert('add pack')}/>
+                <Tack iconSrc={createIcon} onClick={clickAddPackHandler}/>
+
+                <Popup show={show} modalOnClick={() => {
+                    setShow(!show)
+                }} title={packId ? 'Card info' : 'Add new pack'}>
+                    <InputText onChangeText={changeValue}/>
+                    {packId && <InputText onChangeText={(value) => {
+                        setAnswer(value)
+                    }}/>}
+                    <div>
+                        <Button style={{margin: '10px'}} onClick={() => {
+                            setShow(!show)
+                        }}>Cancel</Button>
+                        <Button onClick={clickCloseModalHandler}>Save</Button>
+                    </div>
+                </Popup>
             </div>
         </div>
     </div>

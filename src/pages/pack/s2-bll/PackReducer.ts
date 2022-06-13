@@ -24,7 +24,9 @@ export const packReducer = (state:PackInitStateType = PackInitState, action: Pac
         }
         case "SET-IS-INIT":
         case "SET-MIN-MAX-CARDS":
-            return {...state, ...action.payload};
+            return {...state, ...action.payload}
+        case "ADD-NEW-PACK":
+            return {...action.cardsPack, ...state}
         default: {
             return state;
         }

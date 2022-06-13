@@ -3,12 +3,12 @@ import {AxiosResponse} from "axios";
 
 export const CardApi = {
     getCards(params: GetCardRequestType) {
-        return instance.get<GetCardRequestType, AxiosResponse<GetCardResponseType>>('/cards/card', {params})
+        return instance.get<GetCardRequestType, AxiosResponse<GetCardResponseType>>('cards/card', {params})
             .then((res) => res.data);
     },
 
-    addCard(params: { card: AddCardRequestType }) {
-        return instance.post<AddCardRequestType>('/cards/card', params);
+    addCard(card: AddCardRequestType) {
+        return instance.post<AddCardRequestType>('cards/card', {card});
     },
 
     deleteCard(params: {id: string}) {
@@ -57,10 +57,10 @@ export type AddCardRequestType = {
     cardsPack_id: string
     question: string        // если не отправить будет таким - "no question"
     answer: string          // если не отправить будет таким - "no answer"
-    grade: number           // 0..5, не обязателен
+    grade?: number           // 0..5, не обязателен
     shots?: number
-    answerImg: string       // "url or base 64"
-    questionImg: string       // "url or base 64"
-    questionVideo: string       // "url or base 64"
-    answerVideo: string       // "url or base 64"
+    answerImg?: string       // "url or base 64"
+    questionImg?: string       // "url or base 64"
+    questionVideo?: string       // "url or base 64"
+    answerVideo?: string       // "url or base 64"
 }

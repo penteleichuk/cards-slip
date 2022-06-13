@@ -7,12 +7,12 @@ export const PackApi = {
             .then((res) => res.data);
     },
 
-    addPack(params: { cardsPack: { name?: string, deckCover?: string, private?: boolean } }) {
-        return instance.post('/cards/pack', {params});
+    addPack( cardsPack: { name?: string, deckCover?: string, private?: boolean }) {
+        return instance.post('cards/pack', {cardsPack});
     },
 
     deletePack(params: { id: string }) {
-        return instance.delete('/cards/pack', {params});
+        return instance.delete('cards/pack', {params});
     },
 
     updatePack(params: { cardsPack: CardPacksType }) {
