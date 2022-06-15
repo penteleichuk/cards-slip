@@ -6,7 +6,7 @@ import {
     getPacksCardAC,
     setCardTotalCountAC,
     setMinMaxCards,
-    setIsMyCardsPack, setActiveSortPage
+    setIsMyCardsPack, setActiveSortPageAC, removePackAC
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
@@ -14,7 +14,7 @@ import {Dispatch} from "redux";
 
 export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
-    const { sortCode, sortType } = getState().pack
+    const {sortCode, sortType} = getState().pack
 
     const processedParams = (sortCode !== '' && sortType !== '')
         ? {...params, sortPacks: sortCode + sortType}
@@ -29,11 +29,11 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
         dispatch(getPacksCardAC(cardPacks))
         dispatch(setCardTotalCountAC(cardPacksTotalCount))
         myCardsPackId ? dispatch(setIsMyCardsPack(true)) : dispatch(setIsMyCardsPack(false));
-        myCardsPackId ? dispatch(setActiveSortPage('Profile')) : dispatch(setActiveSortPage('Packs'))
+        myCardsPackId ? dispatch(setActiveSortPageAC('Profile')) : dispatch(setActiveSortPageAC('Packs'))
     } catch (err) {
         console.log(err)
     } finally {
-        dispatch(setAppStatusAC('succeeded'));
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 
@@ -42,11 +42,11 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
-        const { page, pageCount, isMyCardsPack, user_id } = getState().pack
+        const {page, pageCount, isMyCardsPack, user_id} = getState().pack
 
         const params = isMyCardsPack
-            ? { page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
-            : { page, pageCount, sortPacks: sortParams.code + sortParams.type}
+            ? {page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
+            : {page, pageCount, sortPacks: sortParams.code + sortParams.type}
 
         try {
             const res = await PackApi.getPacks(params)
@@ -56,9 +56,27 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
         } catch (err) {
             console.log(err)
         } finally {
-            dispatch(setAppStatusAC('succeeded'));
+            dispatch(setAppStatusAC('succeeded'))
         }
     }
+
+export const removePackTC = (packId: string): AppThunk => async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    dispatch(setAppStatusAC('loading'));
+
+    const {page, pageCount} = getState().pack
+    const user_id = getState().login._id
+    const params = {page, user_id, pageCount}
+
+    try {
+        await PackApi.deletePack({id: packId})
+        dispatch(removePackAC(packId))
+        //@ts-ignore
+        dispatch(getPacksTC(params))
+    } catch (err) {
+        console.log(err)
+        dispatch(setAppStatusAC('failed'))
+    }
+}
 
 type SortParamsType = {
     type: string,

@@ -15,9 +15,19 @@ type PackPropsType = {
     description: string
     packs: number
     date: Date
+    setItemToRemove: (itemToRemove: string | null) => void
 }
 
-export const Pack = React.memo(({navigatePage, author, description, packs, date, author_id, id}: PackPropsType) => {
+export const Pack = React.memo(({
+                                    navigatePage,
+                                    author,
+                                    description,
+                                    packs,
+                                    date,
+                                    author_id,
+                                    id,
+                                    setItemToRemove
+                                }: PackPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
@@ -37,9 +47,9 @@ export const Pack = React.memo(({navigatePage, author, description, packs, date,
                 <img className="pack__icon" src={cardsDarkIcon} alt=""/>{packs}
             </div>
             <div className="pack__buttons">
-                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg} />
-                {author_id === user_id && <PackButton iconSrc={editSvg} />}
-                {author_id === user_id && <PackButton iconSrc={removeSvg} />}
+                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
+                {author_id === user_id && <PackButton iconSrc={editSvg}/>}
+                {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>
         <div className="pack__content">
