@@ -14,7 +14,7 @@ import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {fetchCards} from "../../../pages/card/s2-bll/PackThunks";
+import {fetchCards} from "../../../pages/card/s2-bll/CardThunks";
 
 type NavigationType = {
     user_id?: string | undefined

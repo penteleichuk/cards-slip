@@ -1,5 +1,6 @@
 import {CardPacksType} from "../s3-dal/PackApi";
 
+// Actions type
 type GetCardsACType = ReturnType<typeof getPacksCardAC>;
 type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
 type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
@@ -12,6 +13,7 @@ type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
 type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPageAC>
 type RemovePackActionType = ReturnType<typeof removePackAC>
 
+// All types
 export type PackActionsType =
     GetCardsACType
     | SetCardTotalCountACType
@@ -25,6 +27,7 @@ export type PackActionsType =
     | SetActiveSortPageActionType
     | RemovePackActionType;
 
+// Actions creator
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
 export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setCurrentPageAC = (currenPage: number) => ({type: 'SET-CURRENT-PAGE', currenPage} as const)

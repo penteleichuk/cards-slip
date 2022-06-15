@@ -6,7 +6,7 @@ import {AppStoreType} from "../../app/s2-bll/store";
 import {useLayoutEffect} from "react";
 import {CardType} from "../s3-dal/CardApi";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {fetchCards} from "../s2-bll/PackThunks";
+import {fetchCards} from "../s2-bll/CardThunks";
 
 export const CardPage = () => {
     const dispatch = useAppDispatch();

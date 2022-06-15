@@ -13,9 +13,10 @@ type CardPropsType = {
     question: string
     grade: number
     created: Date
+    setItemToRemove: (itemToRemove: string | null) => void
 }
 
-export const Card = React.memo(({id, author_id, answer, question, grade, created}: CardPropsType) => {
+export const Card = React.memo(({id, author_id, answer, question, grade, created, setItemToRemove}: CardPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
 
     return <div className="pack">
@@ -29,8 +30,8 @@ export const Card = React.memo(({id, author_id, answer, question, grade, created
                 <img className="pack__icon" src={cardsDarkIcon} alt=""/>{grade}
             </div>
             <div className="pack__buttons">
-                {author_id === user_id && <PackButton iconSrc={editSvg} />}
-                {author_id === user_id && <PackButton iconSrc={removeSvg} />}
+                {author_id === user_id && <PackButton iconSrc={editSvg}/>}
+                {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>
         <div className="pack__content">

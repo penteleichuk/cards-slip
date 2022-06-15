@@ -16,7 +16,7 @@ import {ProfileActionsType} from "../../profile/s2-bll/ProfileActions";
 import {PackActionsType} from "../../pack/s2-bll/PackActions";
 import {packReducer} from "../../pack/s2-bll/PackReducer";
 import {CardActionsType} from "../../card/s2-bll/CardActions";
-import {cardReducer} from "../../card/s2-bll/PackReducer";
+import {cardReducer} from "../../card/s2-bll/CardReducer";
 
 const reducers = combineReducers({
     forgot: forgotReducer,
