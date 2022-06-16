@@ -21,7 +21,7 @@ export const removeCardTC = (cardId: string): AppThunk => async (dispatch: Dispa
 
     const {packUserId} = getState().card
     const removeCardParams = {id: cardId}
-    const getCardParams = {cardsPack_id:packUserId}
+    const getCardParams = {cardsPack_id:packUserId} //what is this?
 
     try {
         await CardApi.deleteCard(removeCardParams)

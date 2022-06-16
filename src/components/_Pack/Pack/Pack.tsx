@@ -15,7 +15,8 @@ type PackPropsType = {
     description: string
     packs: number
     date: Date
-    setItemToRemove: (itemToRemove: string | null) => void
+    setItemToRemove: (itemToRemove: string) => void
+    setItemToUpdate: (itemToUpdate: string) => void
 }
 
 export const Pack = React.memo(({
@@ -26,7 +27,8 @@ export const Pack = React.memo(({
                                     date,
                                     author_id,
                                     id,
-                                    setItemToRemove
+                                    setItemToRemove,
+                                    setItemToUpdate
                                 }: PackPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
@@ -48,7 +50,7 @@ export const Pack = React.memo(({
             </div>
             <div className="pack__buttons">
                 <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
-                {author_id === user_id && <PackButton iconSrc={editSvg}/>}
+                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate(id)}/>}
                 {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>

@@ -6,7 +6,7 @@ import {
     getPacksCardAC,
     setCardTotalCountAC,
     setMinMaxCards,
-    setIsMyCardsPack, setActiveSortPageAC, removePackAC
+    setIsMyCardsPack, setActiveSortPageAC, removePackAC, updatePackAC
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
@@ -76,6 +76,30 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch: Dispa
         console.log(err)
         dispatch(setAppStatusAC('failed'))
     }
+}
+
+export const updatePackTC = (packId: string, newPackName: string) =>
+    async (dispatch: Dispatch, getState: () => AppStoreType) => {
+        dispatch(setAppStatusAC('loading'));
+
+        const cardPacks = getState().pack.cardPacks.find(p => p._id === packId)
+        const updateParams = cardPacks ? {...cardPacks, name: newPackName} : null
+
+        const {page, pageCount} = getState().pack
+        const user_id = getState().login._id
+        const params = {page, user_id, pageCount}
+
+        if(updateParams) {
+            try {
+                await PackApi.updatePack({cardsPack: updateParams})
+                dispatch(updatePackAC(packId, newPackName))
+                //@ts-ignore
+                dispatch(getPacksTC(params))
+            } catch (err) {
+                console.log(err)
+                dispatch(setAppStatusAC('failed'))
+            }
+        }
 }
 
 type SortParamsType = {

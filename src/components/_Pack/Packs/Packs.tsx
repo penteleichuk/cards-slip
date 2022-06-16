@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {SkeletonItems} from "../Skeleton/SkeletonItems/SkeletonItems";
 import {Pack} from "../Pack/Pack";
 import {PaginatedPage} from "../../Paginated/PaginatedPage";
@@ -10,7 +10,7 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import './Packs.scss';
 import {Popup} from "../../Popup/Popup";
-import {removePackTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
 
 type PacksType = {
     navigatePage: string
@@ -22,15 +22,27 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
     const dispatch = useAppDispatch();
 
-    const [itemToRemove, setItemToRemove] = useState<string | null>(null)
+    const [packName, setPackName] = useState<string>('')
+
+    const [itemToRemove, setItemToRemove] = useState<string>('')
+    const [itemToUpdate, setItemToUpdate] = useState<string>('')
+
+    const changePackName = (e: ChangeEvent<HTMLInputElement>) => {
+        setPackName(e.currentTarget.value)
+    }
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
 
     const removePack = (packId: string) => {
-        setItemToRemove(null)
+        setItemToRemove('')
         dispatch(removePackTC(packId))
+    }
+
+    const updatePack = (packId: string, newPackName: string) => {
+        setItemToUpdate('')
+        dispatch(updatePackTC(packId, newPackName))
     }
 
     return <>
@@ -47,13 +59,20 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                           date={c.created}
                           navigatePage={navigatePage}
                           setItemToRemove={setItemToRemove}
+                          setItemToUpdate={setItemToUpdate}
                     />
                 )}
                 {
-                    itemToRemove
-                    && <Popup show={true} title={'Are you sure you want to remove the pack?'}>
+                     <Popup show={!!itemToRemove} title={'Are you sure you want to remove the pack?'}>
                         <span style={{padding: '10px'}} onClick={() => removePack(itemToRemove)}>Yes</span>
-                        <span style={{padding: '10px'}} onClick={() => setItemToRemove(null)}>No</span>
+                        <span style={{padding: '10px'}} onClick={() => setItemToRemove('')}>No</span>
+                    </Popup>
+                }
+                {
+                    <Popup show={!!itemToUpdate} title={'Update pack'}>
+                        <input value={packName} onChange={changePackName}/>
+                        <span style={{padding: '10px'}} onClick={() => updatePack(itemToUpdate, packName)}>Yes</span>
+                        <span style={{padding: '10px'}} onClick={() => setItemToUpdate('')}>No</span>
                     </Popup>
                 }
                 <PaginatedPage onPageChanged={clickPageHandler}
