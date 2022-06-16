@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
 import './Pack.scss';
+import {ItemToUpdateType} from "../Packs/Packs";
 
 type PackPropsType = {
     navigatePage: string
@@ -16,7 +17,7 @@ type PackPropsType = {
     packs: number
     date: Date
     setItemToRemove: (itemToRemove: string) => void
-    setItemToUpdate: (itemToUpdate: string) => void
+    setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
 export const Pack = React.memo(({
@@ -50,7 +51,10 @@ export const Pack = React.memo(({
             </div>
             <div className="pack__buttons">
                 <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
-                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate(id)}/>}
+                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate({
+                    packId: id,
+                    packName: description
+                })}/>}
                 {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>
