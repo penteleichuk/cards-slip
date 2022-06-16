@@ -14,10 +14,11 @@ export const fetchCards = (params: GetCardRequestType): AppThunk => async dispat
         dispatch(setAppStatusAC('idle'));
     }
 }
-export const addCardTC = (card: AddCardRequestType): AppThunk => async dispatch => {
+export const addCardTC = (card: AddCardRequestType, packId: string): AppThunk => async dispatch => {
     try {
         await CardApi.addCard(card)
         dispatch(addNewCard(card))
+        dispatch(fetchCards({cardsPack_id: packId}))
     } catch (err) {
         console.log(err)
     }

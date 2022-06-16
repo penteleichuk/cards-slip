@@ -29,7 +29,7 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
         if (packId) {
             dispatch(fetchCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
         }
-    }, [page, pageCount, location])
+    }, [page, pageCount, location, cardsTotalCount])
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))

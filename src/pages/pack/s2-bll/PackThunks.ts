@@ -64,6 +64,7 @@ export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, pri
     try {
         await PackApi.addPack(cardsPack)
         dispatch(addPackAC(cardsPack))
+        dispatch(getPacksTC({}))
     } catch (err) {
         console.log(err)
     }

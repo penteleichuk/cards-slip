@@ -27,10 +27,12 @@ export const PackPage = React.memo(() => {
     } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
     const pageCountCard = useAppSelector(state => state.card.pageCount);
+    const CountCard = useAppSelector(state => state.card.cardsTotalCount);
+
 
     useEffect(() => {
         dispatch(setSortParamsAC('0', ''))
-    }, [])
+    }, [CountCard])
 
     // switch page
     useEffect(() => {

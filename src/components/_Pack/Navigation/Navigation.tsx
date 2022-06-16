@@ -35,8 +35,10 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     }
     const clickCloseModalHandler = () => {
         setShow(false);
+        setQuestion('')
+        setAnswer('')
         if (packId) {
-            dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}))
+            dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
             dispatch(addNewPackTC({name: question}))
         }
@@ -49,7 +51,6 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         setQuestion('')
         setAnswer('')
     }
-
     //
 
     const [search, setSearch] = useState<string | null>(null);
