@@ -12,8 +12,6 @@ import {addCardTC, fetchCards} from "../../../pages/card/s2-bll/PackThunks";
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../components";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../../pages/app/s2-bll/store";
 
 type NavigationType = {
     user_id?: string | undefined
@@ -46,6 +44,12 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const changeValue = (value: string) => {
         setQuestion(value)
     }
+    const clickCancelHandler = () => {
+        setShow(!show)
+        setQuestion('')
+        setAnswer('')
+    }
+
     //
 
     const [search, setSearch] = useState<string | null>(null);
@@ -118,9 +122,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
                                               setAnswer(value)
                                           }}/>}
                     <div>
-                        <Button style={{margin: '10px'}} onClick={() => {
-                            setShow(!show)
-                        }}>Cancel</Button>
+                        <Button style={{margin: '10px'}} onClick={clickCancelHandler}>Cancel</Button>
                         <Button onClick={clickCloseModalHandler}>Save</Button>
                     </div>
                 </Popup>
