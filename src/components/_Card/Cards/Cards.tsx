@@ -49,9 +49,12 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
         dispatch(setCurrentPageAC(page))
     }
 
-    const removeCard = (cardId: string) => {
+    const removeCard = () => {
+        dispatch(removeCardTC(itemToRemove))
+        clearFieldsItemsToRemove()
+    }
+    const clearFieldsItemsToRemove = () => {
         setItemToRemove('')
-        dispatch(removeCardTC(cardId))
     }
 
     const updateCardQuestion = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,10 +63,12 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     const updateCardAnswer = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardAnswer: e.currentTarget.value})
     }
-
-    const updateCard = (cardId: string, newCardQuestion: string, newCardAnswer: string) => {
+    const updateCard = () => {
+        dispatch(updateCardTC(itemToUpdate.cardId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
+        clearFieldsItemsToUpdate()
+    }
+    const clearFieldsItemsToUpdate = () => {
         setItemToUpdate({cardId: '', cardQuestion: '', cardAnswer: ''})
-        dispatch(updateCardTC(cardId, newCardQuestion, newCardAnswer))
     }
 
     return <>
@@ -84,8 +89,8 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
                 )}
                 {
                     <Popup show={!!itemToRemove} title={'Are you sure you want to remove the card?'}>
-                        <span style={{padding: '10px'}} onClick={() => removeCard(itemToRemove)}>Yes</span>
-                        <span style={{padding: '10px'}} onClick={() => setItemToRemove('')}>No</span>
+                        <span style={{padding: '10px'}} onClick={removeCard}>Yes</span>
+                        <span style={{padding: '10px'}} onClick={clearFieldsItemsToRemove}>No</span>
                     </Popup>
                 }
                 {
@@ -100,21 +105,11 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
                         <div>
                             <div>Answer</div>
                             <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
-                                      value={itemToUpdate.cardAnswer}
-                                      onChange={updateCardAnswer}
+                                      value={itemToUpdate.cardAnswer} onChange={updateCardAnswer}
                             />
                         </div>
-                        <span
-                            onClick={() => updateCard(
-                                itemToUpdate.cardId,
-                                itemToUpdate.cardQuestion,
-                                itemToUpdate.cardAnswer)}
-                        >
-                            Yes
-                        </span>
-                        <span onClick={() => setItemToUpdate({cardId: '', cardQuestion: '', cardAnswer: ''})}>
-                            No
-                        </span>
+                        <span onClick={updateCard}>Yes</span>
+                        <span onClick={clearFieldsItemsToUpdate}>No</span>
                     </Popup>
                 }
                 <PaginatedPage onPageChanged={clickPageHandler}
