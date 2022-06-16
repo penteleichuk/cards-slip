@@ -21,7 +21,7 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
             return {...state, activeSortPage: action.activeSortPage}
         case "REMOVE-PACK":
             return {...state, cardPacks: state.cardPacks.filter(p => p._id !== action.packId)}
-        case "CHANGE-PACK":
+        case "UPDATE-PACK":
             return {
                 ...state,
                 cardPacks: state.cardPacks.map(p => p._id === action.packId ? {...p, name: action.newPackName} : p)

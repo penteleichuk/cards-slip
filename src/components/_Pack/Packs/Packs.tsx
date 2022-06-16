@@ -30,10 +30,6 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const [itemToRemove, setItemToRemove] = useState<string>('')
     const [itemToUpdate, setItemToUpdate] = useState<ItemToUpdateType>({packId: '', packName: ''})
 
-    const changePackName = (e: ChangeEvent<HTMLInputElement>) => {
-        setItemToUpdate({...itemToUpdate, packName: e.currentTarget.value})
-    }
-
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }
@@ -41,6 +37,10 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const removePack = (packId: string) => {
         setItemToRemove('')
         dispatch(removePackTC(packId))
+    }
+
+    const updatePackName = (e: ChangeEvent<HTMLInputElement>) => {
+        setItemToUpdate({...itemToUpdate, packName: e.currentTarget.value})
     }
 
     const updatePack = (packId: string, newPackName: string) => {
@@ -63,8 +63,8 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                           navigatePage={navigatePage}
                           setItemToRemove={setItemToRemove}
                           setItemToUpdate={setItemToUpdate}
-                    />
-                )}
+                    />)
+                }
                 {
                     <Popup show={!!itemToRemove} title={'Are you sure you want to remove the pack?'}>
                         <span style={{padding: '10px'}} onClick={() => removePack(itemToRemove)}>Yes</span>
@@ -73,7 +73,7 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                 }
                 {
                     <Popup show={!!itemToUpdate.packId} title={'Update pack'}>
-                        <input value={itemToUpdate.packName} onChange={changePackName}/>
+                        <input value={itemToUpdate.packName} onChange={updatePackName}/>
                         <span style={{padding: '10px'}}
                               onClick={() => updatePack(itemToUpdate.packId, itemToUpdate.packName)}>Yes</span>
                         <span style={{padding: '10px'}}
@@ -85,7 +85,6 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                                countPages={pageCount}
                                currentPage={page}
                 />
-
             </>
         }
     </>
