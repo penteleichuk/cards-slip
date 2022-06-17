@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {useState} from "react";
 import {SkeletonItems} from "../Skeleton/SkeletonItems/SkeletonItems";
 import {Pack} from "../Pack/Pack";
 import {PaginatedPage} from "../../Paginated/PaginatedPage";
@@ -9,8 +9,9 @@ import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import './Packs.scss';
-import {Popup} from "../../Popup/Popup";
 import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {RemovePackModal} from "../PacksModals/RemovePackModal";
+import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
 
 type PacksType = {
     navigatePage: string
@@ -42,9 +43,7 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
         setItemToRemove('')
     }
 
-    const updatePackName = (e: ChangeEvent<HTMLInputElement>) => {
-        setItemToUpdate({...itemToUpdate, packName: e.currentTarget.value})
-    }
+
     const updatePack = () => {
         dispatch(updatePackTC(itemToUpdate.packId, itemToUpdate.packName))
         clearFieldsItemsToUpdate()
@@ -70,21 +69,15 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                           setItemToUpdate={setItemToUpdate}
                     />)
                 }
-                {
-                    <Popup show={!!itemToRemove} title={'Are you sure you want to remove the pack?'}>
-                        <span style={{padding: '10px'}} onClick={removePack}>Yes</span>
-                        <span style={{padding: '10px'}} onClick={clearFieldsItemsToRemove}>No</span>
-                    </Popup>
-                }
-                {
-                    <Popup show={!!itemToUpdate.packId} title={'Update pack'}>
-                        <input value={itemToUpdate.packName} onChange={updatePackName}/>
-                        <span style={{padding: '10px'}}
-                              onClick={updatePack}>Yes</span>
-                        <span style={{padding: '10px'}}
-                              onClick={clearFieldsItemsToUpdate}>No</span>
-                    </Popup>
-                }
+                {!!itemToRemove
+                    ? <RemovePackModal itemToRemove={itemToRemove} removePack={removePack}
+                                                   clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
+                    : null}
+
+                {!!itemToUpdate.packId
+                    ? <UpdatePackModal itemToUpdate={itemToUpdate} setItemToUpdate={setItemToUpdate} updatePack={updatePack} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
+                    : null}
+
                 <PaginatedPage onPageChanged={clickPageHandler}
                                totalCards={cardPacksTotalCount}
                                countPages={pageCount}
