@@ -21,7 +21,7 @@ export const UpdatePackModal = ({
     }
 
     return (
-        <Popup show={!!itemToUpdate.packId} title={'Update pack'}>
+        <Popup show={!!itemToUpdate.packId} title={'Update pack'} modalOnClick={clearFieldsItemsToUpdate}>
             <input value={itemToUpdate.packName} onChange={updatePackName}/>
             <span style={{padding: '10px'}}
                   onClick={updatePack}>Yes</span>

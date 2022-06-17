@@ -9,7 +9,7 @@ type RemoveCardModalPropsType = {
 
 export const RemoveCardModal = ({itemToRemove, removeCard, clearFieldsItemsToRemove}: RemoveCardModalPropsType) => {
     return (
-        <Popup show={!!itemToRemove} title={'Are you sure you want to remove the card?'}>
+        <Popup show={!!itemToRemove} title={'Are you sure you want to remove the card?'} modalOnClick={clearFieldsItemsToRemove}>
             <span style={{padding: '10px'}} onClick={removeCard}>Yes</span>
             <span style={{padding: '10px'}} onClick={clearFieldsItemsToRemove}>No</span>
         </Popup>

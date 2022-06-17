@@ -87,15 +87,13 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
                     />
                 )}
 
-                {!!itemToRemove
-                    ? <RemoveCardModal itemToRemove={itemToRemove} removeCard={removeCard}
-                                       clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
-                    : null}
+                <RemoveCardModal itemToRemove={itemToRemove}
+                                 removeCard={removeCard}
+                                 clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
 
-                {!!itemToUpdate.cardId
-                    ? <UpdateCardModal itemToUpdate={itemToUpdate} setItemToUpdate={setItemToUpdate}
-                                       updateCard={updateCard} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
-                    : null}
+                <UpdateCardModal itemToUpdate={itemToUpdate}
+                                 setItemToUpdate={setItemToUpdate}
+                                 updateCard={updateCard} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
 
                 <PaginatedPage onPageChanged={clickPageHandler}
                                totalCards={cardsTotalCount}

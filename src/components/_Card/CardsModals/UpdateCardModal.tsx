@@ -24,7 +24,7 @@ export const UpdateCardModal = ({
     }
 
     return (
-        <Popup show={!!itemToUpdate.cardId} title={'Update card'}>
+        <Popup show={!!itemToUpdate.cardId} title={'Update card'} modalOnClick={clearFieldsItemsToUpdate}>
             <div>
                 <div>Question</div>
                 <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "5vh"}}

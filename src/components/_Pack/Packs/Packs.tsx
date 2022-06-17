@@ -69,14 +69,14 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                           setItemToUpdate={setItemToUpdate}
                     />)
                 }
-                {!!itemToRemove
-                    ? <RemovePackModal itemToRemove={itemToRemove} removePack={removePack}
-                                                   clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
-                    : null}
+                <RemovePackModal itemToRemove={itemToRemove}
+                                 removePack={removePack}
+                                 clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
 
-                {!!itemToUpdate.packId
-                    ? <UpdatePackModal itemToUpdate={itemToUpdate} setItemToUpdate={setItemToUpdate} updatePack={updatePack} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
-                    : null}
+                <UpdatePackModal itemToUpdate={itemToUpdate}
+                                 setItemToUpdate={setItemToUpdate}
+                                 updatePack={updatePack}
+                                 clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
 
                 <PaginatedPage onPageChanged={clickPageHandler}
                                totalCards={cardPacksTotalCount}
