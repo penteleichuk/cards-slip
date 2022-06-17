@@ -47,9 +47,9 @@ export const Range = React.memo(({
                 {...restProps}
         />
         <div className="range__body">
-            <span className="range__count">{minCardsCount}</span>
+            <span className="range__count">{value[0]}</span>
             {title && <span className="range__title">{title}</span>}
-            <span className="range__count">{maxCardsCount}</span>
+            <span className="range__count">{value[1]}</span>
         </div>
     </div>
 })
