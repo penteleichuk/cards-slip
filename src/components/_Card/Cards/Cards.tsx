@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
@@ -10,7 +10,8 @@ import {Card, SkeletonItems} from "../../components";
 import {fetchCards, removeCardTC, updateCardTC} from "../../../pages/card/s2-bll/CardThunks";
 import {useLocation, useSearchParams} from "react-router-dom";
 import './../../_Pack/Packs/Packs.scss';
-import {Popup} from "../../Popup/Popup";
+import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
+import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
 
 type CardsPropsType = {
     navigatePage: string
@@ -57,12 +58,6 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
         setItemToRemove('')
     }
 
-    const updateCardQuestion = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setItemToUpdate({...itemToUpdate, cardQuestion: e.currentTarget.value})
-    }
-    const updateCardAnswer = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setItemToUpdate({...itemToUpdate, cardAnswer: e.currentTarget.value})
-    }
     const updateCard = () => {
         dispatch(updateCardTC(itemToUpdate.cardId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
         clearFieldsItemsToUpdate()
@@ -87,31 +82,17 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
                           setItemToUpdate={setItemToUpdate}
                     />
                 )}
-                {
-                    <Popup show={!!itemToRemove} title={'Are you sure you want to remove the card?'}>
-                        <span style={{padding: '10px'}} onClick={removeCard}>Yes</span>
-                        <span style={{padding: '10px'}} onClick={clearFieldsItemsToRemove}>No</span>
-                    </Popup>
-                }
-                {
-                    <Popup show={!!itemToUpdate.cardId} title={'Update card'}>
-                        <div>
-                            <div>Question</div>
-                            <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "5vh"}}
-                                      value={itemToUpdate.cardQuestion}
-                                      onChange={updateCardQuestion}
-                            />
-                        </div>
-                        <div>
-                            <div>Answer</div>
-                            <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
-                                      value={itemToUpdate.cardAnswer} onChange={updateCardAnswer}
-                            />
-                        </div>
-                        <span onClick={updateCard}>Yes</span>
-                        <span onClick={clearFieldsItemsToUpdate}>No</span>
-                    </Popup>
-                }
+
+                {!!itemToRemove
+                    ? <RemoveCardModal itemToRemove={itemToRemove} removeCard={removeCard}
+                                       clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
+                    : null}
+
+                {!!itemToUpdate.cardId
+                    ? <UpdateCardModal itemToUpdate={itemToUpdate} setItemToUpdate={setItemToUpdate}
+                                       updateCard={updateCard} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
+                    : null}
+
                 <PaginatedPage onPageChanged={clickPageHandler}
                                totalCards={cardsTotalCount}
                                countPages={pageCount}
