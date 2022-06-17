@@ -41,7 +41,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const goToMain = () => {
         return navigate(RouteNames.PACK, {replace: true});
     }
-    // console.log(location.pathname.includes(RouteNames.PROFILE), location, RouteNames.PROFILE_ARG)
+
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
         if (search !== null) {
