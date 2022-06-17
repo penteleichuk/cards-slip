@@ -42,7 +42,8 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
-        const {page, pageCount, isMyCardsPack, user_id} = getState().pack
+        const {page, pageCount, isMyCardsPack} = getState().pack
+        const user_id = getState().login._id
 
         const params = isMyCardsPack
             ? {page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
