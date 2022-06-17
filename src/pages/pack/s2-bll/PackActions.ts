@@ -11,20 +11,10 @@ type SetInitActionType = ReturnType<typeof setInitCards>;
 type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
 type SetActiveSortPage = ReturnType<typeof setActiveSortPage>
 type AddNewPackType = ReturnType<typeof addPackAC>
+type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPageAC>
 
-export type PackActionsType =
-    GetCardsACType
-    | SetCardTotalCountACType
-    | SetCurrentPageACType
-    | SetCardPerPageACType
-    | SetCartsSortACType
-    | SetSortParamsACType
-    | SetMinMaxCardsActionType
-    | SetInitActionType
-    | SetIsMyCardsPack
-    | SetActiveSortPage
-    | AddNewPackType;
 
+// Actions creator
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
 export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setCurrentPageAC = (currenPage: number) => ({type: 'SET-CURRENT-PAGE', currenPage} as const)
@@ -46,3 +36,16 @@ export const addPackAC = (cardsPack: { name?: string, deckCover?: string, privat
     type: 'ADD-NEW-PACK',
     cardsPack
 } as const)
+
+// All types
+export type PackActionsType =
+    GetCardsACType
+    | SetCardTotalCountACType
+    | SetCurrentPageACType
+    | SetCardPerPageACType
+    | SetCartsSortACType
+    | SetSortParamsACType
+    | SetMinMaxCardsActionType
+    | SetInitActionType
+    | SetIsMyCardsPack
+    | SetActiveSortPageActionType;

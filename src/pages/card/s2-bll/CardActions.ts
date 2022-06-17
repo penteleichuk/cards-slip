@@ -11,4 +11,8 @@ export type SetCardsPerPageActionType = ReturnType<typeof setCardsPerPage>
 export type AddNewCardType = ReturnType<typeof addNewCard>
 
 // All types
+export type CardActionsType =
+    | SetCardsActionType
+    | SetCardsPerPageActionType
+
 export type CardActionsType = SetCardsActionType | SetCardsPerPageActionType | AddNewCardType ;

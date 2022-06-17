@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
 import './Pack.scss';
+import {ItemToUpdateType} from "../Packs/Packs";
 
 type PackPropsType = {
     navigatePage: string
@@ -15,9 +16,21 @@ type PackPropsType = {
     description: string
     packs: number
     date: Date
+    setItemToRemove: (itemToRemove: string) => void
+    setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
-export const Pack = React.memo(({navigatePage, author, description, packs, date, author_id, id}: PackPropsType) => {
+export const Pack = React.memo(({
+                                    navigatePage,
+                                    author,
+                                    description,
+                                    packs,
+                                    date,
+                                    author_id,
+                                    id,
+                                    setItemToRemove,
+                                    setItemToUpdate
+                                }: PackPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
@@ -37,9 +50,12 @@ export const Pack = React.memo(({navigatePage, author, description, packs, date,
                 <img className="pack__icon" src={cardsDarkIcon} alt=""/>{packs}
             </div>
             <div className="pack__buttons">
-                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg} />
-                {author_id === user_id && <PackButton iconSrc={editSvg} />}
-                {author_id === user_id && <PackButton iconSrc={removeSvg} />}
+                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
+                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate({
+                    packId: id,
+                    packName: description
+                })}/>}
+                {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>
         <div className="pack__content">

@@ -5,6 +5,7 @@ import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import './../../_Pack/Pack/Pack.scss';
+import {ItemToUpdateType} from "../Cards/Cards";
 
 type CardPropsType = {
     id: string
@@ -13,9 +14,20 @@ type CardPropsType = {
     question: string
     grade: number
     created: Date
+    setItemToRemove: (itemToRemove: string) => void
+    setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
-export const Card = React.memo(({id, author_id, answer, question, grade, created}: CardPropsType) => {
+export const Card = React.memo(({
+                                    id,
+                                    author_id,
+                                    answer,
+                                    question,
+                                    grade,
+                                    created,
+                                    setItemToRemove,
+                                    setItemToUpdate
+                                }: CardPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const percent = grade * 100 / 5;
 
@@ -34,8 +46,12 @@ export const Card = React.memo(({id, author_id, answer, question, grade, created
                 </div>
             </div>
             <div className="pack__buttons">
-                {author_id === user_id && <PackButton iconSrc={editSvg} />}
-                {author_id === user_id && <PackButton iconSrc={removeSvg} />}
+                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate({
+                    cardId: id,
+                    cardQuestion: question,
+                    cardAnswer: answer
+                })}/>}
+                {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
             </div>
         </div>
         <div className="pack__content">

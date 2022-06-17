@@ -8,10 +8,11 @@ import {addNewPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {addCardTC, fetchCards} from "../../../pages/card/s2-bll/PackThunks";
+import {addCardTC} from "../../../pages/card/s2-bll/PackThunks";
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../components";
+import {fetchCards} from "../../../pages/card/s2-bll/CardThunks";
 
 type NavigationType = {
     user_id?: string | undefined

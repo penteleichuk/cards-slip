@@ -11,7 +11,7 @@ import {Filters} from "../../../components/_Pack/Filters/Filters";
 import {Packs} from "../../../components/_Pack/Packs/Packs";
 import {Cards} from "../../../components/components";
 import {PackInitStateType} from "../../pack/s2-bll/PackInitState";
-import {CardStateType} from "../../card/s2-bll/PackInitState";
+import {CardStateType} from "../../card/s2-bll/CardInitState";
 import {setSortParamsAC} from "../../pack/s2-bll/PackActions";
 
 export const ProfilePage = React.memo(() => {

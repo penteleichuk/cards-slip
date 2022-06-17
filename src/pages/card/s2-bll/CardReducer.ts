@@ -1,4 +1,4 @@
-import {cardInitState, CardStateType} from "./PackInitState";
+import {cardInitState, CardStateType} from "./CardInitState";
 import {CardActionsType} from "./CardActions";
 
 export const cardReducer = (state: CardStateType = cardInitState, action: CardActionsType): CardStateType => {

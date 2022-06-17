@@ -6,7 +6,10 @@ import {
     getPacksCardAC,
     setCardTotalCountAC,
     setMinMaxCards,
-    setIsMyCardsPack, setActiveSortPage, addPackAC
+    setIsMyCardsPack,
+    setActiveSortPage,
+    addPackAC,
+    setActiveSortPageAC,
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
@@ -29,11 +32,11 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
         dispatch(getPacksCardAC(cardPacks))
         dispatch(setCardTotalCountAC(cardPacksTotalCount))
         myCardsPackId ? dispatch(setIsMyCardsPack(true)) : dispatch(setIsMyCardsPack(false));
-        myCardsPackId ? dispatch(setActiveSortPage('Profile')) : dispatch(setActiveSortPage('Packs'))
+        myCardsPackId ? dispatch(setActiveSortPageAC('Profile')) : dispatch(setActiveSortPageAC('Packs'))
     } catch (err) {
         console.log(err)
     } finally {
-        dispatch(setAppStatusAC('succeeded'));
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 
@@ -42,7 +45,8 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
-        const {page, pageCount, isMyCardsPack, user_id} = getState().pack
+        const {page, pageCount, isMyCardsPack} = getState().pack
+        const user_id = getState().login._id
 
         const params = isMyCardsPack
             ? {page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
@@ -56,9 +60,47 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
         } catch (err) {
             console.log(err)
         } finally {
-            dispatch(setAppStatusAC('succeeded'));
+            dispatch(setAppStatusAC('succeeded'))
         }
     }
+
+export const removePackTC = (packId: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
+    dispatch(setAppStatusAC('loading'));
+
+    const {page, pageCount} = getState().pack
+    const user_id = getState().login._id
+    const params = {page, user_id, pageCount}
+
+    try {
+        await PackApi.deletePack({id: packId})
+        dispatch(getPacksTC(params))
+    } catch (err) {
+        console.log(err)
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
+export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
+    async (dispatch, getState: () => AppStoreType) => {
+        dispatch(setAppStatusAC('loading'));
+
+        const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
+        const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
+
+        const {page, pageCount} = getState().pack
+        const user_id = getState().login._id
+        const getPackParams = {page, user_id, pageCount}
+
+        if(updatePackParams) {
+            try {
+                await PackApi.updatePack({cardsPack: updatePackParams})
+                dispatch(getPacksTC(getPackParams))
+            } catch (err) {
+                console.log(err)
+                dispatch(setAppStatusAC('failed'))
+            }
+        }
+}
 
 export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
     try {
