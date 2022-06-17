@@ -51,7 +51,9 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     }
 
     const removeCard = () => {
-        dispatch(removeCardTC(itemToRemove))
+        const packId = urlParams.get('id')
+
+        packId && dispatch(removeCardTC(itemToRemove, packId))
         clearFieldsItemsToRemove()
     }
     const clearFieldsItemsToRemove = () => {
@@ -59,7 +61,9 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     }
 
     const updateCard = () => {
-        dispatch(updateCardTC(itemToUpdate.cardId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
+        const packId = urlParams.get('id')
+
+        packId && dispatch(updateCardTC(itemToUpdate.cardId, packId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
         clearFieldsItemsToUpdate()
     }
     const clearFieldsItemsToUpdate = () => {

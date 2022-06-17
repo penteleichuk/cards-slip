@@ -60,7 +60,7 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
         }
     }
 
-export const removePackTC = (packId: string): AppThunk => async (dispatch: Dispatch, getState: () => AppStoreType) => {
+export const removePackTC = (packId: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
     dispatch(setAppStatusAC('loading'));
 
     const {page, pageCount} = getState().pack
@@ -70,7 +70,6 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch: Dispa
     try {
         await PackApi.deletePack({id: packId})
         dispatch(removePackAC(packId))
-        //@ts-ignore
         dispatch(getPacksTC(params))
     } catch (err) {
         console.log(err)
@@ -79,25 +78,21 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch: Dispa
 }
 
 export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
-    async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    async (dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
         const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
         const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
 
-        const {page, pageCount} = getState().pack
-        const user_id = getState().login._id
-        const getPacksParams = {page, user_id, pageCount}
-
         if(updatePackParams) {
             try {
                 await PackApi.updatePack({cardsPack: updatePackParams})
                 dispatch(updatePackAC(packId, newPackName))
-                //@ts-ignore
-                dispatch(getPacksTC(getPacksParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))
+            } finally {
+                dispatch(setAppStatusAC('succeeded'))
             }
         }
 }

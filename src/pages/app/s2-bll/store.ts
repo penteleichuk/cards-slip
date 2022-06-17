@@ -33,7 +33,7 @@ export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type AppStoreType = ReturnType<typeof reducers>;
 export type ActionType =
-    LoginActionsType
+    | LoginActionsType
     | AppActionsType
     | ForgotActionTypes
     | SetPasswordActionTypes
