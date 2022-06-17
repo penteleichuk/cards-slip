@@ -4,14 +4,14 @@ import {AppThunk} from "../../../app/s2-bll/store";
 import {setAppStatusAC} from "../../../app/s2-bll/actions";
 
 
-export const settingProfileTC = (name:string, ava?: string) : AppThunk => async dispatch => {
+export const settingProfileTC = (name: string, ava?: string): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
+        dispatch(settingsProfileAC(name, ava));
         await profileApi.settings(name, ava);
-        dispatch(settingsProfileAC(name, ava))
-    } catch (error){
+    } catch (error) {
         console.log(error)
-    }finally {
+    } finally {
         dispatch(setAppStatusAC('succeeded'));
     }
 }
