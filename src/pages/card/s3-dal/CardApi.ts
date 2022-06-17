@@ -23,7 +23,7 @@ export const CardApi = {
 export type GetCardRequestType = {
     cardAnswer?: string | null     // english - default value
     cardQuestion?: string   // english - default value
-    cardsPack_id?: string
+    cardsPack_id?: string | null
     min?: number
     max?: number
     sortPacks?: string  // 0updated - default value

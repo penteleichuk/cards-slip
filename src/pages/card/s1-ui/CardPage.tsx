@@ -1,5 +1,5 @@
 import './CardPage.scss';
-import {Navigate} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../app/s2-bll/store";
@@ -10,13 +10,15 @@ import {fetchCards} from "../s2-bll/CardThunks";
 
 export const CardPage = () => {
     const dispatch = useAppDispatch();
+    const [urlParams] = useSearchParams();
+    const isCards = urlParams.get('id');
 
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
     const cards = useSelector<AppStoreType, CardType[]>(state => state.card.cards);
 
     useLayoutEffect(() => {
-        dispatch(fetchCards({cardsPack_id: "607fece70857db0004f314d1", max: 20}));
-    }, [dispatch,cards]);
+        dispatch(fetchCards({cardsPack_id: isCards, max: 20}));
+    }, [dispatch]);
 
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>

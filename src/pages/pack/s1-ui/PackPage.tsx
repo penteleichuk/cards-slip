@@ -44,6 +44,7 @@ export const PackPage = React.memo(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
     }, [page, pageCount, location]);
 
+
     // redirect login page
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
@@ -67,7 +68,7 @@ export const PackPage = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
-                                            pageCount={isCards ?pageCountCard : pageCount}
+                                            pageCount={isCards ? pageCountCard : pageCount}
                                             isCards={isCards}
                                             value={rangeValue}
                                             setValue={setRangeValue}
