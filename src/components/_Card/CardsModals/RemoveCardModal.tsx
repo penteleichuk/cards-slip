@@ -1,5 +1,6 @@
 import {Popup} from "../../Popup/Popup";
 import React from "react";
+import {Button} from "../../components";
 
 type RemoveCardModalPropsType = {
     itemToRemove: string
@@ -9,9 +10,14 @@ type RemoveCardModalPropsType = {
 
 export const RemoveCardModal = ({itemToRemove, removeCard, clearFieldsItemsToRemove}: RemoveCardModalPropsType) => {
     return (
-        <Popup show={!!itemToRemove} title={'Are you sure you want to remove the card?'} modalOnClick={clearFieldsItemsToRemove}>
-            <span style={{padding: '10px'}} onClick={removeCard}>Yes</span>
-            <span style={{padding: '10px'}} onClick={clearFieldsItemsToRemove}>No</span>
+        <Popup show={!!itemToRemove}
+               title={'Are you sure you want to remove the card?'}
+               modalOnClick={clearFieldsItemsToRemove}>
+
+            <div className="popup__buttons">
+                <Button onClick={removeCard}>Yes</Button>
+                <Button onClick={clearFieldsItemsToRemove}>No</Button>
+            </div>
         </Popup>
     )
 }

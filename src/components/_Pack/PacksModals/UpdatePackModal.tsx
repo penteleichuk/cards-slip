@@ -1,6 +1,7 @@
-import {Popup} from "../../Popup/Popup";
 import React, {ChangeEvent} from "react";
 import {ItemToUpdateType} from "../Packs/Packs";
+import {Button, InputText} from "../../components";
+import {Popup} from "../../Popup/Popup";
 
 type UpdatePackModalPropsType = {
     itemToUpdate: ItemToUpdateType
@@ -22,11 +23,11 @@ export const UpdatePackModal = ({
 
     return (
         <Popup show={!!itemToUpdate.packId} title={'Update pack'} modalOnClick={clearFieldsItemsToUpdate}>
-            <input value={itemToUpdate.packName} onChange={updatePackName}/>
-            <span style={{padding: '10px'}}
-                  onClick={updatePack}>Yes</span>
-            <span style={{padding: '10px'}}
-                  onClick={clearFieldsItemsToUpdate}>No</span>
+            <InputText value={itemToUpdate.packName} onChange={updatePackName} placeholder="Name"/>
+            <div className="popup__buttons">
+                <Button onClick={updatePack}>Yes</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+            </div>
         </Popup>
     )
 }

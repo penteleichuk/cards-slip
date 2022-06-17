@@ -1,6 +1,7 @@
 import {Popup} from "../../Popup/Popup";
 import React, {ChangeEvent} from "react";
 import {ItemToUpdateType} from "../Cards/Cards";
+import {Button} from "../../components";
 
 type UpdateCardModalPropsType = {
     itemToUpdate: ItemToUpdateType
@@ -38,8 +39,10 @@ export const UpdateCardModal = ({
                           value={itemToUpdate.cardAnswer} onChange={updateCardAnswer}
                 />
             </div>
-            <span onClick={updateCard}>Yes</span>
-            <span onClick={clearFieldsItemsToUpdate}>No</span>
+            <div className="popup__buttons">
+                <Button onClick={updateCard}>Yes</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+            </div>
         </Popup>
     )
 }
