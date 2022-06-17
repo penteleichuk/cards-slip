@@ -32,7 +32,6 @@ export const Card = React.memo(({id, author_id, answer, question, grade, created
                         <div className="rating__active" style={{width: `${percent}%`}}> </div>
                     </div>
                 </div>
-                {/*<img className="pack__icon" src={cardsDarkIcon} alt=""/>{grade}*/}
             </div>
             <div className="pack__buttons">
                 {author_id === user_id && <PackButton iconSrc={editSvg} />}
