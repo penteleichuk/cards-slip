@@ -9,9 +9,7 @@ type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
 type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
 type SetInitActionType = ReturnType<typeof setInitCards>;
 type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
-type SetActiveSortPage = ReturnType<typeof setActiveSortPage>
-type AddNewPackType = ReturnType<typeof addPackAC>
-type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPageAC>
+type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPage>
 
 
 // Actions creator

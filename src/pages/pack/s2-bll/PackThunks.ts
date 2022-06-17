@@ -9,7 +9,6 @@ import {
     setIsMyCardsPack,
     setActiveSortPage,
     addPackAC,
-    setActiveSortPageAC,
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
@@ -32,7 +31,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
         dispatch(getPacksCardAC(cardPacks))
         dispatch(setCardTotalCountAC(cardPacksTotalCount))
         myCardsPackId ? dispatch(setIsMyCardsPack(true)) : dispatch(setIsMyCardsPack(false));
-        myCardsPackId ? dispatch(setActiveSortPageAC('Profile')) : dispatch(setActiveSortPageAC('Packs'))
+        myCardsPackId ? dispatch(setActiveSortPage('Profile')) : dispatch(setActiveSortPage('Packs'))
     } catch (err) {
         console.log(err)
     } finally {
