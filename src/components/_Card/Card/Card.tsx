@@ -17,6 +17,7 @@ type CardPropsType = {
 
 export const Card = React.memo(({id, author_id, answer, question, grade, created}: CardPropsType) => {
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+    const percent = grade * 100 / 5;
 
     return <div className="pack">
         <div className="pack__author">
@@ -26,7 +27,12 @@ export const Card = React.memo(({id, author_id, answer, question, grade, created
         </div>
         <div className="pack__navigation">
             <div className="pack__count">
-                <img className="pack__icon" src={cardsDarkIcon} alt=""/>{grade}
+                <div className="rating">
+                    <div className="rating__body">
+                        <div className="rating__active" style={{width: `${percent}%`}}> </div>
+                    </div>
+                </div>
+                {/*<img className="pack__icon" src={cardsDarkIcon} alt=""/>{grade}*/}
             </div>
             <div className="pack__buttons">
                 {author_id === user_id && <PackButton iconSrc={editSvg} />}
