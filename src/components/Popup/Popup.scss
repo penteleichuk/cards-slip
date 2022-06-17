@@ -35,8 +35,20 @@
 
   &__title {
     text-align: center;
-    font-size: 30px;
-    margin-bottom: 1em;
+    font-size: 20px;
+    margin-bottom: 2em;
+  }
+
+  &__buttons {
+    margin-top: 20px;
+
+    button {
+      margin-right: 20px;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
   }
 
 }

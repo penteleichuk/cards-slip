@@ -67,7 +67,6 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         return navigate(RouteNames.PACK, {replace: true});
     }
 
-    // console.log(location.pathname.includes(RouteNames.PROFILE), location, RouteNames.PROFILE_ARG)
     const searchDebounce = useDebounce(search, 1500);
     useEffect(() => {
         if (search !== null) {
@@ -81,7 +80,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
 
             setSearch(null);
         }
-    }, [dispatch, searchDebounce]);
+    }, [searchDebounce]);
 
     return <div className="dashboard__indent">
         <div className="header__content">
