@@ -11,8 +11,6 @@ type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
 type SetInitActionType = ReturnType<typeof setInitCards>;
 type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
 type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPageAC>
-type RemovePackActionType = ReturnType<typeof removePackAC>
-type UpdatePackActionType = ReturnType<typeof updatePackAC>
 
 // Actions creator
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
@@ -32,8 +30,6 @@ export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: 
     payload
 } as const);
 export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);
-export const removePackAC = (packId: string) => ({type: 'REMOVE-PACK', packId} as const)
-export const updatePackAC = (packId: string, newPackName: string) => ({ type: 'UPDATE-PACK', packId, newPackName} as const)
 
 // All types
 export type PackActionsType =
@@ -46,6 +42,4 @@ export type PackActionsType =
     | SetMinMaxCardsActionType
     | SetInitActionType
     | SetIsMyCardsPack
-    | SetActiveSortPageActionType
-    | RemovePackActionType
-    | UpdatePackActionType;
+    | SetActiveSortPageActionType;

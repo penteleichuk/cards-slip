@@ -19,13 +19,6 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
             return {...state, isMyCardsPack: action.isMyCardsPack}
         case "SET-ACTIVE-SORT-PAGE":
             return {...state, activeSortPage: action.activeSortPage}
-        case "REMOVE-PACK":
-            return {...state, cardPacks: state.cardPacks.filter(p => p._id !== action.packId)}
-        case "UPDATE-PACK":
-            return {
-                ...state,
-                cardPacks: state.cardPacks.map(p => p._id === action.packId ? {...p, name: action.newPackName} : p)
-            }
         case "SET-IS-INIT":
         case "SET-MIN-MAX-CARDS":
             return {...state, ...action.payload};

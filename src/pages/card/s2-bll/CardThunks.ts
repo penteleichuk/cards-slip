@@ -1,6 +1,6 @@
 import {CardApi, GetCardRequestType} from "../s3-dal/CardApi";
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
-import {removeCardAC, setCards, updateCardAC} from "./CardActions";
+import {setCards} from "./CardActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
 export const fetchCards = (params: GetCardRequestType): AppThunk => async dispatch => {
@@ -23,7 +23,6 @@ export const removeCardTC = (cardId: string, packId: string): AppThunk => async 
 
     try {
         await CardApi.deleteCard(removeCardParams)
-        dispatch(removeCardAC(cardId))
         dispatch(fetchCards(getCardParams))
     } catch (err) {
         console.log(err)
@@ -38,15 +37,15 @@ export const updateCardTC = (cardId: string, packId: string, newCardQuestion: st
         const card = getState().card.cards.find(c => c._id === cardId)
         const updateCardParams = card ? {...card, question: newCardQuestion, answer: newCardAnswer} : null
 
+        const getCardParams = {cardsPack_id: packId}
+
         if(updateCardParams) {
             try {
                 await CardApi.updateCard({card: updateCardParams})
-                dispatch(updateCardAC(cardId, newCardQuestion, newCardAnswer))
+                dispatch(fetchCards(getCardParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))
-            } finally {
-                dispatch(setAppStatusAC('succeeded'))
             }
         }
     }

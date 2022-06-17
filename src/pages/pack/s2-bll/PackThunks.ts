@@ -6,7 +6,7 @@ import {
     getPacksCardAC,
     setCardTotalCountAC,
     setMinMaxCards,
-    setIsMyCardsPack, setActiveSortPageAC, removePackAC, updatePackAC
+    setIsMyCardsPack, setActiveSortPageAC,
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
@@ -69,7 +69,6 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch, getSt
 
     try {
         await PackApi.deletePack({id: packId})
-        dispatch(removePackAC(packId))
         dispatch(getPacksTC(params))
     } catch (err) {
         console.log(err)
@@ -84,15 +83,17 @@ export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
         const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
         const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
 
+        const {page, pageCount} = getState().pack
+        const user_id = getState().login._id
+        const getPackParams = {page, user_id, pageCount}
+
         if(updatePackParams) {
             try {
                 await PackApi.updatePack({cardsPack: updatePackParams})
-                dispatch(updatePackAC(packId, newPackName))
+                dispatch(getPacksTC(getPackParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))
-            } finally {
-                dispatch(setAppStatusAC('succeeded'))
             }
         }
 }
