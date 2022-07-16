@@ -10,6 +10,12 @@ import {
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
 
+type SortParamsType = {
+    type: string,
+    code: string,
+    user_id?: string | undefined
+}
+
 export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
 
@@ -78,27 +84,26 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch, getSt
     }
 }
 
-export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
-    async (dispatch, getState: () => AppStoreType) => {
-        dispatch(setAppStatusAC('loading'));
+export const updatePackTC = (packId: string, newPackName: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
+    dispatch(setAppStatusAC('loading'));
 
-        const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
-        const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
+    const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
+    const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
 
-        const {page, pageCount} = getState().pack
-        const user_id = getState().login._id
-        const getPackParams = {page, user_id, pageCount}
+    const {page, pageCount} = getState().pack
+    const user_id = getState().login._id
+    const getPackParams = {page, user_id, pageCount}
 
-        if (updatePackParams) {
-            try {
-                await PackApi.updatePack({cardsPack: updatePackParams})
-                dispatch(getPacksTC(getPackParams))
-            } catch (err) {
-                console.log(err)
-                dispatch(setAppStatusAC('failed'))
-            }
+    if (updatePackParams) {
+        try {
+            await PackApi.updatePack({cardsPack: updatePackParams})
+            dispatch(getPacksTC(getPackParams))
+        } catch (err) {
+            console.log(err)
+            dispatch(setAppStatusAC('failed'))
         }
     }
+}
 
 export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
     try {
@@ -109,10 +114,4 @@ export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, pri
     } catch (err) {
         console.log(err, "error create pack");
     }
-}
-
-type SortParamsType = {
-    type: string,
-    code: string,
-    user_id?: string | undefined
 }

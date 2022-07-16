@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {getPacksTC} from "../../pack/s2-bll/PackThunks";
-import {Navigate, useLocation, useSearchParams} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
@@ -15,13 +15,14 @@ import {CardStateType} from "../../card/s2-bll/CardInitState";
 import {setSortParamsAC} from "../../pack/s2-bll/PackActions";
 
 export const ProfilePage = React.memo(() => {
-    const dispatch = useAppDispatch();
-    const location = useLocation();
+    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
+    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
 
-    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+    const dispatch = useAppDispatch();
+
     const {
         minCardsCount,
         maxCardsCount,
@@ -29,31 +30,21 @@ export const ProfilePage = React.memo(() => {
         pageCount,
     } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
 
-    const packs = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
-    console.log(packs)
-
     const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
+    // Card loading
     useEffect(() => {
         dispatch(setSortParamsAC({sortCode: '0', sortType: ''}));
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(getPacksTC({user_id, page, pageCount}));
     }, [dispatch])
 
-    // switch page
+    // Number of cards to display
     useEffect(() => {
         setRangeValue([minCardsCount, maxCardsCount]);
     }, [minCardsCount, maxCardsCount]);
 
-    // useEffect(() => {
-    //     if (!isCards) {
-    //         dispatch(getPacksTC({user_id: user_id, page: page, pageCount: pageCount}));
-    //     }
-    // }, [page, dispatch, pageCount, location, isCards, user_id])
-
+    // Redirection to authorization
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }
