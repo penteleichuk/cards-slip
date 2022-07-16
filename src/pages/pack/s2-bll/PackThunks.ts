@@ -27,7 +27,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
         const res = await PackApi.getPacks(parametersFormation);
         if (res) {
             dispatch(setPacks({...res}));
-            dispatch(setIsMyCardsPack(!!userId));
+            dispatch(setIsMyCardsPack({isMyCardsPack: !!userId}));
             dispatch(setActiveSortPage(`${userId ? 'Profile' : 'Packs'}`));
         }
 

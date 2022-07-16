@@ -7,10 +7,9 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
             return {...state, cardPacks: action.cardPacks}
         case 'SET-SORT-PARAMS':
             return {...state, sortCode: action.sortCode, sortType: action.sortType}
-        case 'SET-IS-MY-CARDS-PACK':
-            return {...state, isMyCardsPack: action.isMyCardsPack}
         case "SET-ACTIVE-SORT-PAGE":
             return {...state, activeSortPage: action.activeSortPage}
+        case 'SET-IS-MY-CARDS-PACK':
         case "SET-CARDS-PER-PAGE":
         case "SET-CURRENT-PAGE":
         case "SET-IS-INIT":
