@@ -8,32 +8,34 @@ import {
     setMinMaxCards,
     setIsMyCardsPack,
     setActiveSortPage,
-    addPackAC,
+    addPackAC, setPacks,
 } from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
 
-
 export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
-    const {sortCode, sortType} = getState().pack
 
-    const processedParams = (sortCode !== '' && sortType !== '')
-        ? {...params, sortPacks: sortCode + sortType}
-        : params
+    const {sortCode, sortType, page, pageCount} = getState().pack;
+    const userId = params.user_id || undefined;
 
-    const myCardsPackId = params.user_id || null
+    const parametersFormation = {
+        sortPacks: sortCode + sortType,
+        page,
+        pageCount,
+        ...params
+    };
 
     try {
-        const {minCardsCount, maxCardsCount, cardPacks, cardPacksTotalCount} = await PackApi.getPacks(processedParams)
-        dispatch(setMinMaxCards({minCardsCount, maxCardsCount}))
-        dispatch(setAppStatusAC('idle'))
-        dispatch(getPacksCardAC(cardPacks))
-        dispatch(setCardTotalCountAC(cardPacksTotalCount))
-        myCardsPackId ? dispatch(setIsMyCardsPack(true)) : dispatch(setIsMyCardsPack(false));
-        myCardsPackId ? dispatch(setActiveSortPage('Profile')) : dispatch(setActiveSortPage('Packs'))
+        const res = await PackApi.getPacks(parametersFormation);
+        if(res) {
+            dispatch(setPacks({...res}));
+            dispatch(setIsMyCardsPack(!!userId));
+            dispatch(setActiveSortPage(`${userId ? 'Profile' : 'Packs'}`));
+        }
+
     } catch (err) {
-        console.log(err)
+        console.log(err, "error fetch get cards")
     } finally {
         dispatch(setAppStatusAC('succeeded'))
     }
@@ -90,7 +92,7 @@ export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
         const user_id = getState().login._id
         const getPackParams = {page, user_id, pageCount}
 
-        if(updatePackParams) {
+        if (updatePackParams) {
             try {
                 await PackApi.updatePack({cardsPack: updatePackParams})
                 dispatch(getPacksTC(getPackParams))
@@ -99,13 +101,14 @@ export const updatePackTC = (packId: string, newPackName: string): AppThunk =>
                 dispatch(setAppStatusAC('failed'))
             }
         }
-}
+    }
 
 export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
     try {
-        await PackApi.addPack(cardsPack)
-        dispatch(addPackAC(cardsPack))
-        dispatch(getPacksTC({}))
+        const res = await PackApi.addPack(cardsPack);
+        dispatch(addPackAC(res.data.newCardsPack));
+
+        dispatch(getPacksTC({}));
     } catch (err) {
         console.log(err)
     }

@@ -6,12 +6,21 @@ type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
 type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
 type SetCartsSortACType = ReturnType<typeof setCardsSortAC>;
 type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
-type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
-type SetInitActionType = ReturnType<typeof setInitCards>;
 type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
 type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPage>
 type AddNewPackType = ReturnType<typeof addPackAC>
+type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
+type SetInitActionType = ReturnType<typeof setInitCards>;
+type SetPacksActionType = ReturnType<typeof setPacks>;
 
+type SetPacksPropsType = {
+    cardPacks: CardPacksType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
 
 // Actions creator
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
@@ -26,15 +35,17 @@ export const setSortParamsAC = (sortCode: string, sortType: string) => ({
     sortCode,
     sortType
 } as const)
+export const addPackAC = (cardsPack: CardPacksType) => ({
+    type: 'ADD-NEW-PACK',
+    cardsPack
+} as const)
+
+export const setPacks = (payload: SetPacksPropsType) => ({type: 'SET-PACKS', payload} as const);
+export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);
 export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
     type: 'SET-MIN-MAX-CARDS',
     payload
 } as const);
-export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);
-export const addPackAC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }) => ({
-    type: 'ADD-NEW-PACK',
-    cardsPack
-} as const)
 
 // All types
 export type PackActionsType =
@@ -48,4 +59,5 @@ export type PackActionsType =
     | SetInitActionType
     | SetIsMyCardsPack
     | SetActiveSortPageActionType
-    | AddNewPackType;
+    | AddNewPackType
+    | SetPacksActionType;

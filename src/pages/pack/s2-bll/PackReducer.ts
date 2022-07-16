@@ -20,10 +20,11 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
         case "SET-ACTIVE-SORT-PAGE":
             return {...state, activeSortPage: action.activeSortPage}
         case "SET-IS-INIT":
+        case "SET-PACKS":
         case "SET-MIN-MAX-CARDS":
             return {...state, ...action.payload}
         case "ADD-NEW-PACK":
-            return {...action.cardsPack, ...state}
+            return {...state, cardPacks: [action.cardsPack, ...state.cardPacks], cardPacksTotalCount: state.cardPacksTotalCount+1}
         default: {
             return state;
         }

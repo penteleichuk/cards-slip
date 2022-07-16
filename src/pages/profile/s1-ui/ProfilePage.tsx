@@ -26,15 +26,21 @@ export const ProfilePage = React.memo(() => {
         minCardsCount,
         maxCardsCount,
         page,
-        pageCount
+        pageCount,
     } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
 
-    const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
+    const packs = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
+    console.log(packs)
 
+    const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {
-        dispatch(setSortParamsAC('0', ''))
+        dispatch(setSortParamsAC('0', ''));
+    }, [])
+
+    useEffect(() => {
+        dispatch(getPacksTC({user_id, page, pageCount}));
     }, [])
 
     // switch page
@@ -42,11 +48,11 @@ export const ProfilePage = React.memo(() => {
         setRangeValue([minCardsCount, maxCardsCount]);
     }, [minCardsCount, maxCardsCount]);
 
-    useEffect(() => {
-        if (!isCards) {
-            dispatch(getPacksTC({user_id: user_id, page: page, pageCount: pageCount}));
-        }
-    }, [page, dispatch, pageCount, location, isCards, user_id])
+    // useEffect(() => {
+    //     if (!isCards) {
+    //         dispatch(getPacksTC({user_id: user_id, page: page, pageCount: pageCount}));
+    //     }
+    // }, [page, dispatch, pageCount, location, isCards, user_id])
 
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>

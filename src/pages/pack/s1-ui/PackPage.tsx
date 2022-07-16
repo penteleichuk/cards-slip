@@ -28,6 +28,7 @@ export const PackPage = React.memo(() => {
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
     const pageCountCard = useAppSelector(state => state.card.pageCount);
     const CountCard = useAppSelector(state => state.card.cardsTotalCount);
+    // const {sortCode, sortType} = useAppSelector(state => state.pack);
 
 
     useEffect(() => {
@@ -39,7 +40,6 @@ export const PackPage = React.memo(() => {
         setRangeValue([minCardsCount, maxCardsCount]);
     }, [minCardsCount, maxCardsCount]);
 
-    // pagination
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
     }, [page, pageCount, location]);
