@@ -3,6 +3,7 @@ import {Checkbox} from './Checkbox/Checkbox';
 import {InputText} from './InputText/InputText';
 import {Input} from './Input/Input';
 import {Tack} from './TackButton/Tack';
+import {Popup} from './Popup/Popup';
 import {Pack} from './_Pack/Pack/Pack';
 import {Packs} from './_Pack/Packs/Packs';
 import {PackButton} from './PackButton/PackButton';
@@ -15,6 +16,8 @@ import {Filters} from './_Pack/Filters/Filters';
 import {Navigation} from './_Pack/Navigation/Navigation';
 import {Card} from './_Card/Card/Card';
 import {Cards} from './_Card/Cards/Cards';
+import {PackProfile} from './_Pack/Pack/PackProfile';
+import {PackAll} from './_Pack/Pack/PackAll';
 
 export {
     Button,
@@ -33,5 +36,8 @@ export {
     Filters,
     Navigation,
     Card,
-    Cards
+    Cards,
+    PackProfile,
+    PackAll,
+    Popup,
 };

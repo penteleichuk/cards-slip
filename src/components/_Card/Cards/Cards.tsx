@@ -13,17 +13,13 @@ import './../../_Pack/Packs/Packs.scss';
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
 
-type CardsPropsType = {
-    navigatePage: string
-}
-
 export type ItemToUpdateType = {
     cardId: string
     cardQuestion: string
     cardAnswer: string
 }
 
-export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
+export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
