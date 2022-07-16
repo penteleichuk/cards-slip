@@ -6,11 +6,11 @@ import {MeProfileType} from "../../../pages/profile/s3-dal/ProfileApi";
 import {logoutTC} from "../../../pages/auth/login/s2-bll/thunks/LoginThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {logoutSvg} from "../../../assets/images/icons";
-import './Profile.scss';
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../Button/Button";
 import {settingProfileTC} from "../../../pages/profile/s2-bll/thunks/ProfileThunks";
+import './Profile.scss';
 
 export const Profile = React.memo(() => {
     const profile = useSelector<AppStoreType, MeProfileType>(state => state.profile);

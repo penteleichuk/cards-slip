@@ -9,9 +9,9 @@ import {Range} from "../../Range/Range";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setCardPerPageAC, setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import './Filters.scss';
 import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
 import {getPacksTC, setCardsSortTC} from "../../../pages/pack/s2-bll/PackThunks";
+import './Filters.scss';
 
 type FiltersType = {
     pageCount?: number

@@ -13,7 +13,6 @@ import {SkeletonFilters} from './_Pack/Skeleton/SkeletonFilters/SkeletonFilters'
 import {Profile} from './_Pages/Profile/Profile';
 import {Logo} from './_Pages/Logo/Logo';
 import {Filters} from './_Pack/Filters/Filters';
-import {Navigation} from './_Pack/Navigation/Navigation';
 import {Card} from './_Card/Card/Card';
 import {Cards} from './_Card/Cards/Cards';
 import {PackProfile} from './_Pack/Pack/PackProfile';
@@ -34,7 +33,6 @@ export {
     Profile,
     Logo,
     Filters,
-    Navigation,
     Card,
     Cards,
     PackProfile,

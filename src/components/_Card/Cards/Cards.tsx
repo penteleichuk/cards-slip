@@ -3,7 +3,7 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC, setPacks} from "../../../pages/pack/s2-bll/PackActions";
+import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
@@ -23,6 +23,7 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();
+    const packId = urlParams.get('id');
     const location = useLocation();
 
     const {cardsTotalCount, pageCount, cards, page} = useAppSelector(state => state.card);
@@ -36,19 +37,16 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
     })
 
     useEffect(() => {
-        const packId = urlParams.get('id');
         if (packId) {
             dispatch(fetchCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
         }
-    }, [page, pageCount, location, cardsTotalCount])
+    }, [dispatch, page, pageCount, location, cardsTotalCount, packId])
 
     const clickPageHandler = (page: number) => {
         dispatch(setCurrentPageAC({currenPage: page}));
     }
 
     const removeCard = () => {
-        const packId = urlParams.get('id')
-
         packId && dispatch(fetchRemoveCard(itemToRemove, packId))
         clearFieldsItemsToRemove()
     }
@@ -57,8 +55,6 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
     }
 
     const updateCard = () => {
-        const packId = urlParams.get('id')
-
         packId && dispatch(fetchUpdateCard(itemToUpdate.cardId, packId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
         clearFieldsItemsToUpdate()
     }

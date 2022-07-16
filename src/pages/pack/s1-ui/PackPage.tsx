@@ -4,12 +4,13 @@ import {Navigate, useLocation, useSearchParams} from "react-router-dom";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {RouteNames} from "../../../constants/routes";
 import {getPacksTC} from "../s2-bll/PackThunks";
-import {Logo, Filters, Packs, Navigation, Cards} from "../../../components/components";
+import {Logo, Filters, Packs, Cards} from "../../../components/components";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {PackInitStateType} from "../s2-bll/PackInitState";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {setSortParamsAC} from "../s2-bll/PackActions";
 import './PackPage.scss';
+import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 
 export const PackPage = React.memo(() => {
     const dispatch = useAppDispatch();
