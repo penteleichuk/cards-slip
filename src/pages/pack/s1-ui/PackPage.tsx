@@ -32,7 +32,7 @@ export const PackPage = React.memo(() => {
 
 
     useEffect(() => {
-        dispatch(setSortParamsAC('0', ''))
+        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}))
     }, [CountCard])
 
     // switch page

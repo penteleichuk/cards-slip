@@ -79,7 +79,7 @@ export const Filters = React.memo(({
             (code === '') && setFilterCode({...filterCode, [type]: '0'});
             (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams));
             if (code === '') {
-                dispatch(setSortParamsAC('', ''))
+                dispatch(setSortParamsAC({sortCode: '', sortType: ''}))
                 dispatch(getPacksTC(getParams))
             }
         } else if(activeType !== type || actualSortPage !== activeSortPage) {

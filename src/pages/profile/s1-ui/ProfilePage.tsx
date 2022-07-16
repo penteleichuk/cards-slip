@@ -36,12 +36,12 @@ export const ProfilePage = React.memo(() => {
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {
-        dispatch(setSortParamsAC('0', ''));
-    }, [])
+        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}));
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(getPacksTC({user_id, page, pageCount}));
-    }, [])
+    }, [dispatch])
 
     // switch page
     useEffect(() => {

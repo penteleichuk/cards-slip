@@ -8,10 +8,10 @@ import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import './Packs.scss';
 import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {RemovePackModal} from "../PacksModals/RemovePackModal";
 import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
+import './Packs.scss';
 
 type PacksType = {
     navigatePage: string
