@@ -1,7 +1,6 @@
 import {CardPacksType, GetPacksResponse} from "../s3-dal/PackApi";
 
 // Actions creator
-export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
 export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setCurrentPageAC = (currenPage: number) => ({type: 'SET-CURRENT-PAGE', currenPage} as const)
 export const setCardPerPageAC = (totalCards: number) => ({type: 'SET-CARDS-PER-PAGE', totalCards} as const)
@@ -26,7 +25,6 @@ export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: 
 } as const);
 
 //
-type GetCardsACType = ReturnType<typeof getPacksCardAC>;
 type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
 type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
 type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
@@ -41,7 +39,6 @@ type SetPacksActionType = ReturnType<typeof setPacks>;
 
 // All types
 export type PackActionsType =
-    GetCardsACType
     | SetCardTotalCountACType
     | SetCurrentPageACType
     | SetCardPerPageACType
