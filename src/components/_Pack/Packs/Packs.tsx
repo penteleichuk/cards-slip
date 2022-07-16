@@ -32,7 +32,7 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const [itemToUpdate, setItemToUpdate] = useState<ItemToUpdateType>({packId: '', packName: ''})
 
     const clickPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC(page))
+        dispatch(setCurrentPageAC({currenPage: page}))
     }
 
     const removePack = () => {

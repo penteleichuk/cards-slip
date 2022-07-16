@@ -25,7 +25,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
 
     try {
         const res = await PackApi.getPacks(parametersFormation);
-        if(res) {
+        if (res) {
             dispatch(setPacks({...res}));
             dispatch(setIsMyCardsPack(!!userId));
             dispatch(setActiveSortPage(`${userId ? 'Profile' : 'Packs'}`));
@@ -38,29 +38,29 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
     }
 }
 
+export const setCardsSortTC = (sortParams: SortParamsType) => async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    dispatch(setAppStatusAC('loading'));
 
-export const setCardsSortTC = (sortParams: SortParamsType) =>
-    async (dispatch: Dispatch, getState: () => AppStoreType) => {
-        dispatch(setAppStatusAC('loading'));
+    const {page, pageCount, isMyCardsPack} = getState().pack
+    const user_id = getState().login._id
 
-        const {page, pageCount, isMyCardsPack} = getState().pack
-        const user_id = getState().login._id
+    const params = isMyCardsPack
+        ? {page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
+        : {page, pageCount, sortPacks: sortParams.code + sortParams.type}
 
-        const params = isMyCardsPack
-            ? {page, user_id, pageCount, sortPacks: sortParams.code + sortParams.type}
-            : {page, pageCount, sortPacks: sortParams.code + sortParams.type}
-
-        try {
-            const res = await PackApi.getPacks(params)
+    try {
+        const res = await PackApi.getPacks(params)
+        if (res) {
             dispatch(setCardsSortAC(res.cardPacks))
             dispatch(setSortParamsAC(sortParams.code, sortParams.type))
-            dispatch(setAppStatusAC('idle'))
-        } catch (err) {
-            console.log(err)
-        } finally {
-            dispatch(setAppStatusAC('succeeded'))
         }
+        dispatch(setAppStatusAC('idle'))
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
+}
 
 export const removePackTC = (packId: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
     dispatch(setAppStatusAC('loading'));
@@ -107,7 +107,7 @@ export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, pri
 
         dispatch(getPacksTC({}));
     } catch (err) {
-        console.log(err)
+        console.log(err, "error create pack");
     }
 }
 

@@ -3,7 +3,7 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setCurrentPageAC, setPacks} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
@@ -47,7 +47,7 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     }, [page, pageCount, location, cardsTotalCount])
 
     const clickPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC(page))
+        dispatch(setCurrentPageAC({currenPage: page}));
     }
 
     const removeCard = () => {
