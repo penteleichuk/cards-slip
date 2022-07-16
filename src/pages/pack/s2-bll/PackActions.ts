@@ -1,26 +1,4 @@
-import {CardPacksType} from "../s3-dal/PackApi";
-
-type GetCardsACType = ReturnType<typeof getPacksCardAC>;
-type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
-type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
-type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
-type SetCartsSortACType = ReturnType<typeof setCardsSortAC>;
-type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
-type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
-type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPage>
-type AddNewPackType = ReturnType<typeof addPackAC>
-type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
-type SetInitActionType = ReturnType<typeof setInitCards>;
-type SetPacksActionType = ReturnType<typeof setPacks>;
-
-type SetPacksPropsType = {
-    cardPacks: CardPacksType[]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-}
+import {CardPacksType, GetPacksResponse} from "../s3-dal/PackApi";
 
 // Actions creator
 export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
@@ -40,12 +18,26 @@ export const addPackAC = (cardsPack: CardPacksType) => ({
     cardsPack
 } as const)
 
-export const setPacks = (payload: SetPacksPropsType) => ({type: 'SET-PACKS', payload} as const);
+export const setPacks = (payload: GetPacksResponse) => ({type: 'SET-PACKS', payload} as const);
 export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);
 export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
     type: 'SET-MIN-MAX-CARDS',
     payload
 } as const);
+
+//
+type GetCardsACType = ReturnType<typeof getPacksCardAC>;
+type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
+type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
+type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
+type SetCartsSortACType = ReturnType<typeof setCardsSortAC>;
+type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
+type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
+type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPage>
+type AddNewPackType = ReturnType<typeof addPackAC>
+type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
+type SetInitActionType = ReturnType<typeof setInitCards>;
+type SetPacksActionType = ReturnType<typeof setPacks>;
 
 // All types
 export type PackActionsType =

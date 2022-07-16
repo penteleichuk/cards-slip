@@ -3,9 +3,6 @@ import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
 import {
     setCardsSortAC,
     setSortParamsAC,
-    getPacksCardAC,
-    setCardTotalCountAC,
-    setMinMaxCards,
     setIsMyCardsPack,
     setActiveSortPage,
     addPackAC, setPacks,
