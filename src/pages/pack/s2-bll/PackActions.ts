@@ -4,7 +4,7 @@ import {CardPacksType, GetPacksResponse} from "../s3-dal/PackApi";
 export const setCurrentPageAC = (payload: {currenPage: number}) => ({type: 'SET-CURRENT-PAGE', payload} as const)
 export const setCardPerPageAC = (payload: {totalCards: number}) => ({type: 'SET-CARDS-PER-PAGE', payload} as const)
 export const setIsMyCardsPack = (payload: {isMyCardsPack: boolean}) => ({type: 'SET-IS-MY-CARDS-PACK', payload} as const)
-export const setActiveSortPage = (activeSortPage: string) => ({type: 'SET-ACTIVE-SORT-PAGE', activeSortPage} as const)
+export const setActiveSortPage = (payload: {activeSortPage: string}) => ({type: 'SET-ACTIVE-SORT-PAGE', payload} as const)
 export const setCardsSortAC = (cardPacks: CardPacksType[]) => ({type: 'SET-CARDS-SORT', cardPacks} as const)
 export const setSortParamsAC = (sortCode: string, sortType: string) => ({
     type: 'SET-SORT-PARAMS',
