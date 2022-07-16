@@ -55,7 +55,7 @@ export const Filters = React.memo(({
 
     const changeCardPerPageHandler = (value: number) => {
         if (!isCards) {
-            dispatch(setCardPerPageAC(value))
+            dispatch(setCardPerPageAC({totalCards: value}))
         } else {
             dispatch(setCardsPerPage({pageCount: value}));
         }
