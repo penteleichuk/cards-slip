@@ -5,7 +5,7 @@ import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
 import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
-import {PackAll, PackProfile} from "../../../components/components";
+import {PackProfile} from "../../../components/components";
 
 export const ProfilePage = React.memo(() => {
     const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);

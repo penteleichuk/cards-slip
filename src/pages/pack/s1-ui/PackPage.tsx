@@ -33,7 +33,7 @@ export const PackPage = React.memo(() => {
 
     useEffect(() => {
         dispatch(setSortParamsAC({sortCode: '0', sortType: ''}))
-    }, [CountCard])
+    }, [dispatch, CountCard])
 
     // switch page
     useEffect(() => {
@@ -42,7 +42,7 @@ export const PackPage = React.memo(() => {
 
     useEffect(() => {
         dispatch(getPacksTC({page: page, pageCount: pageCount}))
-    }, [page, pageCount, location]);
+    }, [dispatch, page, pageCount, location]);
 
 
     // redirect login page

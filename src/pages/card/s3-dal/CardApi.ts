@@ -8,7 +8,7 @@ export const CardApi = {
     },
 
     addCard(card: AddCardRequestType) {
-        return instance.post<AddCardRequestType>('cards/card', {card});
+        return instance.post<AddCardRequestType, AxiosResponse<CardType>>('cards/card', {card});
     },
 
     deleteCard(params: {id: string}) {

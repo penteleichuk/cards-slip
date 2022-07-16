@@ -7,7 +7,7 @@ import {setCurrentPageAC, setPacks} from "../../../pages/pack/s2-bll/PackActions
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
-import {fetchCards, removeCardTC, updateCardTC} from "../../../pages/card/s2-bll/CardThunks";
+import {fetchCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/card/s2-bll/CardThunks";
 import {useLocation, useSearchParams} from "react-router-dom";
 import './../../_Pack/Packs/Packs.scss';
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
@@ -49,7 +49,7 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
     const removeCard = () => {
         const packId = urlParams.get('id')
 
-        packId && dispatch(removeCardTC(itemToRemove, packId))
+        packId && dispatch(fetchRemoveCard(itemToRemove, packId))
         clearFieldsItemsToRemove()
     }
     const clearFieldsItemsToRemove = () => {
@@ -59,7 +59,7 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
     const updateCard = () => {
         const packId = urlParams.get('id')
 
-        packId && dispatch(updateCardTC(itemToUpdate.cardId, packId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
+        packId && dispatch(fetchUpdateCard(itemToUpdate.cardId, packId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer))
         clearFieldsItemsToUpdate()
     }
     const clearFieldsItemsToUpdate = () => {

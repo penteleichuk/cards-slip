@@ -8,7 +8,6 @@ import {
     SetPasswordPage,
     PackPage
 } from "./../pages/pages";
-import {CardPage} from "../pages/card/s1-ui/CardPage";
 import {Navigate} from "react-router-dom";
 
 type RouteType = {
@@ -24,18 +23,6 @@ export const routes: Array<RouteType> = [
         public: true,
         path: RouteNames.HOME,
         component: <Navigate to={RouteNames.PACK}/>,
-    },
-    {
-        name: 'Card',
-        public: true,
-        path: RouteNames.HOME,
-        component: <CardPage/>,
-    },
-    {
-        name: 'Card',
-        public: true,
-        path: RouteNames.CARDS_ARG,
-        component: <CardPage/>,
     },
     {
         name: 'Pack example',

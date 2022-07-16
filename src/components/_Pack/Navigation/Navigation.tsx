@@ -6,8 +6,7 @@ import {useDebounce} from "../../../hooks/useDebounce";
 import {addNewPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {RouteNames} from "../../../constants/routes";
-import {addCardTC} from "../../../pages/card/s2-bll/PackThunks";
-import {fetchCards} from "../../../pages/card/s2-bll/CardThunks";
+import {fetchAddCard, fetchCards} from "../../../pages/card/s2-bll/CardThunks";
 import './Navigation.scss';
 
 type NavigationType = {
@@ -41,7 +40,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         setAnswer('');
 
         if (packId) {
-            dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}, packId))
+            dispatch(fetchAddCard({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
             dispatch(addNewPackTC({name: question}))
         }
