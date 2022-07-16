@@ -51,7 +51,7 @@ export const setCardsSortTC = (sortParams: SortParamsType) => async (dispatch: D
     try {
         const res = await PackApi.getPacks(params)
         if (res) {
-            dispatch(setCardsSortAC(res.cardPacks))
+            dispatch(setCardsSortAC({cardPacks: res.cardPacks}))
             dispatch(setSortParamsAC(sortParams.code, sortParams.type))
         }
         dispatch(setAppStatusAC('idle'))

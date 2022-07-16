@@ -3,10 +3,9 @@ import {PackActionsType} from "./PackActions";
 
 export const packReducer = (state: PackInitStateType = PackInitState, action: PackActionsType): PackInitStateType => {
     switch (action.type) {
-        case 'SET-CARDS-SORT':
-            return {...state, cardPacks: action.cardPacks}
         case 'SET-SORT-PARAMS':
             return {...state, sortCode: action.sortCode, sortType: action.sortType}
+        case 'SET-CARDS-SORT':
         case "SET-ACTIVE-SORT-PAGE":
         case 'SET-IS-MY-CARDS-PACK':
         case "SET-CARDS-PER-PAGE":
