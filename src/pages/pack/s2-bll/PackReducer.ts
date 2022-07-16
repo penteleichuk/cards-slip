@@ -3,8 +3,6 @@ import {PackActionsType} from "./PackActions";
 
 export const packReducer = (state: PackInitStateType = PackInitState, action: PackActionsType): PackInitStateType => {
     switch (action.type) {
-        case "SET-TOTAL-COUNT":
-            return {...state, cardPacksTotalCount: action.totalCount}
         case "SET-CURRENT-PAGE":
             return {...state, page: action.currenPage}
         case "SET-CARDS-PER-PAGE":
