@@ -44,7 +44,7 @@ export const ProfilePage = React.memo(() => {
 
     useEffect(() => {
         if (!isCards) {
-            dispatch(getPacksTC({user_id: user_id, page: page, pageCount: pageCount}));
+            dispatch(getPacksTC({user_id, page, pageCount}));
         }
     }, [page, dispatch, pageCount, location, isCards, user_id])
 

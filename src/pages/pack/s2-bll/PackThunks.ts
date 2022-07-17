@@ -1,7 +1,7 @@
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
 import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
 import {
-    setCardsSortAC,
+    setPacksSortAC,
     setSortParamsAC,
     getPacksCardAC,
     setCardTotalCountAC,
@@ -40,7 +40,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
 }
 
 
-export const setCardsSortTC = (sortParams: SortParamsType) =>
+export const setPacksSortTC = (sortParams: SortParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
@@ -53,7 +53,7 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
 
         try {
             const res = await PackApi.getPacks(params)
-            dispatch(setCardsSortAC(res.cardPacks))
+            dispatch(setPacksSortAC(res.cardPacks))
             dispatch(setSortParamsAC(sortParams.code, sortParams.type))
             dispatch(setAppStatusAC('idle'))
         } catch (err) {

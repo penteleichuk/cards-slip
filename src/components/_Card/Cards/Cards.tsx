@@ -3,7 +3,6 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
@@ -12,6 +11,7 @@ import {useLocation, useSearchParams} from "react-router-dom";
 import './../../_Pack/Packs/Packs.scss';
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
+import {setCurrentCardPage} from "../../../pages/card/s2-bll/CardActions";
 
 type CardsPropsType = {
     navigatePage: string
@@ -47,7 +47,7 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     }, [page, pageCount, location, cardsTotalCount])
 
     const clickPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC(page))
+        dispatch(setCurrentCardPage({page}))
     }
 
     const removeCard = () => {
@@ -95,11 +95,14 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
                                  setItemToUpdate={setItemToUpdate}
                                  updateCard={updateCard} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
 
-                <PaginatedPage onPageChanged={clickPageHandler}
-                               totalCards={cardsTotalCount}
-                               countPages={pageCount}
-                               currentPage={page}
-                />
+                {
+                    !(cards.length < 1) &&
+                    <PaginatedPage onPageChanged={clickPageHandler}
+                                   totalCards={cardsTotalCount}
+                                   countPages={pageCount}
+                                   currentPage={page}
+                    />
+                }
             </>
         }
     </>

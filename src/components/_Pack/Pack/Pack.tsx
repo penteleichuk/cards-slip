@@ -36,7 +36,7 @@ export const Pack = React.memo(({
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const packId: string = e.currentTarget.dataset.pack || '';
-        return navigate(`${navigatePage}?id=${packId}`);
+        return navigate(`${navigatePage}?id=${packId}`); //get card??
     }
 
     return <div className="pack">

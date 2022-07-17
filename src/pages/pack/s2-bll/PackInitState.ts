@@ -27,6 +27,7 @@ export type PackInitStateType = GetPackRequestType & {
     activeSortPage: string
     sortType: string
     sortCode: string
+    _id: string | null //? del
 }
 
 export const PackInitState: PackInitStateType = {
@@ -47,4 +48,5 @@ export const PackInitState: PackInitStateType = {
     minCards: 0,
     maxCards: 1,
     user_id: undefined,
+    _id: null //? del
 }

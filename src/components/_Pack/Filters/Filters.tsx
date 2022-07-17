@@ -10,8 +10,10 @@ import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setCardPerPageAC, setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './Filters.scss';
-import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
-import {getPacksTC, setCardsSortTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {setCardsPerPage, setSortCardsParams} from "../../../pages/card/s2-bll/CardActions";
+import {getPacksTC, setPacksSortTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchCards, setCardsSortTC} from "../../../pages/card/s2-bll/CardThunks";
+import {useSearchParams} from "react-router-dom";
 
 type FiltersType = {
     pageCount?: number
@@ -23,10 +25,15 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-type filterCodeType = {
+type FilterPackCodeType = {
     name: string
     cardsCount: string
     updated: string
+    created: string
+}
+type FilterCardCodeType = {
+    question: string
+    grade: string
     created: string
 }
 
@@ -46,10 +53,18 @@ export const Filters = React.memo(({
     const activeSortPage = useSelector<AppStoreType, string>(state => state.pack.activeSortPage)
     const activeType = useSelector<AppStoreType, string>(state => state.pack.sortType)
     const activeCode = useSelector<AppStoreType, string>(state => state.pack.sortCode)
+    const activeCardType = useSelector<AppStoreType, string>(state => state.card.sortType)
+    const activeCardCode = useSelector<AppStoreType, string>(state => state.card.sortCode)
+    const [urlParams] = useSearchParams();
     const dispatch = useAppDispatch();
 
-    const [filterCode, setFilterCode] = useState<filterCodeType>({
+    const cardsPackId = urlParams.get('id');
+
+    const [filterPackCode, setFilterPackCode] = useState<FilterPackCodeType>({
         name: '0', cardsCount: '0', updated: '0', created: '0'
+    })
+    const [filterCardCode, setFilterCardCode] = useState<FilterCardCodeType>({
+        question: '0', grade: '0', created: '0'
     })
     let actualSortPage = activeSortPage
 
@@ -74,21 +89,51 @@ export const Filters = React.memo(({
             : {page: currentPage, pageCount}
 
         if (activeType === type) {
-            (code === '0') && setFilterCode({...filterCode, [type]: '1'});
-            (code === '1') && setFilterCode({...filterCode, [type]: ''});
-            (code === '') && setFilterCode({...filterCode, [type]: '0'});
-            (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams));
+            (code === '0') && setFilterPackCode({...filterPackCode, [type]: '1'});
+            (code === '1') && setFilterPackCode({...filterPackCode, [type]: ''});
+            (code === '') && setFilterPackCode({...filterPackCode, [type]: '0'});
+            (type !== '' && code !== '') && dispatch(setPacksSortTC(sortParams));
             if (code === '') {
                 dispatch(setSortParamsAC('', ''))
                 dispatch(getPacksTC(getParams))
             }
-        } else if(activeType !== type || actualSortPage !== activeSortPage) {
-                const filter = {...filterCode} as any
-                for (let key in filterCode) {
-                    filter[key] = (key !== type) ? '0' : '1'
-                }
-                filter && setFilterCode(filter);
-                (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams))
+        } else if (activeType !== type || actualSortPage !== activeSortPage) {
+            const filter = {...filterPackCode} as any
+            for (let key in filterPackCode) {
+                filter[key] = (key !== type) ? '0' : '1'
+            }
+            filter && setFilterPackCode(filter);
+            (type !== '' && code !== '') && dispatch(setPacksSortTC(sortParams))
+        }
+    }
+
+    const sortCards = (e: React.MouseEvent<HTMLElement>) => {
+
+        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+        const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
+
+        const cardsPack_id = urlParams.get('id');
+
+        const sortParams = {code, type, cardsPack_id}
+
+        const getParams = {page: currentPage, pageCount, cardsPack_id}
+
+        if (activeCardType === type) {
+            (code === '0') && setFilterCardCode({...filterCardCode, [type]: '1'});
+            (code === '1') && setFilterCardCode({...filterCardCode, [type]: ''});
+            (code === '') && setFilterCardCode({...filterCardCode, [type]: '0'});
+            (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams));
+            if (code === '') {
+                dispatch(setSortCardsParams({sortType: '', sortCode: ''}))
+                dispatch(fetchCards(getParams))
+            }
+        } else if (activeCardType !== type || cardsPack_id !== cardsPackId) { // || actualSortPage !== activeSortPage
+            const filter = {...filterCardCode} as any
+            for (let key in filterCardCode) {
+                filter[key] = (key !== type) ? '0' : '1'
+            }
+            filter && setFilterCardCode(filter);
+            (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams))
         }
     }
 
@@ -109,24 +154,47 @@ export const Filters = React.memo(({
                         />
                     </div>
                 }
-                {!isCards &&
-                    <div className="filters__item">
-                        <p className="filters__title">Filters</p>
-                        <div className="filters__buttons">
-                            <NavButton title="Name" data-t='name' data-c={filterCode.name} sortCode={filterCode.name}
-                                       iconSvg={TextSvg} onClick={sortPacks}
-                                       active={activeType === 'name' && activeCode !== ''}/>
-                            <NavButton title="Count card" data-t='cardsCount' data-c={filterCode.cardsCount}
-                                       sortCode={filterCode.cardsCount} iconSvg={cardsSvg}
-                                       onClick={sortPacks} active={activeType === 'cardsCount' && activeCode !== ''}/>
-                            <NavButton title="Last updated" data-t='updated' data-c={filterCode.updated}
-                                       sortCode={filterCode.updated} iconSvg={timeSvg}
-                                       onClick={sortPacks} active={activeType === 'updated' && activeCode !== ''}/>
-                            <NavButton title="Created by" data-t='created' data-c={filterCode.created}
-                                       sortCode={filterCode.created} iconSvg={updateSvg}
-                                       onClick={sortPacks} active={activeType === 'created' && activeCode !== ''}/>
+                {
+                    isCards
+                        ? <div className="filters__item">
+                            <p className="filters__title">Filters</p>
+                            <div className="filters__buttons">
+                                <NavButton title="Question" data-t='question' data-c={filterCardCode.question}
+                                           iconSvg={TextSvg} sortCode={filterCardCode.question} onClick={sortCards}
+                                           active={activeCardType === 'question' && activeCardCode !== ''}
+                                />
+                                <NavButton title="Grade" data-t='grade' data-c={filterCardCode.grade}
+                                           iconSvg={cardsSvg} sortCode={filterCardCode.grade} onClick={sortCards}
+                                           active={activeCardType === 'grade' && activeCardCode !== ''}
+                                />
+                                <NavButton title="Created by" data-t='created' data-c={filterCardCode.created}
+                                           iconSvg={updateSvg} sortCode={filterCardCode.created} onClick={sortCards}
+                                           active={activeCardType === 'created' && activeCardCode !== ''}
+                                />
+                            </div>
                         </div>
-                    </div>
+                        : <div className="filters__item">
+                            <p className="filters__title">Filters</p>
+                            <div className="filters__buttons">
+                                <NavButton title="Name" data-t='name' data-c={filterPackCode.name}
+                                           sortCode={filterPackCode.name}
+                                           iconSvg={TextSvg} onClick={sortPacks}
+                                           active={activeType === 'name' && activeCode !== ''}
+                                />
+                                <NavButton title="Count card" data-t='cardsCount' data-c={filterPackCode.cardsCount}
+                                           sortCode={filterPackCode.cardsCount} iconSvg={cardsSvg}
+                                           onClick={sortPacks} active={activeType === 'cardsCount' && activeCode !== ''}
+                                />
+                                <NavButton title="Last updated" data-t='updated' data-c={filterPackCode.updated}
+                                           sortCode={filterPackCode.updated} iconSvg={timeSvg}
+                                           onClick={sortPacks} active={activeType === 'updated' && activeCode !== ''}
+                                />
+                                <NavButton title="Created by" data-t='created' data-c={filterPackCode.created}
+                                           sortCode={filterPackCode.created} iconSvg={updateSvg}
+                                           onClick={sortPacks} active={activeType === 'created' && activeCode !== ''}
+                                />
+                            </div>
+                        </div>
                 }
                 <div className="filters__item">
                     <p className="filters__title">Show cards per page</p>
