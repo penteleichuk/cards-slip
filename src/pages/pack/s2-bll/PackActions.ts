@@ -1,12 +1,12 @@
 import {CardPacksType, GetPacksResponse} from "../s3-dal/PackApi";
 
 // Actions creator
-export const setPack = (payload: {cardsPack: CardPacksType}) => ({type: 'SET-NEW-PACK', payload} as const);
-export const setPacks = (payload: GetPacksResponse) => ({type: 'SET-PACKS', payload} as const);
-export const setPacksSort = (payload: {sortPacks: string}) => ({type: 'SET-PACKS-SORT', payload} as const);
-export const setPacksPagination = (payload: {page: number}) => ({type: 'SET-CURRENT-PAGE', payload} as const);
-export const setPacksPerPage = (payload: {totalCards: number}) => ({type: 'SET-CARDS-PER-PAGE', payload} as const);
-export const setPacksMinMax = (payload: { minCardsCount: number, maxCardsCount: number }) => ({type: 'SET-MIN-MAX-CARDS', payload} as const);
+export const setPack = (payload: {cardsPack: CardPacksType}) => ({type: 'PACK/SET-PACK', payload} as const);
+export const setPacks = (payload: GetPacksResponse) => ({type: 'PACK/SET-PACKS', payload} as const);
+export const setPacksSort = (payload: {sortPacks: string}) => ({type: 'PACK/SET-SORT', payload} as const);
+export const setPacksPagination = (payload: {page: number}) => ({type: 'PACK/SET-PAGINATION', payload} as const);
+export const setPacksPerPage = (payload: {totalCards: number}) => ({type: 'PACK/SET-PER-PAGE', payload} as const);
+export const setPacksMinMax = (payload: { minCardsCount: number, maxCardsCount: number }) => ({type: 'PACK/SET-MIN-MAX', payload} as const);
 
 // Actions type
 type SetPackActionType = ReturnType<typeof setPack>
