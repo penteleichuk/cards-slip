@@ -1,44 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {Navigate, useLocation, useSearchParams} from "react-router-dom";
-import {AppStoreType} from "../../app/s2-bll/store";
+import React from "react";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {fetchGetPacks} from "../s2-bll/PackThunks";
-import {Logo, Filters, Packs, Cards} from "../../../components/components";
-import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {PackInitStateType} from "../s2-bll/PackInitState";
+import {Logo, PackAll} from "../../../components/components";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 import './PackPage.scss';
 
 export const PackPage = React.memo(() => {
-    const dispatch = useAppDispatch();
-    const location = useLocation();
+    const isAuth = useAppSelector(state => state.login.isLoggedIn);
+
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
 
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
-    const isAuth = useSelector<AppStoreType, boolean>(state => state.login.isLoggedIn);
-    const {
-        minCardsCount,
-        maxCardsCount,
-        pageCount,
-        page
-    } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
-    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
-    const pageCountCard = useAppSelector(state => state.card.pageCount);
-
-    // switch page
-    useEffect(() => {
-        setRangeValue([minCardsCount, maxCardsCount]);
-    }, [minCardsCount, maxCardsCount]);
-
-    useEffect(() => {
-        dispatch(fetchGetPacks({page: page, pageCount: pageCount}))
-    }, [dispatch, page, pageCount, location]);
-
-
-    // redirect login page
+    // Redirection to authorization
     if (!isAuth) {
         return <Navigate to={RouteNames.LOGIN}/>
     }
@@ -54,28 +28,11 @@ export const PackPage = React.memo(() => {
                                     <Logo isProfile={false}/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation user_id={user_id} navigatePage={RouteNames.PACK}/>
+                                    <Navigation user_id={undefined} navigatePage={RouteNames.PROFILE}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
-                                <div className="dashboard__sidebar">
-                                    <div className="dashboard__indent">
-                                        <Filters
-                                            pageCount={isCards ? pageCountCard : pageCount}
-                                            isCards={isCards}
-                                            value={rangeValue}
-                                            setValue={setRangeValue}
-                                            minCardsCount={minCardsCount}
-                                            maxCardsCount={maxCardsCount}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="dashboard__page">
-                                    <div className="dashboard__indent dashboard__pack">
-                                        {!isCards ? <Packs navigatePage={RouteNames.PACK}/> :
-                                            <Cards navigatePage={RouteNames.PACK}/>}
-                                    </div>
-                                </div>
+                                <PackAll isCards={isCards} />
                             </div>
                         </div>
                     </div>

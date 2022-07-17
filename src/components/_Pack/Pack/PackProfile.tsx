@@ -4,16 +4,14 @@ import {Packs} from "../Packs/Packs";
 import {RouteNames} from "../../../constants/routes";
 import {Cards} from "../../_Card/Cards/Cards";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../../pages/app/s2-bll/store";
-import {PackInitStateType} from "../../../pages/pack/s2-bll/PackInitState";
 import {setPacksUserId} from "../../../pages/pack/s2-bll/PackActions";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
 export const PackProfile = React.memo(({isCards}: { isCards: string | null }) => {
 
-    const {minCardsCount, maxCardsCount, page, pageCount, sortPacks} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+    const {minCardsCount, maxCardsCount, page, pageCount, sortPacks} = useAppSelector(state => state.pack);
+    const user_id = useAppSelector(state => state.login._id);
     const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     const dispatch = useAppDispatch();
