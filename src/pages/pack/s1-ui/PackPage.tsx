@@ -31,7 +31,7 @@ export const PackPage = React.memo(() => {
 
 
     useEffect(() => {
-        dispatch(setSortParamsAC('0', ''))
+        dispatch(setSortParamsAC({sortCode: '0', sortType: '' }))
     }, [CountCard])
 
     // switch page
@@ -67,7 +67,7 @@ export const PackPage = React.memo(() => {
                                 <div className="dashboard__sidebar">
                                     <div className="dashboard__indent">
                                         <Filters
-                                            pageCount={isCards ?pageCountCard : pageCount}
+                                            pageCount={isCards ? pageCountCard : pageCount}
                                             isCards={isCards}
                                             value={rangeValue}
                                             setValue={setRangeValue}

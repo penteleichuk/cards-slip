@@ -6,7 +6,7 @@ import {AppStoreType} from "../../app/s2-bll/store";
 import {useLayoutEffect} from "react";
 import {CardType} from "../s3-dal/CardApi";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {fetchCards} from "../s2-bll/CardThunks";
+import {getCards} from "../s2-bll/CardThunks";
 
 export const CardPage = () => {
     const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export const CardPage = () => {
     const cards = useSelector<AppStoreType, CardType[]>(state => state.card.cards);
 
     useLayoutEffect(() => {
-        dispatch(fetchCards({cardsPack_id: "607fece70857db0004f314d1", max: 20}));
+        dispatch(getCards({cardsPack_id: "607fece70857db0004f314d1", max: 20}));
     }, [dispatch,cards]);
 
     if (!isAuth) {

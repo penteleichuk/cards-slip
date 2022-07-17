@@ -4,15 +4,14 @@ import {backSvg, cardsIcon, clearIcon, createIcon, searchIcon, userIcon} from ".
 import {Input} from "../../Input/Input";
 import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
-import {addNewPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {addPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {addCardTC} from "../../../pages/card/s2-bll/PackThunks";
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../components";
-import {fetchCards} from "../../../pages/card/s2-bll/CardThunks";
+import {addCardTC, getCards} from "../../../pages/card/s2-bll/CardThunks";
 
 type NavigationType = {
     user_id?: string | undefined
@@ -41,7 +40,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         if (packId) {
             dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
-            dispatch(addNewPackTC({name: question}))
+            dispatch(addPackTC({name: question}))
         }
     }
     const changeValue = (value: string) => {
@@ -52,7 +51,6 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         setQuestion('')
         setAnswer('')
     }
-    //
 
     const [search, setSearch] = useState<string | null>(null);
 
@@ -72,7 +70,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     useEffect(() => {
         if (search !== null) {
             if (packId) {
-                dispatch(fetchCards({cardsPack_id: packId, cardAnswer: search}));
+                dispatch(getCards({cardsPack_id: packId, cardAnswer: search}));
             } else if (location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
                 dispatch(getPacksTC({user_id: user_id, packName: search}));
             } else {

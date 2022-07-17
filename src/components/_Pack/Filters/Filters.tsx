@@ -12,7 +12,7 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import './Filters.scss';
 import {setCardsPerPage, setSortCardsParams} from "../../../pages/card/s2-bll/CardActions";
 import {getPacksTC, setPacksSortTC} from "../../../pages/pack/s2-bll/PackThunks";
-import {fetchCards, setCardsSortTC} from "../../../pages/card/s2-bll/CardThunks";
+import {getCards, setCardsSortTC} from "../../../pages/card/s2-bll/CardThunks";
 import {useSearchParams} from "react-router-dom";
 
 type FiltersType = {
@@ -81,8 +81,8 @@ export const Filters = React.memo(({
         const code: string = e.currentTarget.dataset.c ? e.currentTarget.dataset.c : '';
 
         const sortParams = isMyCardsPack
-            ? {code, type, user_id}
-            : {code, type}
+            ? {sortCode: code, sortType: type, user_id}
+            : {sortCode: code, sortType: type}
 
         const getParams = isMyCardsPack
             ? {page: currentPage, pageCount, user_id}
@@ -94,7 +94,7 @@ export const Filters = React.memo(({
             (code === '') && setFilterPackCode({...filterPackCode, [type]: '0'});
             (type !== '' && code !== '') && dispatch(setPacksSortTC(sortParams));
             if (code === '') {
-                dispatch(setSortParamsAC('', ''))
+                dispatch(setSortParamsAC({sortCode: '', sortType: ''}))
                 dispatch(getPacksTC(getParams))
             }
         } else if (activeType !== type || actualSortPage !== activeSortPage) {
@@ -114,7 +114,7 @@ export const Filters = React.memo(({
 
         const cardsPack_id = urlParams.get('id');
 
-        const sortParams = {code, type, cardsPack_id}
+        const sortParams = {sortCode: code, sortType: type, cardsPack_id}
 
         const getParams = {page: currentPage, pageCount, cardsPack_id}
 
@@ -125,9 +125,9 @@ export const Filters = React.memo(({
             (type !== '' && code !== '') && dispatch(setCardsSortTC(sortParams));
             if (code === '') {
                 dispatch(setSortCardsParams({sortType: '', sortCode: ''}))
-                dispatch(fetchCards(getParams))
+                dispatch(getCards(getParams))
             }
-        } else if (activeCardType !== type || cardsPack_id !== cardsPackId) { // || actualSortPage !== activeSortPage
+        } else if (activeCardType !== type || cardsPack_id !== cardsPackId) {
             const filter = {...filterCardCode} as any
             for (let key in filterCardCode) {
                 filter[key] = (key !== type) ? '0' : '1'

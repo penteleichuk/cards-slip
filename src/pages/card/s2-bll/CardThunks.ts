@@ -1,10 +1,10 @@
-import {CardApi, GetCardRequestType} from "../s3-dal/CardApi";
+import {AddCardRequestType, CardApi, GetCardRequestType} from "../s3-dal/CardApi";
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
-import {setCards, setCardsTotalCount, setSortCardsParams} from "./CardActions";
+import {addNewCard, setCards, setCardsTotalCount, setSortCardsParams} from "./CardActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 import {Dispatch} from "redux";
 
-export const fetchCards = (params: GetCardRequestType): AppThunk =>
+export const getCards = (params: GetCardRequestType): AppThunk =>
     async (dispatch, getState) => {
 
         dispatch(setAppStatusAC('loading'));
@@ -18,7 +18,6 @@ export const fetchCards = (params: GetCardRequestType): AppThunk =>
 
         try {
             const {cards, cardsTotalCount} = await CardApi.getCards(processedParams);
-            console.log(cards, processedParams)
             dispatch(setCards({cards}));
             dispatch(setCardsTotalCount({cardsTotalCount}))
         } catch (error: unknown) {
@@ -28,6 +27,19 @@ export const fetchCards = (params: GetCardRequestType): AppThunk =>
         }
     }
 
+export const addCardTC = (card: AddCardRequestType, packId: string): AppThunk => async (dispatch, getState) => {
+
+    const {page, pageCount} = getState().card
+
+    try {
+        await CardApi.addCard(card)
+        dispatch(addNewCard(card))
+        dispatch(getCards({cardsPack_id: packId, page, pageCount}))
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const removeCardTC = (cardId: string, packId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'));
 
@@ -36,7 +48,7 @@ export const removeCardTC = (cardId: string, packId: string): AppThunk => async 
 
     try {
         await CardApi.deleteCard(removeCardParams)
-        dispatch(fetchCards(getCardParams))
+        dispatch(getCards(getCardParams))
     } catch (err) {
         console.log(err)
         dispatch(setAppStatusAC('failed'))
@@ -55,7 +67,7 @@ export const updateCardTC = (cardId: string, packId: string, newCardQuestion: st
         if (updateCardParams) {
             try {
                 await CardApi.updateCard({card: updateCardParams})
-                dispatch(fetchCards(getCardParams))
+                dispatch(getCards(getCardParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))
@@ -63,7 +75,7 @@ export const updateCardTC = (cardId: string, packId: string, newCardQuestion: st
         }
     }
 
-export const setCardsSortTC = (sortParams: SortParamsType) =>
+export const setCardsSortTC = (sortParams: SortCardsParamsType) =>
     async (dispatch: Dispatch, getState: () => AppStoreType) => {
 
         dispatch(setAppStatusAC('loading'));
@@ -74,12 +86,12 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
             page,
             pageCount,
             cardsPack_id: sortParams.cardsPack_id,
-            sortCards: sortParams.code + sortParams.type
+            sortCards: sortParams.sortCode + sortParams.sortType
         }
 
         try {
             const {cards} = await CardApi.getCards(params)
-            dispatch(setSortCardsParams({sortCode: sortParams.code, sortType: sortParams.type}))
+            dispatch(setSortCardsParams({sortCode: sortParams.sortCode, sortType: sortParams.sortType}))
             dispatch(setCards({cards}))
             dispatch(setAppStatusAC('idle'))
         } catch (err) {
@@ -89,8 +101,8 @@ export const setCardsSortTC = (sortParams: SortParamsType) =>
         }
     }
 
-type SortParamsType = {
-    cardsPack_id: string | null,
-    type: string,
-    code: string
+export type SortCardsParamsType = {
+    cardsPack_id?: string | null,
+    sortCode: string,
+    sortType: string
 }

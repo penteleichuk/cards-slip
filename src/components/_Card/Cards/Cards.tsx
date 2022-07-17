@@ -6,12 +6,15 @@ import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
-import {fetchCards, removeCardTC, updateCardTC} from "../../../pages/card/s2-bll/CardThunks";
+import {getCards, removeCardTC, updateCardTC} from "../../../pages/card/s2-bll/CardThunks";
 import {useLocation, useSearchParams} from "react-router-dom";
 import './../../_Pack/Packs/Packs.scss';
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
-import {setCurrentCardPage} from "../../../pages/card/s2-bll/CardActions";
+import {
+    setCurrentCardPage,
+    setSortCardsParams
+} from "../../../pages/card/s2-bll/CardActions";
 
 type CardsPropsType = {
     navigatePage: string
@@ -31,6 +34,7 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
 
     const {cardsTotalCount, pageCount, cards, page} = useAppSelector(state => state.card);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
+    const CountCard = useAppSelector(state => state.card.cardsTotalCount);
 
     const [itemToRemove, setItemToRemove] = useState<string>('')
     const [itemToUpdate, setItemToUpdate] = useState<ItemToUpdateType>({
@@ -40,9 +44,13 @@ export const Cards = React.memo(({navigatePage}: CardsPropsType) => {
     })
 
     useEffect(() => {
+        dispatch(setSortCardsParams({sortCode: "0", sortType: ''}))
+    }, [CountCard])
+
+    useEffect(() => {
         const packId = urlParams.get('id');
         if (packId) {
-            dispatch(fetchCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
+            dispatch(getCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
         }
     }, [page, pageCount, location, cardsTotalCount])
 

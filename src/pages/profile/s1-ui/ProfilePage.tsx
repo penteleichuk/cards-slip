@@ -34,7 +34,7 @@ export const ProfilePage = React.memo(() => {
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     useEffect(() => {
-        dispatch(setSortParamsAC('0', ''))
+        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}))
     }, [])
 
     // switch page

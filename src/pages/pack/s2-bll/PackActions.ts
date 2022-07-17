@@ -1,4 +1,5 @@
 import {CardPacksType} from "../s3-dal/PackApi";
+import {SortPacksParamsType} from "./PackThunks";
 
 type GetCardsACType = ReturnType<typeof getPacksCardAC>;
 type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
@@ -21,10 +22,9 @@ export const setCardPerPageAC = (totalCards: number) => ({type: 'SET-CARDS-PER-P
 export const setIsMyCardsPack = (isMyCardsPack: boolean) => ({type: 'SET-IS-MY-CARDS-PACK', isMyCardsPack} as const)
 export const setActiveSortPage = (activeSortPage: string) => ({type: 'SET-ACTIVE-SORT-PAGE', activeSortPage} as const)
 export const setPacksSortAC = (cardPacks: CardPacksType[]) => ({type: 'SET-PACKS-SORT', cardPacks} as const)
-export const setSortParamsAC = (sortCode: string, sortType: string) => ({
+export const setSortParamsAC = (payload: SortPacksParamsType) => ({
     type: 'SET-SORT-PARAMS',
-    sortCode,
-    sortType
+    payload
 } as const)
 export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
     type: 'SET-MIN-MAX-CARDS',
