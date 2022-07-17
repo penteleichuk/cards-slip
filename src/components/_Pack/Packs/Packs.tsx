@@ -5,7 +5,7 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
@@ -51,8 +51,7 @@ export const Packs = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     // Pagination work
     const paginationHandler = useCallback((page: number) => {
-        console.log(page);
-        dispatch(setCurrentPageAC({currenPage: page}))
+        dispatch(setPacksPagination({page}))
     }, []);
 
     return <>

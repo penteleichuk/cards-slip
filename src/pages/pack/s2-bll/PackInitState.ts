@@ -2,7 +2,6 @@ import {CardPacksType, GetPackRequestType} from "../s3-dal/PackApi";
 
 export type PackInitStateType = GetPackRequestType & {
     isInit: 'idle' | 'pre' | 'init'
-    isMyCardsPack: boolean | null
     search?: string | null
     packName?: string
     sortPacks?: string
@@ -14,9 +13,6 @@ export type PackInitStateType = GetPackRequestType & {
     minCardsCount: number
     page: number
     pageCount: number
-    activeSortPage: string
-    sortType: string
-    sortCode: string
 }
 
 export const PackInitState: PackInitStateType = {
@@ -26,14 +22,10 @@ export const PackInitState: PackInitStateType = {
     maxCardsCount: 500,
     page: 1,
     pageCount: 6,
-    activeSortPage: '',
-    sortType: '',
-    sortCode: '',
     isInit: 'idle',
-    isMyCardsPack: null,
     search: null,
-    packName: '0updated',
-    sortPacks: '0updated',
+    packName: 'updated',
+    sortPacks: 'updated',
     minCards: 0,
     maxCards: 1,
     user_id: undefined,

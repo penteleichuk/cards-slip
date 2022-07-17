@@ -8,11 +8,11 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {PackInitStateType} from "../../../pages/pack/s2-bll/PackInitState";
 import {CardStateType} from "../../../pages/card/s2-bll/CardInitState";
-import {setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksSort} from "../../../pages/pack/s2-bll/PackActions";
 import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 
 export const PackProfile = React.memo(({isCards}: { isCards: string | null }) => {
-    const { minCardsCount, maxCardsCount, page, pageCount, } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
+    const { minCardsCount, maxCardsCount, page, pageCount, sortPacks } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
 
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
@@ -20,11 +20,14 @@ export const PackProfile = React.memo(({isCards}: { isCards: string | null }) =>
 
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        dispatch(setPacksSort({sortPacks: "updated"}))
+    }, []);
+
     // Card loading
     useEffect(() => {
-        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}));
-        dispatch(getPacksTC({user_id, page, pageCount}));
-    }, [dispatch, page, pageCount])
+        dispatch(getPacksTC({user_id, page, pageCount, sortPacks}));
+    }, [dispatch, page, pageCount, sortPacks])
 
     // Number of cards to display
     useEffect(() => {

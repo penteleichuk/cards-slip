@@ -3,15 +3,15 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
 import {fetchCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/card/s2-bll/CardThunks";
 import {useLocation, useSearchParams} from "react-router-dom";
-import './../../_Pack/Packs/Packs.scss';
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
+import './../../_Pack/Packs/Packs.scss';
 
 export type ItemToUpdateType = {
     cardId: string
@@ -43,7 +43,7 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
     }, [dispatch, page, pageCount, location, cardsTotalCount, packId])
 
     const clickPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC({currenPage: page}));
+        dispatch(setPacksPagination({page}));
     }
 
     const removeCard = () => {

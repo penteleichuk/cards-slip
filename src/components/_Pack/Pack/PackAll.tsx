@@ -8,7 +8,6 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {PackInitStateType} from "../../../pages/pack/s2-bll/PackInitState";
 import {CardStateType} from "../../../pages/card/s2-bll/CardInitState";
-import {setSortParamsAC} from "../../../pages/pack/s2-bll/PackActions";
 import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
 
 export const PackAll = React.memo(({isCards}: { isCards: string | null }) => {
@@ -26,7 +25,6 @@ export const PackAll = React.memo(({isCards}: { isCards: string | null }) => {
 
     // Card loading
     useEffect(() => {
-        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}));
         dispatch(getPacksTC({page, pageCount}));
     }, [dispatch])
 

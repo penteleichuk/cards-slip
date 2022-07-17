@@ -8,9 +8,8 @@ import {Logo, Filters, Packs, Cards} from "../../../components/components";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {PackInitStateType} from "../s2-bll/PackInitState";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {setSortParamsAC} from "../s2-bll/PackActions";
-import './PackPage.scss';
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
+import './PackPage.scss';
 
 export const PackPage = React.memo(() => {
     const dispatch = useAppDispatch();
@@ -28,13 +27,6 @@ export const PackPage = React.memo(() => {
     } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
     const pageCountCard = useAppSelector(state => state.card.pageCount);
-    const CountCard = useAppSelector(state => state.card.cardsTotalCount);
-    // const {sortCode, sortType} = useAppSelector(state => state.pack);
-
-
-    useEffect(() => {
-        dispatch(setSortParamsAC({sortCode: '0', sortType: ''}))
-    }, [dispatch, CountCard])
 
     // switch page
     useEffect(() => {

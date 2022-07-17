@@ -25,7 +25,7 @@ export const routes: Array<RouteType> = [
         component: <Navigate to={RouteNames.PACK}/>,
     },
     {
-        name: 'Pack example',
+        name: 'Pack',
         public: true,
         path: RouteNames.PACK,
         component: <PackPage/>,
