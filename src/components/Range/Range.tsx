@@ -1,12 +1,11 @@
-import React from "react";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {fetchGetPacks} from "../../pages/pack/s2-bll/PackThunks";
+import React, {useCallback} from "react";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './Range.scss';
 
 type RangePropsType = {
     user_id?: string | undefined
+    onAfterChange?: (rangeValues: number[] | number) => void
     value: number[]
     setValue: (value: number[]) => void
     minCardsCount: number
@@ -16,32 +15,19 @@ type RangePropsType = {
     disable?: boolean
 }
 
-export const Range = React.memo(({
-                                     user_id,
-                                     value,
-                                     setValue,
-                                     minCardsCount,
-                                     maxCardsCount,
-                                     title,
-                                     ...restProps
-                                 }: RangePropsType) => {
-    const dispatch = useAppDispatch();
+export const Range = React.memo((props: RangePropsType) => {
+    const {user_id, value, setValue, minCardsCount, maxCardsCount, title, ...restProps} = {...props};
 
-    const onSliderChange = (rangeValues: any) => {
+    const onChangeHandler = useCallback((rangeValues: any) => {
         setValue(rangeValues);
-    }
-
-    const afterChangeHandler = (rangeValues: any) => {
-        dispatch(fetchGetPacks({user_id: user_id, min: rangeValues[0], max: rangeValues[1]}));
-    }
+    }, []);
 
     return <div className="range">
         <Slider range
                 min={minCardsCount}
                 max={maxCardsCount}
-                onAfterChange={afterChangeHandler}
                 value={value}
-                onChange={onSliderChange}
+                onChange={onChangeHandler}
                 allowCross={false}
                 pushable={false}
                 {...restProps}

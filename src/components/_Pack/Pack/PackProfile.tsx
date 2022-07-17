@@ -7,42 +7,40 @@ import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {PackInitStateType} from "../../../pages/pack/s2-bll/PackInitState";
-import {CardStateType} from "../../../pages/card/s2-bll/CardInitState";
-import {setPacksSort} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksUserId} from "../../../pages/pack/s2-bll/PackActions";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 
 export const PackProfile = React.memo(({isCards}: { isCards: string | null }) => {
-    const { minCardsCount, maxCardsCount, page, pageCount, sortPacks } = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
 
+    const {minCardsCount, maxCardsCount, page, pageCount, sortPacks} = useSelector<AppStoreType, PackInitStateType>(state => state.pack);
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
-    const pageCountCards = useSelector<AppStoreType, CardStateType>(state => state.card).pageCount;
-    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]);
+    const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksSort({sortPacks: "updated"}))
+        dispatch(setPacksUserId({user_id: user_id}));
     }, []);
 
     // Card loading
     useEffect(() => {
-        dispatch(fetchGetPacks({user_id, page, pageCount, sortPacks}));
-    }, [dispatch, page, pageCount, sortPacks])
+        dispatch(fetchGetPacks({}));
+    }, [page, pageCount, sortPacks]);
 
     // Number of cards to display
     useEffect(() => {
-        setRangeValue([minCardsCount, maxCardsCount]);
+        setNumCards([minCardsCount, maxCardsCount]);
     }, [minCardsCount, maxCardsCount]);
 
     return <>
         <div className="dashboard__sidebar">
             <div className="dashboard__indent">
                 <Filters
-                    pageCount={isCards ? pageCountCards : pageCount}
+                    pageCount={pageCount}
                     isCards={isCards}
                     user_id={user_id}
-                    value={rangeValue}
-                    setValue={setRangeValue}
+                    value={numCards}
+                    setValue={setNumCards}
                     minCardsCount={minCardsCount}
                     maxCardsCount={maxCardsCount}
                 />

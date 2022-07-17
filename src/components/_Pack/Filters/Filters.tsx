@@ -9,8 +9,8 @@ import {Range} from "../../Range/Range";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
 import {setPacksPerPage, setPacksSort} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
 import {sorting, sortingView} from "../../../helpers/sorting";
+import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import './Filters.scss';
 
 type FiltersType = {
@@ -23,31 +23,26 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-export const Filters = React.memo(({
-                                       pageCount,
-                                       isCards,
-                                       user_id,
-                                       value,
-                                       setValue,
-                                       minCardsCount,
-                                       maxCardsCount
-                                   }: FiltersType) => {
+export const Filters = React.memo((props: FiltersType) => {
+    const {pageCount, isCards, user_id, value, setValue, minCardsCount, maxCardsCount} = {...props};
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
     const sortPacks = useSelector<AppStoreType, string | undefined>(state => state.pack.sortPacks) || ''
     const dispatch = useAppDispatch();
 
     const cardPerPageHandler = useCallback((value: number) => {
-        if (!isCards) {
-            dispatch(setPacksPerPage({totalCards: value}))
-        } else {
-            dispatch(setCardsPerPage({pageCount: value}));
-        }
+        dispatch(setPacksPerPage({pageCount: value}));
     }, []);
 
     const sortingHandler = useCallback((field: string, sort: string) => {
         const sortPacks = sorting(field, sort);
         dispatch(setPacksSort({sortPacks}));
     }, []);
+
+    const onAfterChangeHandler = (rangeValues: number[] | number) => {
+        if(Array.isArray(rangeValues)) {
+            dispatch(fetchGetPacks({min: rangeValues[0], max: rangeValues[1]}));
+        }
+    }
 
     return <div className="filters">
         {isFetch === 'loading' ?
@@ -62,6 +57,7 @@ export const Filters = React.memo(({
                                setValue={setValue}
                                minCardsCount={minCardsCount}
                                maxCardsCount={maxCardsCount}
+                               onAfterChange={onAfterChangeHandler}
                                title={" "}
                         />
                     </div>

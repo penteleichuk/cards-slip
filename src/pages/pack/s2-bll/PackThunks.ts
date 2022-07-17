@@ -6,20 +6,12 @@ import {setAppStatusAC} from "../../app/s2-bll/actions";
 export const fetchGetPacks = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
 
-    const {page, pageCount} = getState().pack;
-    const userId = params.user_id || undefined;
-
-    const parametersFormation = {
-        page,
-        pageCount,
-        ...params
-    };
+    const {user_id, page, pageCount, sortPacks, min, max, totalCards} = getState().pack;
+    const advancedOptions = {user_id, page, pageCount, sortPacks, min, max, totalCards, ...params};
 
     try {
-        const res = await PackApi.getPacks(parametersFormation);
-        if (res) {
-            dispatch(setPacks({...res}));
-        }
+        const res = await PackApi.getPacks(advancedOptions);
+        dispatch(setPacks({...res}));
 
     } catch (err) {
         console.log(err, "error fetch get cards")
@@ -36,12 +28,12 @@ export const fetchRemovePack = (packId: string): AppThunk => async (dispatch, ge
     const params = {page, user_id, pageCount}
 
     try {
-        await PackApi.deletePack({id: packId})
-        dispatch(fetchGetPacks(params))
+        await PackApi.deletePack({id: packId});
+        dispatch(fetchGetPacks(params));
     } catch (err) {
-        console.log(err)
+        console.log(err, "error fetch remove cards");
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'));
     }
 }
 
@@ -51,16 +43,11 @@ export const fetchUpdatePack = (packId: string, newPackName: string): AppThunk =
     const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
     const updatePackParams = cardPack ? {...cardPack, name: newPackName} : null
 
-    const {page, pageCount} = getState().pack
-    const user_id = getState().login._id
-    const getPackParams = {page, user_id, pageCount}
-
     if (updatePackParams) {
         try {
             await PackApi.updatePack({cardsPack: updatePackParams})
-            dispatch(fetchGetPacks(getPackParams))
         } catch (err) {
-            console.log(err);
+            console.log(err, "error fetch update cards");
         } finally {
             dispatch(setAppStatusAC('succeeded'));
         }
@@ -71,9 +58,7 @@ export const fetchCreatePack = (cardsPack: { name?: string, deckCover?: string, 
     try {
         const res = await PackApi.addPack(cardsPack);
         dispatch(setPack(res.data.newCardsPack));
-
-        dispatch(fetchGetPacks({}));
     } catch (err) {
-        console.log(err, "error create pack");
+        console.log(err, "error fetch create cards");
     }
 }
