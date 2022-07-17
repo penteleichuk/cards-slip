@@ -8,7 +8,7 @@ import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {fetchRemovePack, fetchUpdatePack} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchGetPacks, fetchRemovePack, fetchUpdatePack} from "../../../pages/pack/s2-bll/PackThunks";
 import {RemovePackModal} from "../PacksModals/RemovePackModal";
 import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
 import './Packs.scss';
@@ -41,17 +41,18 @@ export const Packs = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     // Cleanup Deletion Fields
     const clearFieldsRemoveHandler = useCallback(() => {
-        setItemToRemove('')
+        setItemToRemove('');
     }, []);
 
     // Clear Update Fields
     const clearFieldsUpdateHandler = useCallback(() => {
-        setItemToUpdate({packId: '', packName: ''})
-    }, [itemToUpdate.packId, itemToUpdate.packName])
+        setItemToUpdate({packId: '', packName: ''});
+    }, [itemToUpdate.packId, itemToUpdate.packName]);
 
     // Pagination work
     const paginationHandler = useCallback((page: number) => {
-        dispatch(setPacksPagination({page}))
+        dispatch(setPacksPagination({page}));
+        dispatch(fetchGetPacks({}));
     }, []);
 
     return <>

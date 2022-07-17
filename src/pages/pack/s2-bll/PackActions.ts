@@ -6,8 +6,21 @@ export const setPacks = (payload: GetPacksResponse) => ({type: 'PACK/SET-PACKS',
 export const setPacksSort = (payload: { sortPacks: string }) => ({type: 'PACK/SET-SORT', payload} as const);
 export const setPacksPagination = (payload: { page: number }) => ({type: 'PACK/SET-PAGINATION', payload} as const);
 export const setPacksPerPage = (payload: { pageCount: number }) => ({type: 'PACK/SET-PER-PAGE', payload} as const);
-export const setPacksMinMax = (payload: { minCardsCount: number, maxCardsCount: number }) => ({type: 'PACK/SET-MIN-MAX', payload} as const);
-export const setPacksUserId = (payload: { user_id: string | undefined }) => ({type: 'PACK/SET-USER-ID', payload} as const);
+export const setPacksMinMax = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
+    type: 'PACK/SET-MIN-MAX',
+    payload
+} as const);
+export const setPacksUserId = (payload: { user_id: string | undefined }) => ({
+    type: 'PACK/SET-USER-ID',
+    payload
+} as const);
+export const setPacksReset = (payload: {
+    user_id: string | undefined,
+    packName: string | undefined,
+    sortPacks: string | undefined,
+    pageCount: number,
+    page: number,
+}) => ({type: 'PACK/SET-RESET', payload} as const);
 
 // Actions type
 type SetPackActionType = ReturnType<typeof setPack>
@@ -17,6 +30,7 @@ type SetPacksPerPageActionType = ReturnType<typeof setPacksPerPage>;
 type SetPacksMinMaxActionType = ReturnType<typeof setPacksMinMax>;
 type SetPacksActionType = ReturnType<typeof setPacks>;
 type SetPacksUserIdActionType = ReturnType<typeof setPacksUserId>;
+type SetPacksResetActionType = ReturnType<typeof setPacksReset>;
 
 // All types
 export type PackActionsType =
@@ -26,4 +40,5 @@ export type PackActionsType =
     | SetPacksPerPageActionType
     | SetPacksMinMaxActionType
     | SetPacksActionType
-    | SetPacksUserIdActionType;
+    | SetPacksUserIdActionType
+    | SetPacksResetActionType;

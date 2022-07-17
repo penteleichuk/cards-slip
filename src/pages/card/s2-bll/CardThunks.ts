@@ -4,13 +4,11 @@ import {setCard, setCards} from "./CardActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
 // Get all cards
-export const fetchCards = (params: GetCardRequestType): AppThunk => async dispatch => {
+export const fetchGetCards = (params: GetCardRequestType): AppThunk => async dispatch => {
     dispatch(setAppStatusAC('loading'));
     try {
         const res = await CardApi.getCards(params);
-        if(res) {
-            dispatch(setCards({cards: res.cards}));
-        }
+        dispatch(setCards({cards: res.cards}));
     } catch (error: unknown) {
         console.error(error, "Map load error");
     } finally {
@@ -19,12 +17,12 @@ export const fetchCards = (params: GetCardRequestType): AppThunk => async dispat
 }
 
 // Add single card
-export const fetchAddCard = (card: AddCardRequestType, packId: string): AppThunk => async dispatch => {
+export const fetchCreateCard = (card: AddCardRequestType, packId: string): AppThunk => async dispatch => {
     try {
         const res = await CardApi.addCard(card)
         if(res.data) {
             dispatch(setCard({card: res.data}))
-            dispatch(fetchCards({cardsPack_id: packId}))
+            dispatch(fetchGetCards({cardsPack_id: packId}))
         }
     } catch (err) {
         console.log(err)
@@ -40,7 +38,7 @@ export const fetchRemoveCard = (cardId: string, packId: string): AppThunk => asy
 
     try {
         await CardApi.deleteCard(removeCardParams)
-        dispatch(fetchCards(getCardParams))
+        dispatch(fetchGetCards(getCardParams))
     } catch (err) {
         console.log(err)
         dispatch(setAppStatusAC('failed'))
@@ -60,7 +58,7 @@ export const fetchUpdateCard = (cardId: string, packId: string, newCardQuestion:
         if(updateCardParams) {
             try {
                 await CardApi.updateCard({card: updateCardParams})
-                dispatch(fetchCards(getCardParams))
+                dispatch(fetchGetCards(getCardParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))

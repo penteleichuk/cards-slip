@@ -1,5 +1,5 @@
 export const sorting = (field: string, value: string) => {
-    const formatField = [`1${field}`, `0${field}`, `${field}`];
+    const formatField = [`0${field}`, `1${field}`, `${field}`];
     return value === formatField[0] ? formatField[1] : value === formatField[1] ? formatField[2] : formatField[0];
 }
 

@@ -3,16 +3,16 @@ import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
 import {setPack, setPacks} from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
+// Get all packs
 export const fetchGetPacks = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
 
-    const {user_id, page, pageCount, sortPacks, min, max, totalCards} = getState().pack;
-    const advancedOptions = {user_id, page, pageCount, sortPacks, min, max, totalCards, ...params};
+    const {user_id, page, pageCount, sortPacks, min, max, totalCards, packName} = getState().pack;
+    const advancedOptions = {user_id, page, pageCount, sortPacks, min, max, totalCards, packName,  ...params};
 
     try {
         const res = await PackApi.getPacks(advancedOptions);
         dispatch(setPacks({...res}));
-
     } catch (err) {
         console.log(err, "error fetch get cards")
     } finally {

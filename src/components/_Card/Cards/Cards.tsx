@@ -7,7 +7,7 @@ import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
-import {fetchCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/card/s2-bll/CardThunks";
+import {fetchGetCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/card/s2-bll/CardThunks";
 import {useLocation, useSearchParams} from "react-router-dom";
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
@@ -38,7 +38,7 @@ export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     useEffect(() => {
         if (packId) {
-            dispatch(fetchCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
+            dispatch(fetchGetCards({cardsPack_id: packId, page: page, pageCount: pageCount}));
         }
     }, [dispatch, page, pageCount, location, cardsTotalCount, packId])
 

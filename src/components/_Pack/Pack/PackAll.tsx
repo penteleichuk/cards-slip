@@ -6,22 +6,18 @@ import {Cards} from "../../_Card/Cards/Cards";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {setPacksUserId} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 
 export const PackAll = React.memo(({isCards}: { isCards: string | null }) => {
-    const {minCardsCount, maxCardsCount, page, pageCount, sortPacks, } = useAppSelector(state => state.pack);
+    const {minCardsCount, maxCardsCount, pageCount} = useAppSelector(state => state.pack);
     const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksUserId({user_id: undefined}));
-    }, []);
-
-    // Card loading
-    useEffect(() => {
+        dispatch(setPacksReset({packName: undefined, user_id: undefined, sortPacks: 'updated', pageCount: 6, page: 1}));
         dispatch(fetchGetPacks({}));
-    }, [page, pageCount, sortPacks]);
+    }, []);
 
     // Number of cards to display
     useEffect(() => {

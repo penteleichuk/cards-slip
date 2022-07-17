@@ -10,6 +10,7 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
         case "PACK/SET-PAGINATION":
         case "PACK/SET-PER-PAGE":
         case "PACK/SET-USER-ID":
+        case "PACK/SET-RESET":
         case "PACK/SET-MIN-MAX":
             return {...state, ...action.payload}
         default: {

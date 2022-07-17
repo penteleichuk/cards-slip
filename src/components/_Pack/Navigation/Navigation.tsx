@@ -6,7 +6,7 @@ import {useDebounce} from "../../../hooks/useDebounce";
 import {fetchCreatePack, fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {RouteNames} from "../../../constants/routes";
-import {fetchAddCard, fetchCards} from "../../../pages/card/s2-bll/CardThunks";
+import {fetchCreateCard, fetchGetCards} from "../../../pages/card/s2-bll/CardThunks";
 import './Navigation.scss';
 
 type NavigationType = {
@@ -14,7 +14,7 @@ type NavigationType = {
     navigatePage: string
 }
 
-export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) => {
+export const Navigation = React.memo(({navigatePage}: NavigationType) => {
 
     // Search
     const [search, setSearch] = useState<string | null>(null);
@@ -34,23 +34,23 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     const dispatch = useAppDispatch();
 
     // Close modal window and cleaning
-    const closeModalWindowHandler = useCallback(() => {
+    const createHandler = useCallback(() => {
         setShow(false);
         setQuestion('');
         setAnswer('');
 
         if (packId) {
-            dispatch(fetchAddCard({cardsPack_id: packId, question: question, answer: answer}, packId))
+            dispatch(fetchCreateCard({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
             dispatch(fetchCreatePack({name: question}))
         }
-    }, [packId]);
+    }, []);
 
     // Cancelling and cleaning
     const deselectModalWindowHandler = useCallback(() => {
-        setShow(!show)
-        setQuestion('')
-        setAnswer('')
+        setShow(false);
+        setQuestion('');
+        setAnswer('');
     }, []);
 
     // Navigate handler
@@ -62,9 +62,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     useEffect(() => {
         if (search !== null) {
             if (packId) {
-                dispatch(fetchCards({cardsPack_id: packId, cardAnswer: search}));
-            } else if (location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
-                dispatch(fetchGetPacks({user_id: user_id, packName: search}));
+                dispatch(fetchGetCards({cardsPack_id: packId, cardAnswer: search}));
             } else {
                 dispatch(fetchGetPacks({packName: search}));
             }
@@ -77,19 +75,12 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         <div className="header__content">
             <div className="header__search">
                 {packId && <Tack onClick={navigateComeBackHandler} iconSvg={true} iconSrc={backSvg}/>}
-                <Input type={'text'}
-                       iconBefore={searchIcon}
-                       iconAfter={clearIcon}
-                       placeholder={'Search'}
-                       onChangeText={setSearch}
-                />
+                <Input type={'text'} iconBefore={searchIcon} iconAfter={clearIcon} placeholder={'Search'} onChangeText={setSearch}/>
             </div>
             <div className="header__inputs">
                 <Tack onClick={navigateProfileHandler}
                       title="Profile"
-                      active={
-                          location.pathname === RouteNames.PROFILE ||
-                          location.pathname === RouteNames.PROFILE_ARG}
+                      active={location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG}
                       iconSrc={userIcon}
                 />
                 <Tack onClick={navigateMainHandler}
@@ -103,14 +94,16 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
                 />
 
                 <Tack iconSrc={createIcon} onClick={() => setShow(true)}/>
-                <Popup show={show} modalOnClick={() => { setShow(!show) }} title={packId ? 'Card info' : 'Add new pack'}>
-                    <InputText placeholder={packId ? 'Question' : 'Name pack'} onChangeText={setQuestion}/>
-                    {packId && <InputText name={'answer'} placeholder={'Answer'} onChangeText={setAnswer}/>}
+
+                <Popup show={show} modalOnClick={deselectModalWindowHandler} title={packId ? 'Card info' : 'Add new pack'}>
+                    <InputText placeholder={packId ? 'Question' : 'Name pack'} value={question} onChangeText={setQuestion}/>
+                    {packId && <InputText name={'answer'} placeholder={'Answer'} value={answer} onChangeText={setAnswer}/>}
                     <div className="popup__buttons">
                         <Button onClick={deselectModalWindowHandler}>Cancel</Button>
-                        <Button onClick={closeModalWindowHandler}>Save</Button>
+                        <Button onClick={createHandler}>Save</Button>
                     </div>
                 </Popup>
+
             </div>
         </div>
     </div>

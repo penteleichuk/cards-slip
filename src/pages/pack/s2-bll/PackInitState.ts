@@ -25,7 +25,7 @@ export const PackInitState: PackInitStateType = {
     page: 1,
     pageCount: 6,
     search: null,
-    packName: 'updated',
+    packName: '',
     sortPacks: 'updated',
     minCards: 0,
     maxCards: 1,

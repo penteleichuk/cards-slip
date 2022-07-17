@@ -31,11 +31,13 @@ export const Filters = React.memo((props: FiltersType) => {
 
     const cardPerPageHandler = useCallback((value: number) => {
         dispatch(setPacksPerPage({pageCount: value}));
+        dispatch(fetchGetPacks({}));
     }, []);
 
     const sortingHandler = useCallback((field: string, sort: string) => {
         const sortPacks = sorting(field, sort);
         dispatch(setPacksSort({sortPacks}));
+        dispatch(fetchGetPacks({}));
     }, []);
 
     const onAfterChangeHandler = (rangeValues: number[] | number) => {

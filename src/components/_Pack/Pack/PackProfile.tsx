@@ -4,26 +4,21 @@ import {Packs} from "../Packs/Packs";
 import {RouteNames} from "../../../constants/routes";
 import {Cards} from "../../_Card/Cards/Cards";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setPacksUserId} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 
 export const PackProfile = React.memo(({isCards}: { isCards: string | null }) => {
-
-    const {minCardsCount, maxCardsCount, page, pageCount, sortPacks} = useAppSelector(state => state.pack);
+    const {minCardsCount, maxCardsCount, pageCount} = useAppSelector(state => state.pack);
     const user_id = useAppSelector(state => state.login._id);
     const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksUserId({user_id: user_id}));
-    }, []);
-
-    // Card loading
-    useEffect(() => {
+        dispatch(setPacksReset({packName: undefined, user_id, sortPacks: 'updated', pageCount: 6, page: 1}));
         dispatch(fetchGetPacks({}));
-    }, [page, pageCount, sortPacks]);
+    }, []);
 
     // Number of cards to display
     useEffect(() => {
