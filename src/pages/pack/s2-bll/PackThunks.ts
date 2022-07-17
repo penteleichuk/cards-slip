@@ -3,7 +3,7 @@ import {GetPackRequestType, PackApi} from "../s3-dal/PackApi";
 import {setPack, setPacks} from "./PackActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
-export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
+export const fetchGetPacks = (params: GetPackRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
 
     const {page, pageCount} = getState().pack;
@@ -28,7 +28,7 @@ export const getPacksTC = (params: GetPackRequestType): AppThunk => async (dispa
     }
 }
 
-export const removePackTC = (packId: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
+export const fetchRemovePack = (packId: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
     dispatch(setAppStatusAC('loading'));
 
     const {page, pageCount} = getState().pack
@@ -37,7 +37,7 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch, getSt
 
     try {
         await PackApi.deletePack({id: packId})
-        dispatch(getPacksTC(params))
+        dispatch(fetchGetPacks(params))
     } catch (err) {
         console.log(err)
     } finally {
@@ -45,7 +45,7 @@ export const removePackTC = (packId: string): AppThunk => async (dispatch, getSt
     }
 }
 
-export const updatePackTC = (packId: string, newPackName: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
+export const fetchUpdatePack = (packId: string, newPackName: string): AppThunk => async (dispatch, getState: () => AppStoreType) => {
     dispatch(setAppStatusAC('loading'));
 
     const cardPack = getState().pack.cardPacks.find(p => p._id === packId)
@@ -58,7 +58,7 @@ export const updatePackTC = (packId: string, newPackName: string): AppThunk => a
     if (updatePackParams) {
         try {
             await PackApi.updatePack({cardsPack: updatePackParams})
-            dispatch(getPacksTC(getPackParams))
+            dispatch(fetchGetPacks(getPackParams))
         } catch (err) {
             console.log(err);
         } finally {
@@ -67,12 +67,12 @@ export const updatePackTC = (packId: string, newPackName: string): AppThunk => a
     }
 }
 
-export const addNewPackTC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
+export const fetchCreatePack = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
     try {
         const res = await PackApi.addPack(cardsPack);
         dispatch(setPack(res.data.newCardsPack));
 
-        dispatch(getPacksTC({}));
+        dispatch(fetchGetPacks({}));
     } catch (err) {
         console.log(err, "error create pack");
     }

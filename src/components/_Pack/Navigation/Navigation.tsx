@@ -3,7 +3,7 @@ import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {Button, InputText, Popup, Input, Tack} from "../../components";
 import {backSvg, cardsIcon, clearIcon, createIcon, searchIcon, userIcon} from "../../../assets/images/icons";
 import {useDebounce} from "../../../hooks/useDebounce";
-import {addNewPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchCreatePack, fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {RouteNames} from "../../../constants/routes";
 import {fetchAddCard, fetchCards} from "../../../pages/card/s2-bll/CardThunks";
@@ -42,7 +42,7 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
         if (packId) {
             dispatch(fetchAddCard({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
-            dispatch(addNewPackTC({name: question}))
+            dispatch(fetchCreatePack({name: question}))
         }
     }, [packId]);
 
@@ -64,9 +64,9 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
             if (packId) {
                 dispatch(fetchCards({cardsPack_id: packId, cardAnswer: search}));
             } else if (location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
-                dispatch(getPacksTC({user_id: user_id, packName: search}));
+                dispatch(fetchGetPacks({user_id: user_id, packName: search}));
             } else {
-                dispatch(getPacksTC({packName: search}));
+                dispatch(fetchGetPacks({packName: search}));
             }
 
             setSearch(null);

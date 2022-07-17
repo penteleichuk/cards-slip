@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {PackInitStateType} from "../../../pages/pack/s2-bll/PackInitState";
 import {CardStateType} from "../../../pages/card/s2-bll/CardInitState";
-import {getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 
 export const PackAll = React.memo(({isCards}: { isCards: string | null }) => {
     const {
@@ -25,7 +25,7 @@ export const PackAll = React.memo(({isCards}: { isCards: string | null }) => {
 
     // Card loading
     useEffect(() => {
-        dispatch(getPacksTC({page, pageCount}));
+        dispatch(fetchGetPacks({page, pageCount}));
     }, [dispatch])
 
     // Number of cards to display

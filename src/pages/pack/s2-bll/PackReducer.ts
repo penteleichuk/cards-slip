@@ -8,7 +8,6 @@ export const packReducer = (state: PackInitStateType = PackInitState, action: Pa
         case "SET-PACKS-SORT":
         case "SET-CARDS-PER-PAGE":
         case "SET-CURRENT-PAGE":
-        case "SET-IS-INIT":
         case "SET-PACKS":
         case "SET-MIN-MAX-CARDS":
             return {...state, ...action.payload}

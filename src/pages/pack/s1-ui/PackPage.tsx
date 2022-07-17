@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {Navigate, useLocation, useSearchParams} from "react-router-dom";
 import {AppStoreType} from "../../app/s2-bll/store";
 import {RouteNames} from "../../../constants/routes";
-import {getPacksTC} from "../s2-bll/PackThunks";
+import {fetchGetPacks} from "../s2-bll/PackThunks";
 import {Logo, Filters, Packs, Cards} from "../../../components/components";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {PackInitStateType} from "../s2-bll/PackInitState";
@@ -34,7 +34,7 @@ export const PackPage = React.memo(() => {
     }, [minCardsCount, maxCardsCount]);
 
     useEffect(() => {
-        dispatch(getPacksTC({page: page, pageCount: pageCount}))
+        dispatch(fetchGetPacks({page: page, pageCount: pageCount}))
     }, [dispatch, page, pageCount, location]);
 
 

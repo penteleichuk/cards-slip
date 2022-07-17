@@ -1,6 +1,6 @@
 import React from "react";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {getPacksTC} from "../../pages/pack/s2-bll/PackThunks";
+import {fetchGetPacks} from "../../pages/pack/s2-bll/PackThunks";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './Range.scss';
@@ -32,7 +32,7 @@ export const Range = React.memo(({
     }
 
     const afterChangeHandler = (rangeValues: any) => {
-        dispatch(getPacksTC({user_id: user_id, min: rangeValues[0], max: rangeValues[1]}));
+        dispatch(fetchGetPacks({user_id: user_id, min: rangeValues[0], max: rangeValues[1]}));
     }
 
     return <div className="range">

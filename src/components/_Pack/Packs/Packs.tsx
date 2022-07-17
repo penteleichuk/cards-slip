@@ -8,7 +8,7 @@ import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchRemovePack, fetchUpdatePack} from "../../../pages/pack/s2-bll/PackThunks";
 import {RemovePackModal} from "../PacksModals/RemovePackModal";
 import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
 import './Packs.scss';
@@ -29,13 +29,13 @@ export const Packs = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     // Confirm pack removal
     const removePackHandler = useCallback(() => {
-        dispatch(removePackTC(itemToRemove));
+        dispatch(fetchRemovePack(itemToRemove));
         clearFieldsRemoveHandler();
     }, [itemToRemove]);
 
     // Confirm pack upgrade
     const updatePackHandler = useCallback(() => {
-        dispatch(updatePackTC(itemToUpdate.packId, itemToUpdate.packName));
+        dispatch(fetchUpdatePack(itemToUpdate.packId, itemToUpdate.packName));
         clearFieldsUpdateHandler();
     }, [itemToUpdate.packId, itemToUpdate.packName]);
 
