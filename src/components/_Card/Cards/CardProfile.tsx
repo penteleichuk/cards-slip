@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import {RouteNames} from "../../../constants/routes";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {FiltersCard} from "../Filters/FiltersCard";
@@ -24,7 +23,7 @@ export const CardProfile = React.memo(({isCards}: { isCards: string }) => {
         </div>
         <div className="dashboard__page">
             <div className="dashboard__indent dashboard__pack">
-                <CardsDraw navigatePage={RouteNames.PROFILE}/>
+                <CardsDraw/>
             </div>
         </div>
     </>

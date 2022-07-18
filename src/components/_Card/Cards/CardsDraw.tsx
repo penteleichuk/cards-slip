@@ -1,8 +1,5 @@
 import React, {useCallback, useState} from "react";
 import {PaginatedPage} from "../../Paginated/PaginatedPage";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../../pages/app/s2-bll/store";
-import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
@@ -18,9 +15,9 @@ export type ItemToUpdateType = {
     cardAnswer: string
 }
 
-export const CardsDraw = React.memo(({navigatePage}: { navigatePage: string }) => {
+export const CardsDraw = React.memo(() => {
     const {cardsTotalCount, pageCount, cards, page} = useAppSelector(state => state.card);
-    const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
+    const isFetch = useAppSelector(state => state.app.status);
     const packId = useParams().id;
 
     const [itemToRemove, setItemToRemove] = useState<string>('');
