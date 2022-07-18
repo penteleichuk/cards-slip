@@ -1,4 +1,5 @@
 import {RouteNames} from "../constants/routes";
+import {Navigate} from "react-router-dom";
 import {
     ForgotPage,
     LoginPage,
@@ -6,9 +7,8 @@ import {
     PacksProfile,
     RegisterPage,
     SetPasswordPage,
-    PacksEvery
+    PacksPage, CardsProfile, CardsEvery
 } from "./../pages/pages";
-import {Navigate} from "react-router-dom";
 
 type RouteType = {
     name: string
@@ -19,28 +19,34 @@ type RouteType = {
 
 export const routes: Array<RouteType> = [
     {
-        name: 'Card',
+        name: 'Packs every',
         public: true,
         path: RouteNames.HOME,
         component: <Navigate to={RouteNames.PACK}/>,
     },
     {
-        name: 'Pack',
+        name: 'Packs every',
         public: true,
         path: RouteNames.PACK,
-        component: <PacksEvery/>,
+        component: <PacksPage/>,
     },
     {
-        name: 'Profile',
+        name: 'Cards every',
+        public: true,
+        path: RouteNames.CARDS,
+        component: <CardsEvery/>,
+    },
+    {
+        name: 'Profile packs',
         public: true,
         path: RouteNames.PROFILE,
         component: <PacksProfile/>,
     },
     {
-        name: 'Profile',
+        name: 'Profile cards',
         public: true,
         path: RouteNames.PROFILE_ARG,
-        component: <PacksProfile/>,
+        component: <CardsProfile/>,
     },
     {
         name: 'Login',

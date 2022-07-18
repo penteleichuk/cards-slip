@@ -88,7 +88,6 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
                       iconSrc={cardsIcon}
                       active={
                           location.pathname === RouteNames.PACK ||
-                          location.pathname === RouteNames.CARDS_ARG ||
                           location.pathname === RouteNames.CARDS
                       }
                 />

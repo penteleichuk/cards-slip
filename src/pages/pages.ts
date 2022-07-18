@@ -4,7 +4,9 @@ import {RegisterPage} from './auth/register/s1-ui/registerPage/RegisterPage';
 import {SetPasswordPage} from './auth/set-password/s1-ui/SetPasswordPage';
 import {NotFoundPage} from './errors/404/NotFoundPage';
 import {PacksProfile} from './pack/s1-ui/PacksProfile';
-import {PacksEvery} from './pack/s1-ui/PacksEvery';
+import {PacksPage} from './pack/s1-ui/PacksPage';
+import {CardsProfile} from './card/s1-ui/CardsProfile';
+import {CardsEvery} from './card/s1-ui/CardsEvery';
 
 export {
     ForgotPage,
@@ -13,5 +15,7 @@ export {
     SetPasswordPage,
     NotFoundPage,
     PacksProfile,
-    PacksEvery,
+    PacksPage,
+    CardsProfile,
+    CardsEvery,
 };

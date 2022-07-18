@@ -6,7 +6,7 @@ import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 import './PackPage.scss';
 
-export const PacksEvery = React.memo(() => {
+export const PacksPage = React.memo(() => {
     const isAuth = useAppSelector(state => state.login.isLoggedIn);
 
     const [urlParams] = useSearchParams();

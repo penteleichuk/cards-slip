@@ -23,7 +23,7 @@ type FiltersType = {
     maxCardsCount: number
 }
 
-export const Filters = React.memo((props: FiltersType) => {
+export const FiltersPack = React.memo((props: FiltersType) => {
     const {pageCount, isCards, user_id, value, setValue, minCardsCount, maxCardsCount} = {...props};
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
     const sortPacks = useSelector<AppStoreType, string | undefined>(state => state.pack.sortPacks) || ''

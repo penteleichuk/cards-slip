@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Filters} from "../Filters/Filters";
+import {FiltersPack} from "../Filters/FiltersPack";
 import {PacksDraw} from "./PacksDraw";
 import {RouteNames} from "../../../constants/routes";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
@@ -26,7 +26,7 @@ export const PackEvery = React.memo(({isCards}: { isCards: string | null }) => {
     return <>
         <div className="dashboard__sidebar">
             <div className="dashboard__indent">
-                <Filters
+                <FiltersPack
                     pageCount={pageCount}
                     isCards={isCards}
                     value={numCards}
