@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {ItemToUpdateType} from "../Packs/Packs";
+import {ItemToUpdateType} from "../Packs/PacksDraw";
 import {Button, InputText} from "../../components";
 import {Popup} from "../../Popup/Popup";
 

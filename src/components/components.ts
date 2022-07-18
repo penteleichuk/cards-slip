@@ -5,7 +5,7 @@ import {Input} from './Input/Input';
 import {Tack} from './TackButton/Tack';
 import {Popup} from './Popup/Popup';
 import {Pack} from './_Pack/Pack/Pack';
-import {Packs} from './_Pack/Packs/Packs';
+import {PacksDraw} from './_Pack/Packs/PacksDraw';
 import {PackButton} from './PackButton/PackButton';
 import {NavButton} from './NavButton/NavButton';
 import {SkeletonItems} from './_Pack/Skeleton/SkeletonItems/SkeletonItems';
@@ -15,8 +15,8 @@ import {Logo} from './_Pages/Logo/Logo';
 import {Filters} from './_Pack/Filters/Filters';
 import {Card} from './_Card/Card/Card';
 import {Cards} from './_Card/Cards/Cards';
-import {PackProfile} from './_Pack/Pack/PackProfile';
-import {PackAll} from './_Pack/Pack/PackAll';
+import {PackProfile} from './_Pack/Packs/PackProfile';
+import {PackGlobal} from './_Pack/Packs/PackGlobal';
 
 export {
     Button,
@@ -25,7 +25,7 @@ export {
     Input,
     Tack,
     Pack,
-    Packs,
+    PacksDraw,
     PackButton,
     NavButton,
     SkeletonItems,
@@ -36,6 +36,6 @@ export {
     Card,
     Cards,
     PackProfile,
-    PackAll,
+    PackGlobal,
     Popup,
 };

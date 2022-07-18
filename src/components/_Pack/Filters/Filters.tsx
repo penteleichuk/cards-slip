@@ -40,11 +40,11 @@ export const Filters = React.memo((props: FiltersType) => {
         dispatch(fetchGetPacks({}));
     }, []);
 
-    const onAfterChangeHandler = (rangeValues: number[] | number) => {
+    const onAfterChangeHandler = useCallback((rangeValues: number[] | number) => {
         if(Array.isArray(rangeValues)) {
             dispatch(fetchGetPacks({min: rangeValues[0], max: rangeValues[1]}));
         }
-    }
+    }, []);
 
     return <div className="filters">
         {isFetch === 'loading' ?

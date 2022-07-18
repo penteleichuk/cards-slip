@@ -18,7 +18,7 @@ export type ItemToUpdateType = {
     packName: string
 }
 
-export const Packs = React.memo(({navigatePage}: { navigatePage: string }) => {
+export const PacksDraw = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     const {cardPacksTotalCount, pageCount, cardPacks, page} = useAppSelector(state => state.pack);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);

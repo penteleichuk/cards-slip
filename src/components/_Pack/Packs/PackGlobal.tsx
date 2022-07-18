@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Filters} from "../Filters/Filters";
-import {Packs} from "../Packs/Packs";
+import {PacksDraw} from "./PacksDraw";
 import {RouteNames} from "../../../constants/routes";
-import {Cards} from "../../_Card/Cards/Cards";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 
-export const PackProfile = React.memo(({isCards}: { isCards: string | null }) => {
+export const PackGlobal = React.memo(({isCards}: { isCards: string | null }) => {
     const {minCardsCount, maxCardsCount, pageCount} = useAppSelector(state => state.pack);
-    const user_id = useAppSelector(state => state.login._id);
     const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksReset({packName: undefined, user_id, sortPacks: 'updated', pageCount: 6, page: 1}));
+        dispatch(setPacksReset({packName: undefined, user_id: undefined, sortPacks: 'updated', pageCount: 6, page: 1}));
         dispatch(fetchGetPacks({}));
     }, []);
 
@@ -31,7 +29,6 @@ export const PackProfile = React.memo(({isCards}: { isCards: string | null }) =>
                 <Filters
                     pageCount={pageCount}
                     isCards={isCards}
-                    user_id={user_id}
                     value={numCards}
                     setValue={setNumCards}
                     minCardsCount={minCardsCount}
@@ -41,7 +38,7 @@ export const PackProfile = React.memo(({isCards}: { isCards: string | null }) =>
         </div>
         <div className="dashboard__page">
             <div className="dashboard__indent dashboard__pack">
-                {isCards ? <Cards navigatePage={RouteNames.PROFILE}/> : <Packs navigatePage={RouteNames.PROFILE}/>}
+                <PacksDraw navigatePage={RouteNames.PROFILE}/>
             </div>
         </div>
     </>

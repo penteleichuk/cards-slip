@@ -1,7 +1,7 @@
 import React from "react";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {Logo, PackAll} from "../../../components/components";
+import {Logo, PackGlobal} from "../../../components/components";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
 import './PackPage.scss';
@@ -32,7 +32,7 @@ export const PackPage = React.memo(() => {
                                 </div>
                             </div>
                             <div className="dashboard__content">
-                                <PackAll isCards={isCards} />
+                                <PackGlobal isCards={isCards} />
                             </div>
                         </div>
                     </div>

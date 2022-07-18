@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
 import './Pack.scss';
-import {ItemToUpdateType} from "../Packs/Packs";
+import {ItemToUpdateType} from "../Packs/PacksDraw";
 
 type PackPropsType = {
     navigatePage: string
