@@ -97,8 +97,8 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
                     <InputText placeholder={packId ? 'Question' : 'Name pack'} value={question} onChangeText={setQuestion}/>
                     {packId && <InputText name={'answer'} placeholder={'Answer'} value={answer} onChangeText={setAnswer}/>}
                     <div className="popup__buttons">
+                        <Button onClick={createHandler}>Confirm</Button>
                         <Button onClick={deselectModalWindowHandler}>Cancel</Button>
-                        <Button onClick={createHandler}>Save</Button>
                     </div>
                 </Popup>
 

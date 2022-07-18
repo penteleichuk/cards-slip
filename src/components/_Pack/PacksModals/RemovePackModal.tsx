@@ -16,8 +16,8 @@ export const RemovePackModal = React.memo((props: RemovePackModalPropsType) => {
                title={'Are you sure you want to remove the pack?'}
                modalOnClick={clearFieldsItemsToRemove}>
             <div className="popup__buttons">
-                <Button onClick={removePack}>Yes</Button>
-                <Button onClick={clearFieldsItemsToRemove}>No</Button>
+                <Button onClick={removePack}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToRemove}>Cancel</Button>
             </div>
         </Popup>
     )

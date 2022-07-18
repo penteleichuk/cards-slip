@@ -17,8 +17,8 @@ export const RemoveCardModal = React.memo((props: RemoveCardModalPropsType) => {
                modalOnClick={clearFieldsItemsToRemove}>
 
             <div className="popup__buttons">
-                <Button onClick={removeCard}>Yes</Button>
-                <Button onClick={clearFieldsItemsToRemove}>No</Button>
+                <Button onClick={removeCard}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToRemove}>Cancel</Button>
             </div>
         </Popup>
     )
