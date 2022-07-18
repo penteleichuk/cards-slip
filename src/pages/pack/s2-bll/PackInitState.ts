@@ -1,50 +1,33 @@
 import {CardPacksType, GetPackRequestType} from "../s3-dal/PackApi";
 
-// export type PackStateType = GetPacksResponse & {
-//     isInit: 'idle' | 'pre' | 'init'
-//     isMyCardsPack: boolean | null
-//     search?: string | null
-//     packName?: string
-//     sortPacks?: string
-//     minCards?: number,
-//     maxCards?: number,
-// };
-
 export type PackInitStateType = GetPackRequestType & {
-    isInit: 'idle' | 'pre' | 'init'
-    isMyCardsPack: boolean | null
+    user_id: string | undefined,
+    cardPacks: CardPacksType[],
+    cardPacksTotalCount: number
+    minCardsCount: number
+    maxCardsCount: number
+    page: number
+    pageCount: number
     search?: string | null
     packName?: string
     sortPacks?: string
     minCards?: number,
     maxCards?: number,
-    cardPacks: CardPacksType[],
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-    activeSortPage: string
-    sortType: string
-    sortCode: string
+    totalCards: number,
 }
 
 export const PackInitState: PackInitStateType = {
+    user_id: undefined,
     cardPacks: [],
-    cardPacksTotalCount: 10,
+    cardPacksTotalCount: 10,        // count packs
     minCardsCount: 0,
     maxCardsCount: 500,
-    page: 1,
-    pageCount: 6,
-    activeSortPage: '',
-    sortType: '',
-    sortCode: '',
-    isInit: 'idle',
-    isMyCardsPack: null,
+    page: 1,                        // pagination
+    pageCount: 6,                   // count element ui
     search: null,
-    packName: '0updated',
-    sortPacks: '0updated',
+    packName: '',
+    sortPacks: 'updated',
     minCards: 0,
     maxCards: 1,
-    user_id: undefined,
+    totalCards: 6,
 }

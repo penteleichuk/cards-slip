@@ -1,11 +1,10 @@
 import React from "react";
 import moment from 'moment';
-import {cardsDarkIcon, editSvg, removeSvg} from "../../../assets/images/icons";
+import {editSvg, removeSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../../pages/app/s2-bll/store";
+import {ItemToUpdateType} from "../Cards/CardsDraw";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 import './../../_Pack/Pack/Pack.scss';
-import {ItemToUpdateType} from "../Cards/Cards";
 
 type CardPropsType = {
     id: string
@@ -18,17 +17,10 @@ type CardPropsType = {
     setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
-export const Card = React.memo(({
-                                    id,
-                                    author_id,
-                                    answer,
-                                    question,
-                                    grade,
-                                    created,
-                                    setItemToRemove,
-                                    setItemToUpdate
-                                }: CardPropsType) => {
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+export const Card = React.memo((props: CardPropsType) => {
+    const {id, author_id, answer, question, grade, created, setItemToRemove, setItemToUpdate} = {...props};
+
+    const user_id = useAppSelector(state => state.login._id);
     const percent = grade * 100 / 5;
 
     return <div className="pack">

@@ -8,6 +8,8 @@ type ButtonPropsType = DefaultButtonPropsType & {
     loading?: boolean;
 }
 
-export const Button = React.memo(({color = 'primary', loading, ...restProps}: ButtonPropsType) => {
+export const Button = React.memo((props: ButtonPropsType) => {
+    const {color = 'primary', loading, ...restProps} = {...props};
+
     return <button className={`button ${color} ${loading ? 'loading' : ''}`} {...restProps}/>
 });

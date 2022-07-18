@@ -97,9 +97,8 @@
 
   .tack {
     margin-right: 15px;
-
     &:last-child {
-      margin: 0;
+      margin-left: 0 !important;
     }
   }
 }

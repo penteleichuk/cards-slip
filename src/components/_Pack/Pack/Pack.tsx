@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useCallback} from "react";
 import moment from 'moment';
-import {cardsDarkIcon, editSvg, removeSvg, viewSvg} from "../../../assets/images/icons";
+import {cardsDarkIcon, editSvg, removeSvg, listSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {useNavigate} from "react-router-dom";
+import {ItemToUpdateType} from "../Packs/PacksDraw";
 import './Pack.scss';
-import {ItemToUpdateType} from "../Packs/Packs";
 
 type PackPropsType = {
     navigatePage: string
@@ -20,26 +20,51 @@ type PackPropsType = {
     setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
-export const Pack = React.memo(({
-                                    navigatePage,
-                                    author,
-                                    description,
-                                    packs,
-                                    date,
-                                    author_id,
-                                    id,
-                                    setItemToRemove,
-                                    setItemToUpdate
-                                }: PackPropsType) => {
-    const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
+export const Pack = React.memo((props: PackPropsType) => {
+    const {
+        navigatePage,
+        author,
+        description,
+        packs,
+        date,
+        author_id,
+        id,
+        setItemToRemove,
+        setItemToUpdate
+    } = {...props};
+
+    const userId = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
-    const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const setItemUpdateHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+
+        setItemToUpdate({
+            packId: id,
+            packName: description
+        });
+    }, []);
+
+    const setItemRemoveHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+
+        setItemToRemove(id);
+    }, []);
+
+    const viewHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+
         const packId: string = e.currentTarget.dataset.pack || '';
-        return navigate(`${navigatePage}?id=${packId}`);
+        return navigate(`${navigatePage}${packId}`);
+    }, []);
+
+    const readHandler = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        alert('learn');
     }
 
-    return <div className="pack">
+    return <div className="pack pack__cursor" onClick={readHandler}>
         <div className="pack__author">
             <div className="pack__wrap">
                 {author}
@@ -50,12 +75,9 @@ export const Pack = React.memo(({
                 <img className="pack__icon" src={cardsDarkIcon} alt=""/>{packs}
             </div>
             <div className="pack__buttons">
-                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
-                {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate({
-                    packId: id,
-                    packName: description
-                })}/>}
-                {author_id === user_id && <PackButton iconSrc={removeSvg} onClick={() => setItemToRemove(id)}/>}
+                {author_id === userId && <PackButton data-pack={id} onClick={viewHandler} iconSrc={listSvg}/>}
+                {author_id === userId && <PackButton iconSrc={editSvg} onClick={setItemUpdateHandler}/>}
+                {author_id === userId && <PackButton iconSrc={removeSvg} onClick={setItemRemoveHandler}/>}
             </div>
         </div>
         <div className="pack__content">

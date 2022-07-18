@@ -1,21 +1,40 @@
-import {CardApi, GetCardRequestType} from "../s3-dal/CardApi";
+import {AddCardRequestType, CardApi, GetCardRequestType} from "../s3-dal/CardApi";
 import {AppStoreType, AppThunk} from "../../app/s2-bll/store";
-import {setCards} from "./CardActions";
+import {setCard, setCards} from "./CardActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
-export const fetchCards = (params: GetCardRequestType): AppThunk => async dispatch => {
+// Get all cards
+export const fetchGetCards = (params: GetCardRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
+
+    const {cardsPack_id, cardAnswer, sortCards, pageCount, page} = getState().card;
+    const advancedOptions = {cardsPack_id, cardAnswer, sortCards, pageCount, page,  ...params};
+
     try {
-        const res = await CardApi.getCards(params);
-        dispatch(setCards({cards: res.cards}));
+        const res = await CardApi.getCards(advancedOptions);
+        dispatch(setCards({...res}));
     } catch (error: unknown) {
-        console.log(error);
+        console.error(error, "Map load error");
     } finally {
         dispatch(setAppStatusAC('idle'));
     }
 }
 
-export const removeCardTC = (cardId: string, packId: string): AppThunk => async (dispatch) => {
+// Add single card
+export const fetchCreateCard = (card: AddCardRequestType, packId: string): AppThunk => async dispatch => {
+    try {
+        const res = await CardApi.addCard(card)
+        if(res.data) {
+            dispatch(setCard({card: res.data}))
+            dispatch(fetchGetCards({cardsPack_id: packId}))
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+// Remove card
+export const fetchRemoveCard = (cardId: string, packId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'));
 
     const removeCardParams = {id: cardId}
@@ -23,14 +42,15 @@ export const removeCardTC = (cardId: string, packId: string): AppThunk => async 
 
     try {
         await CardApi.deleteCard(removeCardParams)
-        dispatch(fetchCards(getCardParams))
+        dispatch(fetchGetCards(getCardParams))
     } catch (err) {
         console.log(err)
         dispatch(setAppStatusAC('failed'))
     }
 }
 
-export const updateCardTC = (cardId: string, packId: string, newCardQuestion: string, newCardAnswer: string): AppThunk =>
+// Update card
+export const fetchUpdateCard = (cardId: string, packId: string, newCardQuestion: string, newCardAnswer: string): AppThunk =>
     async (dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
@@ -42,7 +62,7 @@ export const updateCardTC = (cardId: string, packId: string, newCardQuestion: st
         if(updateCardParams) {
             try {
                 await CardApi.updateCard({card: updateCardParams})
-                dispatch(fetchCards(getCardParams))
+                dispatch(fetchGetCards(getCardParams))
             } catch (err) {
                 console.log(err)
                 dispatch(setAppStatusAC('failed'))

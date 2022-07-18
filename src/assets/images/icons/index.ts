@@ -18,6 +18,8 @@ import editSvg from './edit.svg';
 import removeSvg from './remove.svg';
 import backSvg from './back.svg';
 import logoutSvg from './logout.svg';
+import learnSvg from './learn.svg';
+import listSvg from './list.svg';
 
 export {
     searchIcon,
@@ -40,4 +42,6 @@ export {
     removeSvg,
     backSvg,
     logoutSvg,
+    learnSvg,
+    listSvg,
 };

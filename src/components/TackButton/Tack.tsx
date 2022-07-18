@@ -10,7 +10,9 @@ type TackType = DefaultButtonPropsType & {
     iconSvg?: boolean
 }
 
-export const Tack = React.memo(({iconSrc, active = false, title, iconSvg = false, ...restProps}: TackType) => {
+export const Tack = React.memo((props: TackType) => {
+    const {iconSrc, active = false, title, iconSvg = false, ...restProps} = {...props};
+
     return <button className={`tack ${active ? 'active' : ''}`} {...restProps}>
         {title && <span className="tack__title">{title}</span>}
         <img className={`${iconSvg? 'tack__svg' : 'tack__img'}`} src={iconSrc} alt=""/>
