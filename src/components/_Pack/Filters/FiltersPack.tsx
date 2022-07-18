@@ -87,7 +87,7 @@ export const FiltersPack = React.memo((props: FiltersType) => {
                     </div>
                 }
                 <div className="filters__item">
-                    <p className="filters__title">Show cards per page</p>
+                    <p className="filters__title">Show packs per page</p>
                     <CardsPerPage pageCount={pageCount} callBack={cardPerPageHandler}/>
                 </div>
             </>
