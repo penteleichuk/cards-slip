@@ -6,10 +6,9 @@ import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
 import {CardsPerPage} from "../../CardsPerPage/CardsPerPage";
-import {setPacksSort} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {sorting, sortingView} from "../../../helpers/sorting";
-import {setCardsPerPage} from "../../../pages/card/s2-bll/CardActions";
+import {setCardsPerPage, setCardsSort} from "../../../pages/card/s2-bll/CardActions";
 import {fetchGetCards} from "../../../pages/card/s2-bll/CardThunks";
 import './Filters.scss';
 
@@ -19,7 +18,7 @@ type FiltersType = {
 
 export const FiltersCard = React.memo(({pageCount}: FiltersType) => {
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
-    const sortPacks = useSelector<AppStoreType, string | undefined>(state => state.pack.sortPacks) || ''
+    const sortCards = useSelector<AppStoreType, string | undefined>(state => state.card.sortCards) || ''
     const dispatch = useAppDispatch();
 
     const cardPerPageHandler = useCallback((value: number) => {
@@ -28,8 +27,8 @@ export const FiltersCard = React.memo(({pageCount}: FiltersType) => {
     }, []);
 
     const sortingHandler = useCallback((field: string, sort: string) => {
-        const sortPacks = sorting(field, sort);
-        dispatch(setPacksSort({sortPacks}));
+        const sortCards = sorting(field, sort);
+        dispatch(setCardsSort({sortCards}));
         dispatch(fetchGetCards({}));
     }, []);
 
@@ -41,20 +40,20 @@ export const FiltersCard = React.memo(({pageCount}: FiltersType) => {
                     <p className="filters__title">Filters</p>
                     <div className="filters__buttons">
                         <NavButton title="Name" iconSvg={TextSvg}
-                                   onClick={() => sortingHandler('name', sortPacks)}
-                                   active={sortingView('name', sortPacks)}/>
+                                   onClick={() => sortingHandler('name', sortCards)}
+                                   active={sortingView('name', sortCards)}/>
 
-                        <NavButton title="Count card" iconSvg={cardsSvg}
-                                   onClick={() => sortingHandler('cardsCount', sortPacks)}
-                                   active={sortingView('cardsCount', sortPacks)}/>
+                        <NavButton title="Rating" iconSvg={cardsSvg}
+                                   onClick={() => sortingHandler('grade', sortCards)}
+                                   active={sortingView('grade', sortCards)}/>
 
                         <NavButton title="Last updated" iconSvg={timeSvg}
-                                   onClick={() => sortingHandler('updated', sortPacks)}
-                                   active={sortingView('updated', sortPacks)}/>
+                                   onClick={() => sortingHandler('updated', sortCards)}
+                                   active={sortingView('updated', sortCards)}/>
 
                         <NavButton title="Created by" iconSvg={updateSvg}
-                                   onClick={() => sortingHandler('created', sortPacks)}
-                                   active={sortingView('created', sortPacks)}/>
+                                   onClick={() => sortingHandler('created', sortCards)}
+                                   active={sortingView('created', sortCards)}/>
                     </div>
                 </div>
                 <div className="filters__item">

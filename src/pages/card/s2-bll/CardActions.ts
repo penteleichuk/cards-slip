@@ -5,6 +5,7 @@ export const setCard = (payload: { card: CardType }) => ({type: 'CARD/SET-CARD',
 export const setCards = (payload: GetCardResponseType) => ({type: 'CARD/SET-CARDS', payload} as const);
 export const setCardsPerPage = (payload: { pageCount: number }) => ({type: 'CARD/SET-PER-PAGE', payload} as const);
 export const setCardsPagination = (payload: { page: number }) => ({type: 'CARD/SET-PAGINATION', payload} as const);
+export const setCardsSort = (payload: { sortCards: string }) => ({type: 'CARD/SET-SORT', payload} as const);
 export const setCardsReset = (payload: {
     cardAnswer: string | undefined,
     cardsPack_id: string | undefined,
@@ -19,6 +20,7 @@ export type SetCardsActionType = ReturnType<typeof setCards>
 export type SetCardsPerPageActionType = ReturnType<typeof setCardsPerPage>
 export type SetCardsResetActionType = ReturnType<typeof setCardsReset>
 export type SetCardsPaginationActionType = ReturnType<typeof setCardsPagination>
+export type SetCardsSortActionType = ReturnType<typeof setCardsSort>
 
 // All types
 export type CardActionsType =
@@ -26,4 +28,5 @@ export type CardActionsType =
     | SetCardsPerPageActionType
     | SetCardActionType
     | SetCardsResetActionType
-    | SetCardsPaginationActionType;
+    | SetCardsPaginationActionType
+    | SetCardsSortActionType;

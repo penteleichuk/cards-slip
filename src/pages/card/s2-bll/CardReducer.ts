@@ -9,6 +9,7 @@ export const cardReducer = (state: CardStateType = cardInitState, action: CardAc
         case "CARD/SET-RESET":
         case "CARD/SET-PER-PAGE":
         case "CARD/SET-PAGINATION":
+        case "CARD/SET-SORT":
             return {...state, ...action.payload};
         default:
             return state;
