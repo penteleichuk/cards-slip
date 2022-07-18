@@ -74,6 +74,14 @@ export const CardsDraw = React.memo(() => {
                     />
                 )}
 
+                {cards.length < 1 && <NotFound/>}
+
+                <PaginatedPage onPageChanged={paginationHandler}
+                               totalCards={cardsTotalCount}
+                               countPages={pageCount}
+                               currentPage={page}
+                />
+
                 <RemoveCardModal itemToRemove={itemToRemove}
                                  removeCard={removeCardHandler}
                                  clearFieldsItemsToRemove={clearFieldsRemoveHandler}/>
@@ -82,13 +90,15 @@ export const CardsDraw = React.memo(() => {
                                  setItemToUpdate={setItemToUpdate}
                                  updateCard={updateCardHandler}
                                  clearFieldsItemsToUpdate={clearFieldsUpdateHandler}/>
-
-                <PaginatedPage onPageChanged={paginationHandler}
-                               totalCards={cardsTotalCount}
-                               countPages={pageCount}
-                               currentPage={page}
-                />
             </>
         }
+    </>
+});
+
+const NotFound = React.memo(() => {
+    return <>
+        <div> </div>
+        <div className={"nf"}>Not found</div>
+        <div> </div>
     </>
 });

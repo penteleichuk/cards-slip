@@ -91,7 +91,7 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
                       }
                 />
 
-                <Tack iconSrc={createIcon} onClick={() => setShow(true)}/>
+                <Tack iconSrc={createIcon} style={{marginRight: "0"}} onClick={() => setShow(true)}/>
 
                 <Popup show={show} modalOnClick={deselectModalWindowHandler} title={packId ? 'Card info' : 'Add new pack'}>
                     <InputText placeholder={packId ? 'Question' : 'Name pack'} value={question} onChangeText={setQuestion}/>

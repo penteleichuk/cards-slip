@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import moment from 'moment';
-import {cardsDarkIcon, learnSvg, editSvg, removeSvg, listSvg} from "../../../assets/images/icons";
+import {cardsDarkIcon, editSvg, removeSvg, listSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
@@ -64,7 +64,7 @@ export const Pack = React.memo((props: PackPropsType) => {
         alert('learn');
     }
 
-    return <div className="pack" onClick={readHandler}>
+    return <div className="pack pack__cursor" onClick={readHandler}>
         <div className="pack__author">
             <div className="pack__wrap">
                 {author}

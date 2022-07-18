@@ -4,10 +4,13 @@
   display: flex;
   flex-direction: column;
   background: #f5f5f7;
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;
   border-radius: 14px;
   padding: 10px;
-  cursor: pointer;
+
+  &__cursor {
+    cursor: pointer;
+  }
 
   &:hover {
     background: #f0f0f8;
@@ -68,7 +71,7 @@
       margin-left: 10px;
 
       &:first-child {
-        margin: 0;
+        margin-left: 0;
       }
     }
   }
@@ -124,4 +127,11 @@
       color: #ffd300;
     }
   }
+}
+
+.nf {
+  text-align: center;
+  margin-top: 50px;
+  color: #fff;
+  font-weight: 800;
 }
