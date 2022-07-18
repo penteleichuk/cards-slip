@@ -22,7 +22,7 @@ export const routes: Array<RouteType> = [
         name: 'Packs every',
         public: true,
         path: RouteNames.HOME,
-        component: <Navigate to={RouteNames.PACK}/>,
+        component: <Navigate to={RouteNames.PROFILE}/>,
     },
     {
         name: 'Packs every',

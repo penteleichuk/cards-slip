@@ -21,8 +21,8 @@ export const UpdatePackModal = (props: UpdatePackModalPropsType) => {
         <Popup show={!!itemToUpdate.packId} title={'Update pack'} modalOnClick={clearFieldsItemsToUpdate}>
             <InputText value={itemToUpdate.packName} onChange={updateNameHandler} placeholder="Name"/>
             <div className="popup__buttons">
-                <Button onClick={updatePack}>Yes</Button>
-                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+                <Button onClick={updatePack}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>Cancel</Button>
             </div>
         </Popup>
     )

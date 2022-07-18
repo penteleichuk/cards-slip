@@ -23,22 +23,24 @@ export const UpdateCardModal = React.memo((props: UpdateCardModalPropsType) => {
 
     return (
         <Popup show={!!itemToUpdate.cardId} title={'Update card'} modalOnClick={clearFieldsItemsToUpdate}>
-            <div>
-                <div>Question</div>
-                <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "5vh"}}
+            <div className={"popup__textarea"}>
+                <div className={"popup__textarea-title"}>Question</div>
+                <textarea className={"popup__textarea-area"}
+                          style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "7vh"}}
                           value={itemToUpdate.cardQuestion}
                           onChange={updateQuestionHandler}
                 />
             </div>
-            <div>
-                <div>Answer</div>
-                <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
+            <div className={"popup__textarea"}>
+                <div className={"popup__textarea-title"}>Answer</div>
+                <textarea className={"popup__textarea-area"}
+                          style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
                           value={itemToUpdate.cardAnswer} onChange={updateAnswerHandler}
                 />
             </div>
             <div className="popup__buttons">
-                <Button onClick={updateCard}>Yes</Button>
-                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+                <Button onClick={updateCard}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>Canel</Button>
             </div>
         </Popup>
     )
