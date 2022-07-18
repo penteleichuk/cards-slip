@@ -30,24 +30,24 @@ export const InputText = React.memo((
 ) => {
     const [eyeStatus, setEyeStatus] = useState<boolean>(false);
 
-    const onChangeCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange
         && onChange(e)
 
         onChangeText && onChangeText(e.currentTarget.value)
-    }, []);
+    };
 
-    const onKeyPressCallback = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e);
 
         onEnter
         && e.key === 'Enter'
         && onEnter()
-    }, []);
+    };
 
-    const eyeHandler = useCallback(() => {
+    const eyeHandler = () => {
         setEyeStatus(!eyeStatus);
-    }, []);
+    };
 
     const initType = eye && eyeStatus ? 'text' : type;
 
