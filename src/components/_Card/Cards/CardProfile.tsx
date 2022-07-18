@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {PacksDraw} from "../../_Pack/Packs/PacksDraw";
+import React, {useEffect} from "react";
 import {RouteNames} from "../../../constants/routes";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
-import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {FiltersCard} from "../Filters/FiltersCard";
 import {CardsDraw} from "./CardsDraw";

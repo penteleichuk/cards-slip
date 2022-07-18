@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Button, InputText, Popup, Input, Tack} from "../../components";
 import {backSvg, cardsIcon, clearIcon, createIcon, searchIcon, userIcon} from "../../../assets/images/icons";
 import {useDebounce} from "../../../hooks/useDebounce";
@@ -26,14 +26,13 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
     const [answer, setAnswer] = useState<string>('');
 
     // Location (route)
+    const packId = useParams().id;
     const navigate = useNavigate();
     const location = useLocation();
-    const [urlParams] = useSearchParams();
-    const packId = urlParams.get('id');
 
     const dispatch = useAppDispatch();
 
-    // Close modal window and cleaning
+    // Create and cleaning
     const createHandler = useCallback(() => {
         setShow(false);
         setQuestion('');
@@ -62,7 +61,7 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
     useEffect(() => {
         if (search !== null) {
             if (packId) {
-                dispatch(fetchGetCards({cardsPack_id: packId, cardAnswer: search}));
+                dispatch(fetchGetCards({cardAnswer: search}));
             } else {
                 dispatch(fetchGetPacks({packName: search}));
             }
