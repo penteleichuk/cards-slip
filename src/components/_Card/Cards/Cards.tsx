@@ -11,7 +11,6 @@ import {fetchGetCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/ca
 import {useLocation, useSearchParams} from "react-router-dom";
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
-import './../../_Pack/Packs/Packs.scss';
 
 export type ItemToUpdateType = {
     cardId: string

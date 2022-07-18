@@ -11,7 +11,6 @@ import {useAppSelector} from "../../../hooks/useAppSelector";
 import {fetchGetPacks, fetchRemovePack, fetchUpdatePack} from "../../../pages/pack/s2-bll/PackThunks";
 import {RemovePackModal} from "../PacksModals/RemovePackModal";
 import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
-import './Packs.scss';
 
 export type ItemToUpdateType = {
     packId: string
