@@ -10,6 +10,9 @@ export const SkeletonFilters = React.memo(() => {
             <div className="sk-filters__box skeleton"> </div>
             <div className="sk-filters__box skeleton"> </div>
             <div className="sk-filters__box skeleton"> </div>
+            <div className="sk-filters__box skeleton"> </div>
+            <div className="sk-filters__box skeleton"> </div>
+            <div className="sk-filters__box skeleton"> </div>
         </div>
     </>
 });

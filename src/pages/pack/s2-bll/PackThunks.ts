@@ -56,8 +56,8 @@ export const fetchUpdatePack = (packId: string, newPackName: string): AppThunk =
 
 export const fetchCreatePack = (cardsPack: { name?: string, deckCover?: string, private?: boolean }): AppThunk => async dispatch => {
     try {
-        const res = await PackApi.addPack(cardsPack);
-        dispatch(setPack(res.data.newCardsPack));
+        const res = await PackApi.addPack({...cardsPack});
+        dispatch(fetchGetPacks({}));
     } catch (err) {
         console.log(err, "error fetch create cards");
     }

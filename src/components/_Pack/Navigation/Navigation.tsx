@@ -34,16 +34,16 @@ export const Navigation = React.memo(({navigatePage}: NavigationType) => {
 
     // Create and cleaning
     const createHandler = useCallback(() => {
-        setShow(false);
-        setQuestion('');
-        setAnswer('');
-
         if (packId) {
             dispatch(fetchCreateCard({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
             dispatch(fetchCreatePack({name: question}))
         }
-    }, []);
+
+        setShow(false);
+        setQuestion('');
+        setAnswer('');
+    }, [question, answer, packId]);
 
     // Cancelling and cleaning
     const deselectModalWindowHandler = useCallback(() => {
