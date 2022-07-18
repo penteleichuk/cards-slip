@@ -1,13 +1,10 @@
 import {GetCardResponseType} from "../s3-dal/CardApi";
 
 export type CardStateType = GetCardResponseType & {
-    minCardsCount: number
-    maxCardsCount: number
+    cardsPack_id?: string | undefined
+    cardAnswer?: string
     search?: string | null
-    cardName?: string
     sortCards?: string
-    minCards?: number,
-    maxCards?: number,
     totalCards: number,
 };
 
@@ -19,12 +16,9 @@ export const cardInitState: CardStateType = {
     page: 1,
     pageCount: 4,
     packUserId: null,
-    minCardsCount: 0,
-    maxCardsCount: 500,
+    cardsPack_id: undefined,
+    cardAnswer: '',
     search: null,
-    cardName: '',
-    sortCards: 'updated',
-    minCards: 0,
-    maxCards: 1,
+    sortCards: 'grade',
     totalCards: 6,
 }

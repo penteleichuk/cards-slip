@@ -3,7 +3,6 @@ import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {Card, SkeletonItems} from "../../components";
@@ -11,6 +10,7 @@ import {fetchGetCards, fetchRemoveCard, fetchUpdateCard} from "../../../pages/ca
 import {useLocation, useSearchParams} from "react-router-dom";
 import {RemoveCardModal} from "../CardsModals/RemoveCardModal";
 import {UpdateCardModal} from "../CardsModals/UpdateCardModal";
+import {setCardsPagination} from "../../../pages/card/s2-bll/CardActions";
 
 export type ItemToUpdateType = {
     cardId: string
@@ -41,10 +41,6 @@ export const CardsDraw = React.memo(({navigatePage}: { navigatePage: string }) =
         }
     }, [dispatch, page, pageCount, location, cardsTotalCount, packId])
 
-    const clickPageHandler = (page: number) => {
-        dispatch(setPacksPagination({page}));
-    }
-
     const removeCard = () => {
         packId && dispatch(fetchRemoveCard(itemToRemove, packId))
         clearFieldsItemsToRemove()
@@ -59,6 +55,12 @@ export const CardsDraw = React.memo(({navigatePage}: { navigatePage: string }) =
     }
     const clearFieldsItemsToUpdate = () => {
         setItemToUpdate({cardId: '', cardQuestion: '', cardAnswer: ''})
+    }
+
+    // Pagination work
+    const paginationHandler = (page: number) => {
+        dispatch(setCardsPagination({page}));
+        dispatch(fetchGetCards({}));
     }
 
     return <>
@@ -86,7 +88,7 @@ export const CardsDraw = React.memo(({navigatePage}: { navigatePage: string }) =
                                  setItemToUpdate={setItemToUpdate}
                                  updateCard={updateCard} clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
 
-                <PaginatedPage onPageChanged={clickPageHandler}
+                <PaginatedPage onPageChanged={paginationHandler}
                                totalCards={cardsTotalCount}
                                countPages={pageCount}
                                currentPage={page}
