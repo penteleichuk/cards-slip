@@ -39,9 +39,9 @@ export const FiltersCard = React.memo(({pageCount}: FiltersType) => {
                 <div className="filters__item">
                     <p className="filters__title">Filters</p>
                     <div className="filters__buttons">
-                        <NavButton title="Name" iconSvg={TextSvg}
-                                   onClick={() => sortingHandler('name', sortCards)}
-                                   active={sortingView('name', sortCards)}/>
+                        <NavButton title="Question" iconSvg={TextSvg}
+                                   onClick={() => sortingHandler('question', sortCards)}
+                                   active={sortingView('question', sortCards)}/>
 
                         <NavButton title="Rating" iconSvg={cardsSvg}
                                    onClick={() => sortingHandler('grade', sortCards)}
