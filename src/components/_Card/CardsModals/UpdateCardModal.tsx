@@ -1,5 +1,5 @@
 import {Popup} from "../../Popup/Popup";
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useCallback} from "react";
 import {ItemToUpdateType} from "../Cards/CardsDraw";
 import {Button} from "../../components";
 
@@ -10,19 +10,16 @@ type UpdateCardModalPropsType = {
     clearFieldsItemsToUpdate: () => void
 }
 
-export const UpdateCardModal = ({
-                                    itemToUpdate,
-                                    updateCard,
-                                    setItemToUpdate,
-                                    clearFieldsItemsToUpdate
-                                }: UpdateCardModalPropsType) => {
+export const UpdateCardModal = React.memo((props: UpdateCardModalPropsType) => {
+    const {itemToUpdate, updateCard, setItemToUpdate, clearFieldsItemsToUpdate} = {...props};
 
-    const updateCardQuestion = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const updateQuestionHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardQuestion: e.currentTarget.value})
-    }
-    const updateCardAnswer = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    }, []);
+
+    const updateAnswerHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardAnswer: e.currentTarget.value})
-    }
+    }, []);
 
     return (
         <Popup show={!!itemToUpdate.cardId} title={'Update card'} modalOnClick={clearFieldsItemsToUpdate}>
@@ -30,13 +27,13 @@ export const UpdateCardModal = ({
                 <div>Question</div>
                 <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "5vh"}}
                           value={itemToUpdate.cardQuestion}
-                          onChange={updateCardQuestion}
+                          onChange={updateQuestionHandler}
                 />
             </div>
             <div>
                 <div>Answer</div>
                 <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
-                          value={itemToUpdate.cardAnswer} onChange={updateCardAnswer}
+                          value={itemToUpdate.cardAnswer} onChange={updateAnswerHandler}
                 />
             </div>
             <div className="popup__buttons">
@@ -45,4 +42,4 @@ export const UpdateCardModal = ({
             </div>
         </Popup>
     )
-}
+});

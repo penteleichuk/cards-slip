@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {noPhotoImg} from "../../../assets/images";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
@@ -19,25 +19,25 @@ export const Profile = React.memo(() => {
     const [popupShow, setPopupShow] = useState<boolean>(false);
     const [name, setName] = useState<string>(profile.name);
 
-    const logoutHandler = () => {
+    const logoutHandler = useCallback(() => {
         dispatch(logoutTC());
-    }
+    }, []);
 
-    const showPopUpHandler = () => {
+    const showPopUpHandler = useCallback(() => {
         setPopupShow(true);
         setName(profile.name);
-    }
+    }, []);
 
-    const closePopUpHandler = () => {
+    const closePopUpHandler = useCallback(() => {
         setPopupShow(false);
         setName(profile.name);
-    }
+    }, []);
 
-    const savePopUpHandler = () => {
+    const savePopUpHandler = useCallback(() => {
         dispatch(settingProfileTC(name));
         setName(profile.name);
         setPopupShow(false);
-    }
+    }, []);
 
     return <div className="profile">
         <div className="dashboard__indent">

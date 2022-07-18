@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useCallback, useState} from 'react'
 import './Input.scss'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -29,21 +29,21 @@ export const Input = React.memo((
 ) => {
     const [value, setValue] = useState<string>('');
 
-    const iconClickHandler = () => {
+    const iconClickHandler = useCallback(() => {
         onChangeText && onChangeText('');
         setValue('');
-    }
+    }, []);
 
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeCallback =  useCallback((e: ChangeEvent<HTMLInputElement>) => {
         onChange && onChange(e);
         onChangeText && onChangeText(e.currentTarget.value);
         setValue(e.currentTarget.value);
-    }
+    }, []);
 
-    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressCallback =  useCallback((e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e);
         onEnter && e.key === 'Enter' && onEnter();
-    }
+    }, []);
 
     return (
         <span className={`input${error ? ' input__error-show' : ''}`}>

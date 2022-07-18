@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import moment from 'moment';
 import {cardsDarkIcon, editSvg, removeSvg, viewSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
@@ -20,24 +20,16 @@ type PackPropsType = {
     setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
 }
 
-export const Pack = React.memo(({
-                                    navigatePage,
-                                    author,
-                                    description,
-                                    packs,
-                                    date,
-                                    author_id,
-                                    id,
-                                    setItemToRemove,
-                                    setItemToUpdate
-                                }: PackPropsType) => {
+export const Pack = React.memo((props: PackPropsType) => {
+    const {navigatePage, author, description, packs, date, author_id, id, setItemToRemove, setItemToUpdate} = {...props};
+
     const user_id = useSelector<AppStoreType, string | undefined>(state => state.login._id);
     const navigate = useNavigate();
 
-    const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const clickViewHandler = useCallback((e: React.MouseEvent<HTMLElement>) => {
         const packId: string = e.currentTarget.dataset.pack || '';
         return navigate(`${navigatePage}${packId}`);
-    }
+    }, []);
 
     return <div className="pack">
         <div className="pack__author">
@@ -50,7 +42,7 @@ export const Pack = React.memo(({
                 <img className="pack__icon" src={cardsDarkIcon} alt=""/>{packs}
             </div>
             <div className="pack__buttons">
-                <PackButton data-pack={id} onClick={clickHandler} iconSrc={viewSvg}/>
+                <PackButton data-pack={id} onClick={clickViewHandler} iconSrc={viewSvg}/>
                 {author_id === user_id && <PackButton iconSrc={editSvg} onClick={() => setItemToUpdate({
                     packId: id,
                     packName: description

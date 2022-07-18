@@ -8,7 +8,8 @@ type PopupPropsType = {
     children: React.ReactNode;
 }
 
-export const Popup: React.FC<PopupPropsType> = ({show, modalOnClick, title, children}) => {
+export const Popup: React.FC<PopupPropsType> = React.memo((props) => {
+    const {show, modalOnClick, title, children} = {...props};
 
     return <div onClick={modalOnClick} className={`popup${show ? ' open' : ''}`}>
         <div className="popup__body">
@@ -18,4 +19,4 @@ export const Popup: React.FC<PopupPropsType> = ({show, modalOnClick, title, chil
             </div>
         </div>
     </div>
-}
+});

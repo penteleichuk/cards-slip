@@ -7,7 +7,9 @@ type PaginatedPageType = {
     currentPage: number,
 }
 
-export const PaginatedPage = ({totalCards, countPages, onPageChanged, currentPage}: PaginatedPageType) => {
+export const PaginatedPage = React.memo((props: PaginatedPageType) => {
+    const {totalCards, countPages, onPageChanged, currentPage} = {...props};
+
     const totalPages = Math.ceil(totalCards / countPages)
 
     let pages = [];
@@ -39,4 +41,4 @@ export const PaginatedPage = ({totalCards, countPages, onPageChanged, currentPag
             </div>}
         </div>
     )
-};
+});

@@ -8,7 +8,9 @@ type RemovePackModalPropsType = {
     clearFieldsItemsToRemove: () => void
 }
 
-export const RemovePackModal = ({itemToRemove, removePack, clearFieldsItemsToRemove}: RemovePackModalPropsType) => {
+export const RemovePackModal = React.memo((props: RemovePackModalPropsType) => {
+    const {itemToRemove, removePack, clearFieldsItemsToRemove} = {...props};
+
     return (
         <Popup show={!!itemToRemove}
                title={'Are you sure you want to remove the pack?'}
@@ -19,4 +21,4 @@ export const RemovePackModal = ({itemToRemove, removePack, clearFieldsItemsToRem
             </div>
         </Popup>
     )
-}
+});

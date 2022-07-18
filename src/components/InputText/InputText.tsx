@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useCallback, useState} from 'react'
 import './InputText.css'
 import EyeIconOn from './../../assets/images/icons/eye_off.png'
 import EyeIconOff from './../../assets/images/icons/eye_on.png'
@@ -30,24 +30,24 @@ export const InputText = React.memo((
 ) => {
     const [eyeStatus, setEyeStatus] = useState<boolean>(false);
 
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         onChange
         && onChange(e)
 
         onChangeText && onChangeText(e.currentTarget.value)
-    }
+    }, []);
 
-    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressCallback = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e);
 
         onEnter
         && e.key === 'Enter'
         && onEnter()
-    }
+    }, []);
 
-    const eyeHandler = () => {
+    const eyeHandler = useCallback(() => {
         setEyeStatus(!eyeStatus);
-    }
+    }, []);
 
     const initType = eye && eyeStatus ? 'text' : type;
 
