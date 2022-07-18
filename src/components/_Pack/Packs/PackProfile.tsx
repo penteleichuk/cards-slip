@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Filters} from "../Filters/Filters";
 import {PacksDraw} from "./PacksDraw";
 import {RouteNames} from "../../../constants/routes";
-import {Cards} from "../../_Card/Cards/Cards";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
@@ -41,7 +40,7 @@ export const PackProfile = React.memo(({isCards}: { isCards: string | null }) =>
         </div>
         <div className="dashboard__page">
             <div className="dashboard__indent dashboard__pack">
-                {isCards ? <Cards navigatePage={RouteNames.PROFILE}/> : <PacksDraw navigatePage={RouteNames.PROFILE}/>}
+                <PacksDraw navigatePage={RouteNames.PROFILE}/>
             </div>
         </div>
     </>

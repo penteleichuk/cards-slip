@@ -16,7 +16,7 @@ import {Filters} from './_Pack/Filters/Filters';
 import {Card} from './_Card/Card/Card';
 import {Cards} from './_Card/Cards/Cards';
 import {PackProfile} from './_Pack/Packs/PackProfile';
-import {PackGlobal} from './_Pack/Packs/PackGlobal';
+import {PackEvery} from './_Pack/Packs/PackEvery';
 
 export {
     Button,
@@ -36,6 +36,6 @@ export {
     Card,
     Cards,
     PackProfile,
-    PackGlobal,
+    PackEvery,
     Popup,
 };

@@ -1,13 +1,14 @@
 import React from "react";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {Logo, PackGlobal} from "../../../components/components";
-import {useAppSelector} from "../../../hooks/useAppSelector";
+import {Logo} from "../../../components/_Pages/Logo/Logo";
 import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
-import './PackPage.scss';
+import {PackProfile} from "../../../components/components";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
-export const PackPage = React.memo(() => {
+export const PacksProfile = React.memo(() => {
     const isAuth = useAppSelector(state => state.login.isLoggedIn);
+    const user_id = useAppSelector(state => state.login._id);
 
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
@@ -21,18 +22,18 @@ export const PackPage = React.memo(() => {
         <>
             <section className="content">
                 <div className="container">
-                    <div className="dashboard">
+                    <div className="dashboard profiles">
                         <div className="dashboard__container">
                             <div className="header">
                                 <div className="header__sidebar">
-                                    <Logo isProfile={false}/>
+                                    <Logo isProfile={true}/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation user_id={undefined} navigatePage={RouteNames.PROFILE}/>
+                                    <Navigation user_id={user_id} navigatePage={RouteNames.PROFILE}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
-                                <PackGlobal isCards={isCards} />
+                                <PackProfile isCards={isCards}/>
                             </div>
                         </div>
                     </div>
@@ -40,4 +41,4 @@ export const PackPage = React.memo(() => {
             </section>
         </>
     )
-})
+});

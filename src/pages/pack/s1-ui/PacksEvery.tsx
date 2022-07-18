@@ -1,14 +1,13 @@
 import React from "react";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {Logo} from "../../../components/_Pages/Logo/Logo";
-import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
-import {PackProfile} from "../../../components/components";
+import {Logo, PackEvery} from "../../../components/components";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {Navigation} from "../../../components/_Pack/Navigation/Navigation";
+import './PackPage.scss';
 
-export const ProfilePage = React.memo(() => {
+export const PacksEvery = React.memo(() => {
     const isAuth = useAppSelector(state => state.login.isLoggedIn);
-    const user_id = useAppSelector(state => state.login._id);
 
     const [urlParams] = useSearchParams();
     const isCards = urlParams.get('id');
@@ -22,18 +21,18 @@ export const ProfilePage = React.memo(() => {
         <>
             <section className="content">
                 <div className="container">
-                    <div className="dashboard profiles">
+                    <div className="dashboard">
                         <div className="dashboard__container">
                             <div className="header">
                                 <div className="header__sidebar">
-                                    <Logo isProfile={true}/>
+                                    <Logo isProfile={false}/>
                                 </div>
                                 <div className="header__navigation">
-                                    <Navigation user_id={user_id} navigatePage={RouteNames.PROFILE}/>
+                                    <Navigation user_id={undefined} navigatePage={RouteNames.PROFILE}/>
                                 </div>
                             </div>
                             <div className="dashboard__content">
-                                <PackProfile isCards={isCards} />
+                                <PackEvery isCards={isCards}/>
                             </div>
                         </div>
                     </div>
@@ -41,4 +40,4 @@ export const ProfilePage = React.memo(() => {
             </section>
         </>
     )
-});
+})

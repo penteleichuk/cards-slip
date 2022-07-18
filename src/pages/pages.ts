@@ -3,8 +3,8 @@ import {LoginPage} from './auth/login/s1-ui/LoginPage';
 import {RegisterPage} from './auth/register/s1-ui/registerPage/RegisterPage';
 import {SetPasswordPage} from './auth/set-password/s1-ui/SetPasswordPage';
 import {NotFoundPage} from './errors/404/NotFoundPage';
-import {ProfilePage} from './profile/s1-ui/ProfilePage';
-import {PackPage} from './pack/s1-ui/PackPage';
+import {PacksProfile} from './pack/s1-ui/PacksProfile';
+import {PacksEvery} from './pack/s1-ui/PacksEvery';
 
 export {
     ForgotPage,
@@ -12,6 +12,6 @@ export {
     RegisterPage,
     SetPasswordPage,
     NotFoundPage,
-    ProfilePage,
-    PackPage,
+    PacksProfile,
+    PacksEvery,
 };

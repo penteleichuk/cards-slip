@@ -3,10 +3,10 @@ import {
     ForgotPage,
     LoginPage,
     NotFoundPage,
-    ProfilePage,
+    PacksProfile,
     RegisterPage,
     SetPasswordPage,
-    PackPage
+    PacksEvery
 } from "./../pages/pages";
 import {Navigate} from "react-router-dom";
 
@@ -28,19 +28,19 @@ export const routes: Array<RouteType> = [
         name: 'Pack',
         public: true,
         path: RouteNames.PACK,
-        component: <PackPage/>,
+        component: <PacksEvery/>,
     },
     {
         name: 'Profile',
         public: true,
         path: RouteNames.PROFILE,
-        component: <ProfilePage/>,
+        component: <PacksProfile/>,
     },
     {
         name: 'Profile',
         public: true,
         path: RouteNames.PROFILE_ARG,
-        component: <ProfilePage/>,
+        component: <PacksProfile/>,
     },
     {
         name: 'Login',

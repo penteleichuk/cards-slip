@@ -7,7 +7,7 @@ import {fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {setPacksReset} from "../../../pages/pack/s2-bll/PackActions";
 
-export const PackGlobal = React.memo(({isCards}: { isCards: string | null }) => {
+export const PackEvery = React.memo(({isCards}: { isCards: string | null }) => {
     const {minCardsCount, maxCardsCount, pageCount} = useAppSelector(state => state.pack);
     const [numCards, setNumCards] = useState<number[]>([minCardsCount, maxCardsCount]);
 
