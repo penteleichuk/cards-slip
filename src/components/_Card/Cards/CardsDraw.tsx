@@ -18,7 +18,7 @@ export type ItemToUpdateType = {
     cardAnswer: string
 }
 
-export const Cards = React.memo(({navigatePage}: { navigatePage: string }) => {
+export const CardsDraw = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     const dispatch = useAppDispatch();
     const [urlParams] = useSearchParams();

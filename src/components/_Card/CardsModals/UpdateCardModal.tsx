@@ -1,6 +1,6 @@
 import {Popup} from "../../Popup/Popup";
 import React, {ChangeEvent} from "react";
-import {ItemToUpdateType} from "../Cards/Cards";
+import {ItemToUpdateType} from "../Cards/CardsDraw";
 import {Button} from "../../components";
 
 type UpdateCardModalPropsType = {

@@ -5,7 +5,7 @@ import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import './../../_Pack/Pack/Pack.scss';
-import {ItemToUpdateType} from "../Cards/Cards";
+import {ItemToUpdateType} from "../Cards/CardsDraw";
 
 type CardPropsType = {
     id: string

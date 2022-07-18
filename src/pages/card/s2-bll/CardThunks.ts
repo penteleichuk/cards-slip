@@ -4,10 +4,14 @@ import {setCard, setCards} from "./CardActions";
 import {setAppStatusAC} from "../../app/s2-bll/actions";
 
 // Get all cards
-export const fetchGetCards = (params: GetCardRequestType): AppThunk => async dispatch => {
+export const fetchGetCards = (params: GetCardRequestType): AppThunk => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'));
+
+    const {user_id, page, pageCount, sortPacks, min, max, totalCards, packName} = getState().pack;
+    const advancedOptions = {user_id, page, pageCount, sortPacks, min, max, totalCards, packName,  ...params};
+
     try {
-        const res = await CardApi.getCards(params);
+        const res = await CardApi.getCards(advancedOptions);
         dispatch(setCards({cards: res.cards}));
     } catch (error: unknown) {
         console.error(error, "Map load error");

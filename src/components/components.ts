@@ -14,7 +14,7 @@ import {Profile} from './_Pages/Profile/Profile';
 import {Logo} from './_Pages/Logo/Logo';
 import {FiltersPack} from './_Pack/Filters/FiltersPack';
 import {Card} from './_Card/Card/Card';
-import {Cards} from './_Card/Cards/Cards';
+import {CardsDraw} from './_Card/Cards/CardsDraw';
 import {PackProfile} from './_Pack/Packs/PackProfile';
 import {PackEvery} from './_Pack/Packs/PackEvery';
 
@@ -34,7 +34,7 @@ export {
     Logo,
     FiltersPack,
     Card,
-    Cards,
+    CardsDraw,
     PackProfile,
     PackEvery,
     Popup,

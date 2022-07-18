@@ -19,11 +19,11 @@ export type PackInitStateType = GetPackRequestType & {
 export const PackInitState: PackInitStateType = {
     user_id: undefined,
     cardPacks: [],
-    cardPacksTotalCount: 10,
+    cardPacksTotalCount: 10,        // count packs
     minCardsCount: 0,
     maxCardsCount: 500,
-    page: 1,
-    pageCount: 6,
+    page: 1,                        // pagination
+    pageCount: 6,                   // count element ui
     search: null,
     packName: '',
     sortPacks: 'updated',
