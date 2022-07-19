@@ -11,7 +11,7 @@ export const CardProfile = React.memo(({isCards}: { isCards: string }) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setCardsReset({cardAnswer: undefined, cardsPack_id: isCards, sortCards: 'grade', page: 1, pageCount: 6}));
+        dispatch(setCardsReset({cardAnswer: undefined, cardsPack_id: isCards, sortCards: undefined, page: 1, pageCount: 6}));
         dispatch(fetchGetCards({cardsPack_id: isCards}));
     }, []);
 

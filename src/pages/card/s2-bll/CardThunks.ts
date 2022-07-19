@@ -54,7 +54,7 @@ export const fetchUpdateCard = (cardId: string, packId: string, newCardQuestion:
     async (dispatch, getState: () => AppStoreType) => {
         dispatch(setAppStatusAC('loading'));
 
-        const card = getState().card.cards.find(c => c._id === cardId)
+        const card = getState().card.cards.find(c => c._id === cardId);
         const updateCardParams = card ? {...card, question: newCardQuestion, answer: newCardAnswer} : null
 
         const getCardParams = {cardsPack_id: packId}

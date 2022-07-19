@@ -19,6 +19,6 @@ export const cardInitState: CardStateType = {
     cardsPack_id: undefined,
     cardAnswer: '',
     search: null,
-    sortCards: 'grade',
+    sortCards: '0updated',
     totalCards: 6,
 }

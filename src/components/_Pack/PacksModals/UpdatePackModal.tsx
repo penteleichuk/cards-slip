@@ -15,7 +15,7 @@ export const UpdatePackModal = (props: UpdatePackModalPropsType) => {
 
     const updateNameHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setItemToUpdate({...itemToUpdate, packName: e.currentTarget.value})
-    }, []);
+    }, [itemToUpdate]);
 
     return (
         <Popup show={!!itemToUpdate.packId} title={'Update pack'} modalOnClick={clearFieldsItemsToUpdate}>

@@ -15,11 +15,11 @@ export const UpdateCardModal = React.memo((props: UpdateCardModalPropsType) => {
 
     const updateQuestionHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardQuestion: e.currentTarget.value})
-    }, []);
+    }, [itemToUpdate]);
 
     const updateAnswerHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardAnswer: e.currentTarget.value})
-    }, []);
+    }, [itemToUpdate]);
 
     return (
         <Popup show={!!itemToUpdate.cardId} title={'Update card'} modalOnClick={clearFieldsItemsToUpdate}>

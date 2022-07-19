@@ -14,7 +14,7 @@ export const PackEvery = React.memo(({isCards}: { isCards: string | null }) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksReset({packName: undefined, user_id: undefined, sortPacks: 'updated', pageCount: 6, page: 1}));
+        dispatch(setPacksReset({packName: undefined, user_id: undefined, sortPacks: '', pageCount: 6, page: 1}));
         dispatch(fetchGetPacks({}));
     }, []);
 

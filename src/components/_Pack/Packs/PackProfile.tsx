@@ -15,7 +15,7 @@ export const PackProfile = React.memo(({isCards}: { isCards: string | null }) =>
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPacksReset({packName: undefined, user_id, sortPacks: 'updated', pageCount: 6, page: 1}));
+        dispatch(setPacksReset({packName: undefined, user_id, sortPacks: '', pageCount: 6, page: 1}));
         dispatch(fetchGetPacks({}));
     }, []);
 

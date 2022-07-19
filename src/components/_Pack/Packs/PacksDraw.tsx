@@ -65,7 +65,7 @@ export const PacksDraw = React.memo(({navigatePage}: { navigatePage: string }) =
                           author={c.user_name}
                           description={c.name}
                           packs={c.cardsCount}
-                          date={c.created}
+                          date={c.updated}
                           navigatePage={navigatePage}
                           setItemToRemove={setItemToRemove}
                           setItemToUpdate={setItemToUpdate}

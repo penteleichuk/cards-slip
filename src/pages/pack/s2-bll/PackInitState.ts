@@ -26,7 +26,7 @@ export const PackInitState: PackInitStateType = {
     pageCount: 6,                   // count element ui
     search: null,
     packName: '',
-    sortPacks: 'updated',
+    sortPacks: '0updated',
     minCards: 0,
     maxCards: 1,
     totalCards: 6,

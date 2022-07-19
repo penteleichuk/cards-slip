@@ -33,13 +33,13 @@ export const CardsDraw = React.memo(() => {
     const removeCardHandler = useCallback(() => {
         packId && dispatch(fetchRemoveCard(itemToRemove, packId));
         clearFieldsRemoveHandler();
-    }, []);
+    }, [itemToRemove, packId]);
 
     // Confirm card upgrade
     const updateCardHandler = useCallback(() => {
         packId && dispatch(fetchUpdateCard(itemToUpdate.cardId, packId, itemToUpdate.cardQuestion, itemToUpdate.cardAnswer));
         clearFieldsUpdateHandler();
-    }, []);
+    }, [itemToUpdate]);
 
     // Cleanup Deletion Fields
     const clearFieldsRemoveHandler = useCallback(() => {
