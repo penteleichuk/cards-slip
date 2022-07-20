@@ -63,7 +63,7 @@ export const Profile = React.memo(() => {
         <Popup show={popupShow} modalOnClick={closePopUpHandler} title={'Edit profile'}>
             <InputText placeholder={'Name'} value={name} onChangeText={setName}/>
             <div className="popup__buttons">
-                <Button onClick={savePopUpHandler}>Save</Button>
+                <Button onClick={savePopUpHandler} style={{"marginTop": 0}}>Confirm</Button>
                 <Button onClick={closePopUpHandler}>Cancel</Button>
             </div>
         </Popup>
