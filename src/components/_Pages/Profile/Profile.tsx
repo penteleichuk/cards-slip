@@ -17,18 +17,23 @@ export const Profile = React.memo(() => {
     const dispatch = useAppDispatch();
 
     const [popupShow, setPopupShow] = useState<boolean>(false);
-    const [name, setName] = useState<string>(profile.name);
+    const [nameSetting, setNameSetting] = useState<string>(profile.name);
 
     // upload img
     const refImg = useRef<HTMLInputElement>(null);
     const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
-        const formData = new FormData(); // for send to back
 
         const newFile = e.target.files && e.target.files[0];
 
         if(newFile) {
-            console.log(newFile);
+
+            reader.onloadend = () => {
+                dispatch(settingProfileTC({avatar: reader.result as string}));
+                console.log(reader.result);
+            };
+
+            reader.readAsDataURL(newFile);
         }
     }
 
@@ -38,19 +43,18 @@ export const Profile = React.memo(() => {
 
     const showPopUpHandler = useCallback(() => {
         setPopupShow(true);
-        setName(profile.name);
-    }, []);
+        setNameSetting(profile.name);
+    }, [nameSetting]);
 
     const closePopUpHandler = useCallback(() => {
         setPopupShow(false);
-        setName(profile.name);
-    }, []);
+    }, [nameSetting]);
 
     const savePopUpHandler = useCallback(() => {
-        dispatch(settingProfileTC(name));
-        setName(profile.name);
+        dispatch(settingProfileTC({name: nameSetting}));
+        setNameSetting(profile.name);
         setPopupShow(false);
-    }, []);
+    }, [nameSetting]);
 
     return <div className="profile">
         <div className="dashboard__indent">
@@ -84,9 +88,9 @@ export const Profile = React.memo(() => {
         </div>
 
         <Popup show={popupShow} modalOnClick={closePopUpHandler} title={'Edit profile'}>
-            <InputText placeholder={'Name'} value={name} onChangeText={setName}/>
+            <InputText placeholder={'Name'} value={nameSetting} onChangeText={setNameSetting}/>
             <div className="popup__buttons">
-                <Button onClick={savePopUpHandler} style={{"marginTop": 0}}>Confirm</Button>
+                <Button onClick={savePopUpHandler}>Confirm</Button>
                 <Button onClick={closePopUpHandler}>Cancel</Button>
             </div>
         </Popup>
