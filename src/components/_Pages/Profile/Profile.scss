@@ -2,10 +2,32 @@
 
 .profile {
   &__image {
-    img {
-      width: 50px;
-      border: 2px solid #fff;
-      border-radius: 100%;
+    position: relative;
+  }
+
+  &__img {
+    width: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+  }
+
+  &__image-update {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% - 2px);
+    border-radius: 100%;
+    background: #7ba1c575;
+    backdrop-filter: blur(1px);
+    border: 1px solid #fff;
+    opacity: 0;
+    transition: opacity .5s;
+
+    &:hover {
+      opacity: 1;
+      transition: opacity .5s;
     }
   }
 
@@ -42,7 +64,7 @@
     text-overflow: ellipsis;
   }
 
-  button {
+  &__button {
     border: none;
     padding: 10px 15px;
     border-radius: 9px;
@@ -61,6 +83,16 @@
 
   &__buttons {
     display: flex;
+  }
+
+  &__upd {
+    position: absolute;
+    top: 15px;
+    left: 14px;
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    opacity: .7;
   }
 
   &__logout {

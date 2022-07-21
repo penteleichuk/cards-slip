@@ -20,6 +20,7 @@ import backSvg from './back.svg';
 import logoutSvg from './logout.svg';
 import learnSvg from './learn.svg';
 import listSvg from './list.svg';
+import uploadImgSvg from './upload-image.svg';
 
 export {
     searchIcon,
@@ -44,4 +45,5 @@ export {
     logoutSvg,
     learnSvg,
     listSvg,
+    uploadImgSvg,
 };

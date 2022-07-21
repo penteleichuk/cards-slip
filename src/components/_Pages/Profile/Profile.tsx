@@ -1,11 +1,11 @@
-import React, {useCallback, useState} from "react";
+import React, {ChangeEvent, useCallback, useRef, useState} from "react";
 import {noPhotoImg} from "../../../assets/images";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {MeProfileType} from "../../../pages/profile/s3-dal/ProfileApi";
 import {logoutTC} from "../../../pages/auth/login/s2-bll/thunks/LoginThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {logoutSvg} from "../../../assets/images/icons";
+import {logoutSvg, uploadImgSvg} from "../../../assets/images/icons";
 import {Popup} from "../../Popup/Popup";
 import {InputText} from "../../InputText/InputText";
 import {Button} from "../../Button/Button";
@@ -18,6 +18,19 @@ export const Profile = React.memo(() => {
 
     const [popupShow, setPopupShow] = useState<boolean>(false);
     const [name, setName] = useState<string>(profile.name);
+
+    // upload img
+    const refImg = useRef<HTMLInputElement>(null);
+    const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
+        const reader = new FileReader();
+        const formData = new FormData(); // for send to back
+
+        const newFile = e.target.files && e.target.files[0];
+
+        if(newFile) {
+            console.log(newFile);
+        }
+    }
 
     const logoutHandler = useCallback(() => {
         dispatch(logoutTC());
@@ -44,7 +57,17 @@ export const Profile = React.memo(() => {
             <div className="profile__content">
                 <div className="profile__row">
                     <div className="profile__image">
-                        <img src={profile.avatar || noPhotoImg} alt=""/>
+                        <img className="profile__img" src={profile.avatar || noPhotoImg} alt=""/>
+                        <input
+                            ref={refImg}
+                            type={'file'}
+                            style={{display: 'none'}}
+                            onChange={uploadImage}
+                            accept=".png, .jpg, .jpeg"
+                        />
+                        <button className="profile__image-update" onClick={() => refImg && refImg.current && refImg.current.click()}>
+                            <img className="profile__upd" src={uploadImgSvg} alt=""/>
+                        </button>
                     </div>
                     <div className="profile__body">
                         <div className="profile__name">{profile.name}</div>
@@ -52,8 +75,8 @@ export const Profile = React.memo(() => {
                     </div>
                 </div>
                 <div className="profile__buttons">
-                    <button onClick={showPopUpHandler}>Edit profile</button>
-                    <button className="profile__logout" onClick={logoutHandler}>
+                    <button className="profile__button" onClick={showPopUpHandler}>Edit profile</button>
+                    <button className="profile__button profile__logout" onClick={logoutHandler}>
                         <img src={logoutSvg} alt=""/>
                     </button>
                 </div>
