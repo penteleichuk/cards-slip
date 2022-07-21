@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from "react";
-import {ItemToUpdateType} from "../Packs/Packs";
+import React, {ChangeEvent, useCallback} from "react";
+import {ItemToUpdateType} from "../Packs/PacksDraw";
 import {Button, InputText} from "../../components";
 import {Popup} from "../../Popup/Popup";
 
@@ -10,23 +10,19 @@ type UpdatePackModalPropsType = {
     clearFieldsItemsToUpdate: () => void
 }
 
-export const UpdatePackModal = ({
-                                    itemToUpdate,
-                                    setItemToUpdate,
-                                    updatePack,
-                                    clearFieldsItemsToUpdate
-                                }: UpdatePackModalPropsType) => {
+export const UpdatePackModal = (props: UpdatePackModalPropsType) => {
+    const {itemToUpdate, setItemToUpdate, updatePack, clearFieldsItemsToUpdate} = {...props};
 
-    const updatePackName = (e: ChangeEvent<HTMLInputElement>) => {
+    const updateNameHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setItemToUpdate({...itemToUpdate, packName: e.currentTarget.value})
-    }
+    }, [itemToUpdate]);
 
     return (
         <Popup show={!!itemToUpdate.packId} title={'Update pack'} modalOnClick={clearFieldsItemsToUpdate}>
-            <InputText value={itemToUpdate.packName} onChange={updatePackName} placeholder="Name"/>
+            <InputText value={itemToUpdate.packName} onChange={updateNameHandler} placeholder="Name"/>
             <div className="popup__buttons">
-                <Button onClick={updatePack}>Yes</Button>
-                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+                <Button onClick={updatePack}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>Cancel</Button>
             </div>
         </Popup>
     )

@@ -6,7 +6,7 @@ export const profileReducer = (state = ProfileInitState, action: ProfileActionsT
         case "GET-PROFILE":
             return {...state, ...action.data}
         case "SET-PROFILE":
-            return {...state, name: action.name, avatar: action.ava}
+            return {...state, ...action.payload}
         default: {
             return {...state};
         }

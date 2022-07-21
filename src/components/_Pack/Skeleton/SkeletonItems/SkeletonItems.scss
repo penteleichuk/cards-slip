@@ -24,6 +24,12 @@
   }
 }
 
+.sk-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
+
 .skeleton {
   background-color: #7dbefa;
   background-image: linear-gradient(90deg, rgba(#fff, 0), rgba(#fff, 0.5), rgba(#fff, 0));

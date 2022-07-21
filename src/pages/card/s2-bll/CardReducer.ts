@@ -3,19 +3,15 @@ import {CardActionsType} from "./CardActions";
 
 export const cardReducer = (state: CardStateType = cardInitState, action: CardActionsType): CardStateType => {
     switch (action.type) {
-        case 'SET-CARDS':
-            return {...state, ...action.payload}
-        case 'SET-CARDS-TOTAL-COUNT':
-            return {...state, ...action.payload}
-        case 'SET-CURRENT-CARD-PAGE':
-            return {...state, ...action.payload}
-        case "SET-CARDS-PER-PAGE":
-            return {...state, ...action.payload}
-        case "ADD-NEW-CARD":
-            return {...action.card, ...state}
-        case "SET-SORT-CARDS-PARAMS":
-            return {...state, ...action.payload}
+        case "CARD/SET-CARD":
+            return {...state, cards: [...state.cards, action.payload.card]};
+        case 'CARD/SET-CARDS':
+        case "CARD/SET-RESET":
+        case "CARD/SET-PER-PAGE":
+        case "CARD/SET-PAGINATION":
+        case "CARD/SET-SORT":
+            return {...state, ...action.payload};
         default:
-            return state
+            return state;
     }
 }

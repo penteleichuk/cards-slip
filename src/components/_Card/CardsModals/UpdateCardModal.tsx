@@ -1,6 +1,6 @@
 import {Popup} from "../../Popup/Popup";
-import React, {ChangeEvent} from "react";
-import {ItemToUpdateType} from "../Cards/Cards";
+import React, {ChangeEvent, useCallback} from "react";
+import {ItemToUpdateType} from "../Cards/CardsDraw";
 import {Button} from "../../components";
 
 type UpdateCardModalPropsType = {
@@ -10,39 +10,38 @@ type UpdateCardModalPropsType = {
     clearFieldsItemsToUpdate: () => void
 }
 
-export const UpdateCardModal = ({
-                                    itemToUpdate,
-                                    updateCard,
-                                    setItemToUpdate,
-                                    clearFieldsItemsToUpdate
-                                }: UpdateCardModalPropsType) => {
+export const UpdateCardModal = React.memo((props: UpdateCardModalPropsType) => {
+    const {itemToUpdate, updateCard, setItemToUpdate, clearFieldsItemsToUpdate} = {...props};
 
-    const updateCardQuestion = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const updateQuestionHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardQuestion: e.currentTarget.value})
-    }
-    const updateCardAnswer = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    }, [itemToUpdate]);
+
+    const updateAnswerHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setItemToUpdate({...itemToUpdate, cardAnswer: e.currentTarget.value})
-    }
+    }, [itemToUpdate]);
 
     return (
         <Popup show={!!itemToUpdate.cardId} title={'Update card'} modalOnClick={clearFieldsItemsToUpdate}>
-            <div>
-                <div>Question</div>
-                <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "5vh"}}
+            <div className={"popup__textarea"}>
+                <div className={"popup__textarea-title"}>Question</div>
+                <textarea className={"popup__textarea-area"}
+                          style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "5vh", maxHeight: "7vh"}}
                           value={itemToUpdate.cardQuestion}
-                          onChange={updateCardQuestion}
+                          onChange={updateQuestionHandler}
                 />
             </div>
-            <div>
-                <div>Answer</div>
-                <textarea style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
-                          value={itemToUpdate.cardAnswer} onChange={updateCardAnswer}
+            <div className={"popup__textarea"}>
+                <div className={"popup__textarea-title"}>Answer</div>
+                <textarea className={"popup__textarea-area"}
+                          style={{minWidth: "30vw", maxWidth: "30vw", minHeight: "10vh", maxHeight: "10vh"}}
+                          value={itemToUpdate.cardAnswer} onChange={updateAnswerHandler}
                 />
             </div>
             <div className="popup__buttons">
-                <Button onClick={updateCard}>Yes</Button>
-                <Button onClick={clearFieldsItemsToUpdate}>No</Button>
+                <Button onClick={updateCard}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToUpdate}>Canel</Button>
             </div>
         </Popup>
     )
-}
+});

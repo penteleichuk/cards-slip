@@ -1,28 +1,23 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {SkeletonItems} from "../Skeleton/SkeletonItems/SkeletonItems";
 import {Pack} from "../Pack/Pack";
 import {PaginatedPage} from "../../Paginated/PaginatedPage";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
 import {RequestStatusType} from "../../../pages/app/s2-bll/AppReducer";
-import {setCurrentPageAC} from "../../../pages/pack/s2-bll/PackActions";
+import {setPacksPagination} from "../../../pages/pack/s2-bll/PackActions";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import './Packs.scss';
-import {removePackTC, updatePackTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchGetPacks, fetchRemovePack, fetchUpdatePack} from "../../../pages/pack/s2-bll/PackThunks";
 import {RemovePackModal} from "../PacksModals/RemovePackModal";
 import {UpdatePackModal} from "../PacksModals/UpdatePackModal";
-
-type PacksType = {
-    navigatePage: string
-}
 
 export type ItemToUpdateType = {
     packId: string
     packName: string
 }
 
-export const Packs = React.memo(({navigatePage}: PacksType) => {
+export const PacksDraw = React.memo(({navigatePage}: { navigatePage: string }) => {
 
     const {cardPacksTotalCount, pageCount, cardPacks, page} = useAppSelector(state => state.pack);
     const isFetch = useSelector<AppStoreType, RequestStatusType>(state => state.app.status);
@@ -31,26 +26,33 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
     const [itemToRemove, setItemToRemove] = useState<string>('')
     const [itemToUpdate, setItemToUpdate] = useState<ItemToUpdateType>({packId: '', packName: ''})
 
-    const clickPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC(page))
-    }
+    // Confirm pack removal
+    const removePackHandler = useCallback(() => {
+        dispatch(fetchRemovePack(itemToRemove));
+        clearFieldsRemoveHandler();
+    }, [itemToRemove]);
 
-    const removePack = () => {
-        dispatch(removePackTC(itemToRemove))
-        clearFieldsItemsToRemove()
-    }
-    const clearFieldsItemsToRemove = () => {
-        setItemToRemove('')
-    }
+    // Confirm pack upgrade
+    const updatePackHandler = useCallback(() => {
+        dispatch(fetchUpdatePack(itemToUpdate.packId, itemToUpdate.packName));
+        clearFieldsUpdateHandler();
+    }, [itemToUpdate.packId, itemToUpdate.packName]);
 
+    // Cleanup Deletion Fields
+    const clearFieldsRemoveHandler = useCallback(() => {
+        setItemToRemove('');
+    }, []);
 
-    const updatePack = () => {
-        dispatch(updatePackTC(itemToUpdate.packId, itemToUpdate.packName))
-        clearFieldsItemsToUpdate()
-    }
-    const clearFieldsItemsToUpdate = () => {
-        setItemToUpdate({packId: '', packName: ''})
-    }
+    // Clear Update Fields
+    const clearFieldsUpdateHandler = useCallback(() => {
+        setItemToUpdate({packId: '', packName: ''});
+    }, [itemToUpdate.packId, itemToUpdate.packName]);
+
+    // Pagination work
+    const paginationHandler = useCallback((page: number) => {
+        dispatch(setPacksPagination({page}));
+        dispatch(fetchGetPacks({}));
+    }, []);
 
     return <>
         {isFetch === 'loading' ?
@@ -63,22 +65,23 @@ export const Packs = React.memo(({navigatePage}: PacksType) => {
                           author={c.user_name}
                           description={c.name}
                           packs={c.cardsCount}
-                          date={c.created}
+                          date={c.updated}
                           navigatePage={navigatePage}
                           setItemToRemove={setItemToRemove}
                           setItemToUpdate={setItemToUpdate}
                     />)
                 }
+
                 <RemovePackModal itemToRemove={itemToRemove}
-                                 removePack={removePack}
-                                 clearFieldsItemsToRemove={clearFieldsItemsToRemove}/>
+                                 removePack={removePackHandler}
+                                 clearFieldsItemsToRemove={clearFieldsRemoveHandler}/>
 
                 <UpdatePackModal itemToUpdate={itemToUpdate}
                                  setItemToUpdate={setItemToUpdate}
-                                 updatePack={updatePack}
-                                 clearFieldsItemsToUpdate={clearFieldsItemsToUpdate}/>
+                                 updatePack={updatePackHandler}
+                                 clearFieldsItemsToUpdate={clearFieldsUpdateHandler}/>
 
-                <PaginatedPage onPageChanged={clickPageHandler}
+                <PaginatedPage onPageChanged={paginationHandler}
                                totalCards={cardPacksTotalCount}
                                countPages={pageCount}
                                currentPage={page}

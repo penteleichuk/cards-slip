@@ -1,6 +1,7 @@
+import React from "react";
 import './Spinner.scss';
 
-export const Spinner = () => {
+export const Spinner = React.memo(() => {
     return <div className="spinner">
         <div className="lds-spinner">
             <div></div>
@@ -17,4 +18,4 @@ export const Spinner = () => {
             <div></div>
         </div>
     </div>
-}
+});

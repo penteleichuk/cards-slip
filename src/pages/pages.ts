@@ -3,9 +3,10 @@ import {LoginPage} from './auth/login/s1-ui/LoginPage';
 import {RegisterPage} from './auth/register/s1-ui/registerPage/RegisterPage';
 import {SetPasswordPage} from './auth/set-password/s1-ui/SetPasswordPage';
 import {NotFoundPage} from './errors/404/NotFoundPage';
-import {ExamplePage} from './example/ExamplePage';
-import {ProfilePage} from './profile/s1-ui/ProfilePage';
-import {PackPage} from './pack/s1-ui/PackPage';
+import {PacksProfile} from './pack/s1-ui/PacksProfile';
+import {PacksPage} from './pack/s1-ui/PacksPage';
+import {CardsProfile} from './card/s1-ui/CardsProfile';
+import {CardsEvery} from './card/s1-ui/CardsEvery';
 
 export {
     ForgotPage,
@@ -13,7 +14,8 @@ export {
     RegisterPage,
     SetPasswordPage,
     NotFoundPage,
-    ProfilePage,
-    ExamplePage,
-    PackPage,
+    PacksProfile,
+    PacksPage,
+    CardsProfile,
+    CardsEvery,
 };

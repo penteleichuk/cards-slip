@@ -8,15 +8,17 @@ type RemovePackModalPropsType = {
     clearFieldsItemsToRemove: () => void
 }
 
-export const RemovePackModal = ({itemToRemove, removePack, clearFieldsItemsToRemove}: RemovePackModalPropsType) => {
+export const RemovePackModal = React.memo((props: RemovePackModalPropsType) => {
+    const {itemToRemove, removePack, clearFieldsItemsToRemove} = {...props};
+
     return (
         <Popup show={!!itemToRemove}
                title={'Are you sure you want to remove the pack?'}
                modalOnClick={clearFieldsItemsToRemove}>
             <div className="popup__buttons">
-                <Button onClick={removePack}>Yes</Button>
-                <Button onClick={clearFieldsItemsToRemove}>No</Button>
+                <Button onClick={removePack}>Confirm</Button>
+                <Button onClick={clearFieldsItemsToRemove}>Cancel</Button>
             </div>
         </Popup>
     )
-}
+});

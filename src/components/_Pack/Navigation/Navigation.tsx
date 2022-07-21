@@ -1,80 +1,69 @@
-import React, {useEffect, useState} from "react";
-import './Navigation.scss';
+import React, {useCallback, useEffect, useState} from "react";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Button, InputText, Popup, Input, Tack} from "../../components";
 import {backSvg, cardsIcon, clearIcon, createIcon, searchIcon, userIcon} from "../../../assets/images/icons";
-import {Input} from "../../Input/Input";
-import {Tack} from "../../TackButton/Tack";
 import {useDebounce} from "../../../hooks/useDebounce";
-import {addPackTC, getPacksTC} from "../../../pages/pack/s2-bll/PackThunks";
+import {fetchCreatePack, fetchGetPacks} from "../../../pages/pack/s2-bll/PackThunks";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {RouteNames} from "../../../constants/routes";
-import {Popup} from "../../Popup/Popup";
-import {InputText} from "../../InputText/InputText";
-import {Button} from "../../components";
-import {addCardTC, getCards} from "../../../pages/card/s2-bll/CardThunks";
+import {fetchCreateCard, fetchGetCards} from "../../../pages/card/s2-bll/CardThunks";
+import './Navigation.scss';
 
 type NavigationType = {
     user_id?: string | undefined
     navigatePage: string
 }
 
-export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) => {
-    const dispatch = useAppDispatch();
-    const [urlParams] = useSearchParams();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const packId = urlParams.get('id');
+export const Navigation = React.memo(({navigatePage}: NavigationType) => {
 
+    // Search
+    const [search, setSearch] = useState<string | null>(null);
+    const searchDebounce = useDebounce(search, 1500);
 
-    //for modal
+    // Modal window
     const [show, setShow] = useState<boolean>(false);
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
-    const clickAddPackHandler = () => {
-        setShow(true)
-    }
-    const clickCloseModalHandler = () => {
-        setShow(false);
-        setQuestion('')
-        setAnswer('')
+
+    // Location (route)
+    const packId = useParams().id;
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const dispatch = useAppDispatch();
+
+    // Create and cleaning
+    const createHandler = useCallback(() => {
         if (packId) {
-            dispatch(addCardTC({cardsPack_id: packId, question: question, answer: answer}, packId))
+            dispatch(fetchCreateCard({cardsPack_id: packId, question: question, answer: answer}, packId))
         } else {
-            dispatch(addPackTC({name: question}))
+            dispatch(fetchCreatePack({name: question}))
         }
-    }
-    const changeValue = (value: string) => {
-        setQuestion(value)
-    }
-    const clickCancelHandler = () => {
-        setShow(!show)
-        setQuestion('')
-        setAnswer('')
-    }
 
-    const [search, setSearch] = useState<string | null>(null);
+        setShow(false);
+        setQuestion('');
+        setAnswer('');
+    }, [question, answer, packId]);
 
-    const goBackHandler = () => {
-        return navigate(navigatePage, {replace: true});
-    }
+    // Cancelling and cleaning
+    const deselectModalWindowHandler = useCallback(() => {
+        setShow(false);
+        setQuestion('');
+        setAnswer('');
+    }, []);
 
-    const goToProfile = () => {
-        return navigate(RouteNames.PROFILE, {replace: true});
-    }
+    // Navigate handler
+    const navigateComeBackHandler = useCallback(() => navigate(navigatePage, {replace: true}), []);
+    const navigateProfileHandler = useCallback(() => navigate(RouteNames.PROFILE, {replace: true}), []);
+    const navigateMainHandler = useCallback(() => navigate(RouteNames.PACK, {replace: true}), []);
 
-    const goToMain = () => {
-        return navigate(RouteNames.PACK, {replace: true});
-    }
-
-    const searchDebounce = useDebounce(search, 1500);
+    // Search debounce
     useEffect(() => {
         if (search !== null) {
             if (packId) {
-                dispatch(getCards({cardsPack_id: packId, cardAnswer: search}));
-            } else if (location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG) {
-                dispatch(getPacksTC({user_id: user_id, packName: search}));
+                dispatch(fetchGetCards({cardAnswer: search}));
             } else {
-                dispatch(getPacksTC({packName: search}));
+                dispatch(fetchGetPacks({packName: search}));
             }
 
             setSearch(null);
@@ -84,47 +73,35 @@ export const Navigation = React.memo(({user_id, navigatePage}: NavigationType) =
     return <div className="dashboard__indent">
         <div className="header__content">
             <div className="header__search">
-                {packId && <Tack onClick={goBackHandler} iconSvg={true} iconSrc={backSvg}/>}
-                <Input type={'text'}
-                       iconBefore={searchIcon}
-                       iconAfter={clearIcon}
-                       placeholder={'Search'}
-                       onChangeText={setSearch}
-                />
+                {packId && <Tack onClick={navigateComeBackHandler} iconSvg={true} iconSrc={backSvg}/>}
+                <Input type={'text'} iconBefore={searchIcon} iconAfter={clearIcon} placeholder={'Search'} onChangeText={setSearch}/>
             </div>
             <div className="header__inputs">
-                <Tack onClick={goToProfile}
+                <Tack onClick={navigateProfileHandler}
                       title="Profile"
-                      active={
-                          location.pathname === RouteNames.PROFILE ||
-                          location.pathname === RouteNames.PROFILE_ARG}
+                      active={location.pathname === RouteNames.PROFILE || location.pathname === RouteNames.PROFILE_ARG}
                       iconSrc={userIcon}
                 />
-                <Tack onClick={goToMain}
+                <Tack onClick={navigateMainHandler}
                       title="Pack lists"
                       iconSrc={cardsIcon}
                       active={
                           location.pathname === RouteNames.PACK ||
-                          location.pathname === RouteNames.CARDS_ARG ||
                           location.pathname === RouteNames.CARDS
                       }
                 />
-                <Tack iconSrc={createIcon} onClick={clickAddPackHandler}/>
 
-                <Popup show={show} modalOnClick={() => {
-                    setShow(!show)
-                }} title={packId ? 'Card info' : 'Add new pack'}>
+                <Tack iconSrc={createIcon} style={{marginRight: "0"}} onClick={() => setShow(true)}/>
 
-                    <InputText placeholder={packId ? 'Question' : 'Name pack'} onChangeText={changeValue}/>
-                    {packId && <InputText style={{marginTop: '15px'}} name={'answer'} placeholder={'Answer'}
-                                          onChangeText={(value) => {
-                                              setAnswer(value)
-                                          }}/>}
-                    <div>
-                        <Button style={{margin: '10px'}} onClick={clickCancelHandler}>Cancel</Button>
-                        <Button onClick={clickCloseModalHandler}>Save</Button>
+                <Popup show={show} modalOnClick={deselectModalWindowHandler} title={packId ? 'Card info' : 'Add new pack'}>
+                    <InputText placeholder={packId ? 'Question' : 'Name pack'} value={question} onChangeText={setQuestion}/>
+                    {packId && <InputText name={'answer'} placeholder={'Answer'} value={answer} onChangeText={setAnswer}/>}
+                    <div className="popup__buttons">
+                        <Button onClick={createHandler}>Confirm</Button>
+                        <Button onClick={deselectModalWindowHandler}>Cancel</Button>
                     </div>
                 </Popup>
+
             </div>
         </div>
     </div>

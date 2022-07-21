@@ -8,7 +8,7 @@ export const CardApi = {
     },
 
     addCard(card: AddCardRequestType) {
-        return instance.post<AddCardRequestType>('cards/card', {card});
+        return instance.post<AddCardRequestType, AxiosResponse<CardType>>('cards/card', {card});
     },
 
     deleteCard(params: {id: string}) {
@@ -20,17 +20,19 @@ export const CardApi = {
     }
 };
 
+// send request
 export type GetCardRequestType = {
     cardAnswer?: string | null     // english - default value
     cardQuestion?: string   // english - default value
-    cardsPack_id?: string | null | undefined
+    cardsPack_id?: string | null
     min?: number
     max?: number
-    sortCards?: string  // 0updated - default value
+    sortPacks?: string  // 0updated - default value
     page?: number
     pageCount?: number
 }
 
+// get request
 export type GetCardResponseType = {
     cards: CardType[]
     cardsTotalCount: number
@@ -41,18 +43,20 @@ export type GetCardResponseType = {
     packUserId: string | null
 }
 
+// get request (card)
 export type CardType = {
     answer: string
     question: string
-    cardsPack_id: string
+    cardsPack_id?: string
     grade: number
-    shots?: number
+    shots: number
     user_id: string
     created: Date
     updated?: Date
     _id: string
 }
 
+// post request (create)
 export type AddCardRequestType = {
     cardsPack_id: string
     question: string        // если не отправить будет таким - "no question"

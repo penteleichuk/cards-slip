@@ -10,7 +10,7 @@ type PackButtonType = DefaultButtonPropsType & {
 
 export const PackButton = React.memo(({title, iconSrc, ...restProps}: PackButtonType) => {
     return <button className="pack-button" {...restProps}>
-        {title}
+        {title && <span className={"pack-button__text"}>{title}</span>}
         <img className="pack-button__img" src={iconSrc} alt=""/>
     </button>
 })

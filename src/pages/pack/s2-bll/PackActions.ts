@@ -1,51 +1,44 @@
-import {CardPacksType} from "../s3-dal/PackApi";
-import {SortPacksParamsType} from "./PackThunks";
-
-type GetCardsACType = ReturnType<typeof getPacksCardAC>;
-type SetCardTotalCountACType = ReturnType<typeof setCardTotalCountAC>;
-type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
-type SetCardPerPageACType = ReturnType<typeof setCardPerPageAC>;
-type SetCartsSortACType = ReturnType<typeof setPacksSortAC>;
-type SetSortParamsACType = ReturnType<typeof setSortParamsAC>;
-type SetMinMaxCardsActionType = ReturnType<typeof setMinMaxCards>;
-type SetInitActionType = ReturnType<typeof setInitCards>;
-type SetIsMyCardsPack = ReturnType<typeof setIsMyCardsPack>
-type SetActiveSortPageActionType = ReturnType<typeof setActiveSortPage>
-type AddNewPackType = ReturnType<typeof addPackAC>
-
+import {CardPacksType, GetPacksResponse} from "../s3-dal/PackApi";
 
 // Actions creator
-export const getPacksCardAC = (cardsPack: CardPacksType[]) => ({type: 'GET-PACK-CARDS', cardsPack} as const)
-export const setCardTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
-export const setCurrentPageAC = (currenPage: number) => ({type: 'SET-CURRENT-PAGE', currenPage} as const)
-export const setCardPerPageAC = (totalCards: number) => ({type: 'SET-CARDS-PER-PAGE', totalCards} as const)
-export const setIsMyCardsPack = (isMyCardsPack: boolean) => ({type: 'SET-IS-MY-CARDS-PACK', isMyCardsPack} as const)
-export const setActiveSortPage = (activeSortPage: string) => ({type: 'SET-ACTIVE-SORT-PAGE', activeSortPage} as const)
-export const setPacksSortAC = (cardPacks: CardPacksType[]) => ({type: 'SET-PACKS-SORT', cardPacks} as const)
-export const setSortParamsAC = (payload: SortPacksParamsType) => ({
-    type: 'SET-SORT-PARAMS',
-    payload
-} as const)
-export const setMinMaxCards = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
-    type: 'SET-MIN-MAX-CARDS',
+export const setPack = (payload: { cardsPack: CardPacksType }) => ({type: 'PACK/SET-PACK', payload} as const);
+export const setPacks = (payload: GetPacksResponse) => ({type: 'PACK/SET-PACKS', payload} as const);
+export const setPacksSort = (payload: { sortPacks: string }) => ({type: 'PACK/SET-SORT', payload} as const);
+export const setPacksPagination = (payload: { page: number }) => ({type: 'PACK/SET-PAGINATION', payload} as const);
+export const setPacksPerPage = (payload: { pageCount: number }) => ({type: 'PACK/SET-PER-PAGE', payload} as const);
+export const setPacksMinMax = (payload: { minCardsCount: number, maxCardsCount: number }) => ({
+    type: 'PACK/SET-MIN-MAX',
     payload
 } as const);
-export const setInitCards = (payload: { isInit: 'idle' | 'pre' | 'init' }) => ({type: 'SET-IS-INIT', payload} as const);
-export const addPackAC = (cardsPack: { name?: string, deckCover?: string, private?: boolean }) => ({
-    type: 'ADD-NEW-PACK',
-    cardsPack
-} as const)
+export const setPacksUserId = (payload: { user_id: string | undefined }) => ({
+    type: 'PACK/SET-USER-ID',
+    payload
+} as const);
+export const setPacksReset = (payload: {
+    user_id: string | undefined,
+    packName: string | undefined,
+    sortPacks: string | undefined,
+    pageCount: number,
+    page: number,
+}) => ({type: 'PACK/SET-RESET', payload} as const);
+
+// Actions type
+type SetPackActionType = ReturnType<typeof setPack>
+type SetPacksSortActionType = ReturnType<typeof setPacksSort>;
+type SetPacksPaginationActionType = ReturnType<typeof setPacksPagination>;
+type SetPacksPerPageActionType = ReturnType<typeof setPacksPerPage>;
+type SetPacksMinMaxActionType = ReturnType<typeof setPacksMinMax>;
+type SetPacksActionType = ReturnType<typeof setPacks>;
+type SetPacksUserIdActionType = ReturnType<typeof setPacksUserId>;
+type SetPacksResetActionType = ReturnType<typeof setPacksReset>;
 
 // All types
 export type PackActionsType =
-    GetCardsACType
-    | SetCardTotalCountACType
-    | SetCurrentPageACType
-    | SetCardPerPageACType
-    | SetCartsSortACType
-    | SetSortParamsACType
-    | SetMinMaxCardsActionType
-    | SetInitActionType
-    | SetIsMyCardsPack
-    | SetActiveSortPageActionType
-    | AddNewPackType;
+    | SetPackActionType
+    | SetPacksPaginationActionType
+    | SetPacksSortActionType
+    | SetPacksPerPageActionType
+    | SetPacksMinMaxActionType
+    | SetPacksActionType
+    | SetPacksUserIdActionType
+    | SetPacksResetActionType;

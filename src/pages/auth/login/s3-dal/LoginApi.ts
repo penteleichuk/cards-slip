@@ -28,7 +28,6 @@ export type LoginRequestType = {
     isAdmin?: boolean;
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
-
     error?: string;
 }
 
