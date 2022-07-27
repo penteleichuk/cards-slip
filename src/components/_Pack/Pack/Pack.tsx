@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import moment from 'moment';
-import {cardsDarkIcon, editSvg, removeSvg, listSvg} from "../../../assets/images/icons";
+import {cardsDarkIcon, editSvg, listSvg, removeSvg} from "../../../assets/images/icons";
 import {PackButton} from "../../components";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../pages/app/s2-bll/store";
@@ -18,6 +18,7 @@ type PackPropsType = {
     date: Date
     setItemToRemove: (itemToRemove: string) => void
     setItemToUpdate: (itemToUpdate: ItemToUpdateType) => void
+    startStudying: (packId: string) => void
 }
 
 export const Pack = React.memo((props: PackPropsType) => {
@@ -30,7 +31,8 @@ export const Pack = React.memo((props: PackPropsType) => {
         author_id,
         id,
         setItemToRemove,
-        setItemToUpdate
+        setItemToUpdate,
+        startStudying
     } = {...props};
 
     const userId = useSelector<AppStoreType, string | undefined>(state => state.login._id);
@@ -58,13 +60,14 @@ export const Pack = React.memo((props: PackPropsType) => {
         return navigate(`${navigatePage}${packId}`);
     }, []);
 
-    const readHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const startStudyingHandler =(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
-        alert('learn');
+        if(packs) startStudying(id)
+        else return
     }
 
-    return <div className="pack pack__cursor" onClick={readHandler}>
+    return <div className="pack pack__cursor" onClick={startStudyingHandler}>
         <div className="pack__author">
             <div className="pack__wrap">
                 {author}

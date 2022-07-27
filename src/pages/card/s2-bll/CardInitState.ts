@@ -1,4 +1,5 @@
-import {GetCardResponseType} from "../s3-dal/CardApi";
+import {CardType, GetCardResponseType} from "../s3-dal/CardApi";
+import {StudyStageType} from "../../../enums/enums";
 
 export type CardStateType = GetCardResponseType & {
     cardsPack_id?: string | undefined
@@ -6,6 +7,8 @@ export type CardStateType = GetCardResponseType & {
     search?: string | null
     sortCards?: string
     totalCards: number,
+    studyStage: StudyStageType,
+    actualStudyCard: CardType | null
 };
 
 export const cardInitState: CardStateType = {
@@ -21,4 +24,6 @@ export const cardInitState: CardStateType = {
     search: null,
     sortCards: '0updated',
     totalCards: 6,
+    studyStage: StudyStageType.noActivity,
+    actualStudyCard: null
 }

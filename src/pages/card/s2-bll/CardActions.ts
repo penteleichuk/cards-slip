@@ -1,4 +1,5 @@
 import {CardType, GetCardResponseType} from "../s3-dal/CardApi";
+import {StudyStageType} from "../../../enums/enums";
 
 // Actions creator
 export const setCard = (payload: { card: CardType }) => ({type: 'CARD/SET-CARD', payload} as const);
@@ -13,6 +14,18 @@ export const setCardsReset = (payload: {
     pageCount: number,
     page: number,
 }) => ({type: 'CARD/SET-RESET', payload} as const);
+export const setStudyStage = (payload: { studyStage: StudyStageType }) => ({
+    type: 'CARD/SET-STUDY-STAGE',
+    payload
+} as const);
+export const setCardGrade = (payload: {card: CardType} ) => ({
+    type: 'CARD/SET-CARD-GRADE',
+    payload
+} as const);
+export const setActualStudyCard = (payload: {actualStudyCard: CardType}) => ({
+    type: 'CARD/SET-ACTUAL-STUDY-CARD',
+    payload
+} as const);
 
 // Actions type
 export type SetCardActionType = ReturnType<typeof setCard>
@@ -21,6 +34,9 @@ export type SetCardsPerPageActionType = ReturnType<typeof setCardsPerPage>
 export type SetCardsResetActionType = ReturnType<typeof setCardsReset>
 export type SetCardsPaginationActionType = ReturnType<typeof setCardsPagination>
 export type SetCardsSortActionType = ReturnType<typeof setCardsSort>
+export type SetStudyStageActionType = ReturnType<typeof setStudyStage>
+export type SetCardGradeActionType = ReturnType<typeof setCardGrade>
+export type SetActualStudyCard = ReturnType<typeof setActualStudyCard>
 
 // All types
 export type CardActionsType =
@@ -29,4 +45,7 @@ export type CardActionsType =
     | SetCardActionType
     | SetCardsResetActionType
     | SetCardsPaginationActionType
-    | SetCardsSortActionType;
+    | SetCardsSortActionType
+    | SetStudyStageActionType
+    | SetCardGradeActionType
+    | SetActualStudyCard;
